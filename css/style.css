@@ -1,0 +1,201 @@
+*{
+	box-sizing: border-box;
+}
+
+body{
+	font-family: Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+img{
+	width: 100%;
+}
+.row{
+	display: flex;
+	padding: 5px;
+	flex-wrap: wrap;
+}
+.column{
+	flex: 25%;
+	padding: 5px;
+}
+.column img{
+	margin-top: 55px;
+}
+
+@media (max-width: 600px){
+	.column{
+		flex: 100%;
+	}
+}
+.less-padding{
+	padding: 0px 0px;
+}
+
+header{
+	padding: 20px;
+	background-color: darkgray;
+	text-align: center;
+}/*
+.navigation{
+	display: flex;
+	width: 150p;
+}
+.navigation li {
+	padding: 5px 10px;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+  }
+  .navigation div {
+	padding: 5px 10px;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+  }
+  .navigation li:hover {
+	background-color: rgba(0, 0, 0, 0.7);
+  }
+  .navigation li a {
+	color: white;
+	cursor: pointer;
+  }
+  .navigation li a:hover {
+	text-decoration: none;
+  }
+
+nav{
+	display: flex;
+	flex-direction: row;
+	background-color: #333;
+}
+
+nav div{
+	color: white;
+	padding: 14px 20px;
+	text-decoration: none;
+	cursor: pointer;
+	-webkit-transition: all 0.5s;
+	transition: all 0.5s;
+}
+
+nav li:hover{
+	background-color: rgba(167, 39, 82, 0.7);
+}*/
+
+.container{
+	padding-left: 25px;
+	padding-right: 25px;
+	position: relative;
+}
+.row{
+	display: flex;
+	flex-wrap: wrap;
+	/*margin-left: -15px;
+	margin-right: -15px;*/
+}
+
+.fondoTitulo{
+	background-color: rgb(80, 92, 230);
+	text-align: center;
+}
+
+.cajaAlta{
+	height: 30vh;
+}
+
+.margenPersonajes{
+	background-color: gray;
+}
+
+.centroPersonajes{
+	background-color: rgb(238, 229, 181);
+}
+
+.fondoNombre{
+	background-color:lightgoldenrodyellow;
+}
+
+.fondoMente{
+	background-color: rgba(0, 255, 42, 0.233);
+}
+
+.fondoPolitica{
+	background-color: mediumpurple;
+}
+
+.fondoHistoria{
+	background-color: lightblue;
+}
+
+aside{
+	flex: 30px;
+	background-color: beige;
+	padding: 10px;
+}
+
+/*====================================*/
+/*Basados en wordAnvil*/
+.article-content{
+	font-size:1.2em;
+	line-height:1.4em;
+}
+
+.article-title h1 {
+	font-family:alegreya sc,serif;
+	font-weight:700;
+	font-size:42px;
+	padding-top:20px;
+}
+.page {
+	box-shadow:0 -1px 15px 5px rgba(0,0,0,.2);
+	/*background:url(https://www.worldanvil.com/uploads/images/1fea3f76e20423fa5282e0cf246c0b36.jpg);*/
+	background-color:#e4e0d6;
+	margin-top:0;
+	padding-bottom:2rem;
+	margin-bottom:3rem
+   }
+.personaje h2{
+	font-family:alegreya,serif;
+	font-weight:700;
+	font-size:32px;
+	color:#900b0b;
+	padding-top:15px;
+	padding-bottom:0;
+	border-bottom-width:1px;
+	border-bottom-style:solid;
+	border-bottom-color:#a08264;
+	text-transform:uppercase
+}
+
+.personaje h3 {
+	color:#591717;
+	font-family:cinzel,serif;
+	font-size:22px;
+	font-weight:600;
+	margin-top:0;
+	margin-bottom:0
+   }
+/*================Margins====================*/
+.margin-top-20{
+	margin-top: 20px !important;
+}
+.margin-botton-0{
+	margin-bottom: 0!important;
+}
+
+/*====================================*/
+section{
+	flex: 70%;
+	background-color: khaki;
+	padding: 10px;
+}
+
+footer{
+	padding: 20px;
+	text-align: center;
+	background-color: palevioletred;
+}
+@media screen and (max-width: 700px){
+	nav, .row{
+		flex-direction: column;
+	}
+}

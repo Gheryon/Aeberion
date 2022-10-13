@@ -1,0 +1,4 @@
+elementos a añadir a personaje: educacion/cultura, fecha nacimiento-muerte, otros, lugar nacimiento, descripcion breve, titulos, riqueza
+elementos organizaciones:
+-estados: *nombre, *fundacion, *disolucion, *capital, *economia, *tipo, *descripcion breve, *historia, *cultura, *religion, *politica interior/exterior, *estructura organizativa, *nombre de los habitantes, *vecinos, *demografia, *militar, *educacion, *tecnologia/ciencia, *territorio, 
+religion: nombre, aparicion, cosmologia, etica, lugares sagrados, objetos sagrados, fiestas principales, deidades, lema, estructura, historia, etica, politica/influencia, rituales, sectas, doctrina
