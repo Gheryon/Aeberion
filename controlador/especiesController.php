@@ -27,39 +27,39 @@ if($_POST['funcion']=='borrar_especie'){
     $especie->borrarEspecie($id_borrado);
 }
 
-if($_POST['funcion']=='editar_personaje'){
-    $Descripcion=$Personalidad=$Deseos=$Miedos=$Historia=$Religion=$Familia=$Politica=$Retrato=$Especie=$Sexo=null;
+if($_POST['funcion']=='editar_especie'){
+    $nombre=$edad=$peso=$altura=$longitud=$estatus=$anatomia=$alimentacion=$reproduccion=$distribucion=$habilidades=$domesticacion=$explotacion=$otros=null;
     if(isset($_POST['nombre'])) {
     $nombre=$_POST['nombre'];}
-    if(isset($_POST['apellidos'])) {
-    $apellidos=$_POST['apellidos'];}
-    if(isset($_POST['descripcion'])) {
-    $descripcion=$_POST['descripcion'];}
-    if(isset($_POST['personalidad'])) {
-    $personalidad=$_POST['personalidad'];}
-    if(isset($_POST['deseos'])) {
-    $deseos=$_POST['deseos'];}
-    if(isset($_POST['miedos'])) {
-    $miedos=$_POST['miedos'];}
-    if(isset($_POST['magia'])) {
-    $magia=$_POST['magia'];}
-    if(isset($_POST['historia'])) {
-    $historia=$_POST['historia'];}
-    if(isset($_POST['religion'])) {
-    $religion=$_POST['religion'];}
-    if(isset($_POST['familia'])) {
-    $familia=$_POST['familia'];}
-    if(isset($_POST['politica'])) {
-    $politica=$_POST['politica'];}
-    //if(isset($_POST['retrato'])) {
-    //$retrato=$_POST['retrato'];}
-    if(isset($_POST['especie'])) {
-    $especie=$_POST['especie'];}
-    if(isset($_POST['sexo'])) {
-    $sexo=$_POST['sexo'];}
-    if(isset($_POST['id_personaje'])) {
-    $id_personaje=$_POST['id_personaje'];}
-    $personaje->editar($id_personaje, $nombre, $apellidos, $descripcion, $personalidad, $deseos, $miedos, $magia, $historia, $religion, $familia, $politica, $especie, $sexo);
+    if(isset($_POST['edad'])) {
+    $edad=$_POST['edad'];}
+    if(isset($_POST['peso'])) {
+    $peso=$_POST['peso'];}
+    if(isset($_POST['altura'])) {
+    $altura=$_POST['altura'];}
+    if(isset($_POST['longitud'])) {
+    $longitud=$_POST['longitud'];}
+    if(isset($_POST['estatus'])) {
+    $estatus=$_POST['estatus'];}
+    if(isset($_POST['anatomia'])) {
+    $anatomia=$_POST['anatomia'];}
+    if(isset($_POST['alimentacion'])) {
+    $alimentacion=$_POST['alimentacion'];}
+    if(isset($_POST['reproduccion'])) {
+    $reproduccion=$_POST['reproduccion'];}
+    if(isset($_POST['distribucion'])) {
+    $distribucion=$_POST['distribucion'];}
+    if(isset($_POST['habilidades'])) {
+    $habilidades=$_POST['habilidades'];}
+    if(isset($_POST['domesticacion'])) {
+    $domesticacion=$_POST['domesticacion'];}
+    if(isset($_POST['explotacion'])) {
+    $explotacion=$_POST['explotacion'];}
+    if(isset($_POST['otros'])) {
+    $otros=$_POST['otros'];}
+    if(isset($_POST['id_especie'])) {
+    $id_especie=$_POST['id_especie'];}
+    $especie->editarEspecie($id_especie, $nombre, $edad, $peso, $altura, $longitud, $estatus, $anatomia, $alimentacion, $reproduccion, $distribucion, $habilidades, $domesticacion, $explotacion, $otros);
     echo 'editado';
 }
 
@@ -82,6 +82,7 @@ if($_POST['funcion']=='buscar_especie'){
             'domesticacion'=>$objeto->domesticacion,
             'explotacion'=>$objeto->explotacion,
             'otros'=>$objeto->otros,
+            'id_especie'=>$objeto->id_especie,
             'imagen'=>'../img/especies/'.$objeto->imagen
         );
     }

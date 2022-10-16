@@ -3,7 +3,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css"/>
-    <title>Especie</title>
+    <title id="especies-title">Especie</title>
 
 <?php include_once 'layouts/nav.php';?>
 
@@ -14,7 +14,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 			<div class="col-sm-12">
-				<h1 class="fw-bolder text-center"> Especie </h1>
+				<h1 id="especies-title-h1" class="fw-bolder text-center"> Especie </h1>
 			</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -112,7 +112,7 @@
                 <form class="btn" action="editarEspecie.php" method="post">
                     <button class="editar-personaje btn btn-success mr-1">
                     <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
-                    <input type="hidden" name="id" value="<?php echo $_GET['id_especie']?>">
+                    <input type="hidden" name="id_especie" value="<?php echo $_GET['id_especie']?>">
                 </form>
             </div>
         </div>

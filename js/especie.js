@@ -1,11 +1,18 @@
 $(document).ready(function(){
     var funcion='';
     var id_especie = $('#id_especie').val();
-    if(id_especie!=null){
-      console.log(id_especie);
-        buscar_especie(id_especie);
+    var id_especie_editar = $('#id_especie_editar').val();
+    if(id_especie==undefined){
+      //console.log("no id-especie");
     }else{
-      console.log("no id-especie");
+      //console.log(id_especie);
+      buscar_especie(id_especie);
+    }
+    if(id_especie_editar==undefined){
+      //console.log("no id-especie editar");
+    }else{
+      //console.log(id_especie_editar);
+      buscar_especie_editar(id_especie_editar);
     }
 
     $('#form-create-especie').submit(e=>{
@@ -23,23 +30,17 @@ $(document).ready(function(){
         let domesticacion= $('#domesticacion').val();
         let explotacion= $('#explotacion').val();
         let otros= $('#otros').val();
-        //let imagen = 
         funcion='crear_nueva_especie';
         $.post('../controlador/especiesController.php',{nombre, edad, peso, altura, longitud, estatus, anatomia, alimentacion, reproduccion, distribucion, habilidades, domesticacion, explotacion, otros, funcion},(response)=>{
           if(response=='add'){
-            //mostrar el alert de éxito
             $('#add').hide('slow');
             $('#add').show(1000);
             $('#add').hide(3000);
-            //resetea los campos de la card
             $('#form-create-especie').trigger('reset');
-            //buscar_datos();
           }else{
-            //mostrar el alert de error
             $('#no-add').hide('slow');
-            $('#noadd').show(1000);
-            $('#noadd').hide(3000);
-            //resetea los campos de la card
+            $('#no-add').show(1000);
+            $('#no-add').hide(3000);
             $('#form-create-especie').trigger('reset');
           }
         });
@@ -51,9 +52,10 @@ $(document).ready(function(){
     function buscar_especie(dato) {
       funcion='buscar_especie';
       $.post('../controlador/especiesController.php', {dato, funcion},(response)=>{
-        console.log(response);
         const especie= JSON.parse(response);
         $('#nombre').html(especie.nombre);
+        $('#especies-title').html(especie.nombre);
+        $('#especies-title-h1').html(especie.nombre);
         $('#anatomia').html(especie.anatomia);
         $('#alimentacion').html(especie.alimentacion);
         $('#reproduccion').html(especie.reproduccion);
@@ -71,9 +73,31 @@ $(document).ready(function(){
       });
     }
 
-    $(document).on('click', '.borrar-personaje',(e)=>{
-      funcion='borrar_personaje';
-      //se quiere acceder al elemento personajeid de la card y guardarlo en elemento, para ello hay que subir 4 veces desde donde está el boton ascender
+    function buscar_especie_editar(dato) {
+      funcion='buscar_especie';
+      $.post('../controlador/especiesController.php', {dato, funcion},(response)=>{
+        const especie= JSON.parse(response);
+        $('#nombre').val(especie.nombre);
+        $('#anatomia').val(especie.anatomia);
+        $('#alimentacion').val(especie.alimentacion);
+        $('#reproduccion').val(especie.reproduccion);
+        $('#distribucion').val(especie.distribucion);
+        $('#habilidades').val(especie.habilidades);
+        $('#domesticacion').val(especie.domesticacion);
+        $('#explotacion').val(especie.explotacion);
+        $('#otros').val(especie.otros);
+        $('#imagen').val(especie.imagen);
+        $('#vida').val(especie.vida);
+        $('#altura').val(especie.altura);
+        $('#peso').val(especie.peso);
+        $('#longitud').val(especie.longitud);
+        $('#estatus').val(especie.estatus);
+        $('#id_especie_editar').val(especie.id_especie);
+      });
+    }
+
+    $(document).on('click', '.borrar-especie',(e)=>{
+      funcion='borrar_especie';
       const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
       console.log(elemento);
       const id=$(elemento).attr('personajeId');
@@ -109,62 +133,35 @@ $(document).ready(function(){
       e.preventDefault();
     });
 
-    /*$('#form-editar-especie').on('load', ,(e)={
-      funcion='buscar_especie';
-      $.post('../controlador/especiesController.php', {dato, funcion},(response)=>{
-        console.log(response);
-        const especie= JSON.parse(response);
-        $('#nombre').html(especie.nombre);
-        $('#anatomia').html(especie.anatomia);
-        $('#alimentacion').html(especie.alimentacion);
-        $('#reproduccion').html(especie.reproduccion);
-        $('#distribucion').html(especie.distribucion);
-        $('#habilidades').html(especie.habilidades);
-        $('#domesticacion').html(especie.domesticacion);
-        $('#explotacion').html(especie.explotacion);
-        $('#otros').html(especie.otros);
-        $('#imagen').html(especie.imagen);
-        $('#vida').html(especie.vida);
-        $('#altura').html(especie.altura);
-        $('#peso').html(especie.peso);
-        $('#longitud').html(especie.longitud);
-        $('#estatus').html(especie.estatus);
-    });*/
-
     $('#form-editar-especie').submit(e=>{
-      let nombre= $('#Nombre').val();
-      let apellidos= $('#Apellidos').val();
-      let descripcion= $('#Descripcion').val();
-      let personalidad= $('#Personalidad').val();
-      let deseos= $('#Deseos').val();
-      let miedos= $('#Miedos').val();
-      let magia= $('#Magia').val();
-      let historia= $('#Historia').val();
-      let religion= $('#Religion').val();
-      let familia= $('#Familia').val();
-      let politica= $('#Politica').val();
-      let retrato= $('#Retrato').val();
-      let especie= $('#inputEspecie').val();
-      let sexo= $('#inputSexo').val();
-      let id_personaje= $('#id_personaje').val();
-      funcion='editar_personaje';
-      $.post('../controlador/personajeController.php',{nombre, apellidos, descripcion, personalidad, deseos, miedos, magia, historia, religion, familia, politica, retrato, especie, sexo, id_personaje, funcion},(response)=>{
-        console.log(response);
-      if(response=='editado'){
-          //mostrar el alert de editado
-          $('#editado').hide('slow');
-          $('#editado').show(1000);
-          $('#editado').hide(3000);
-          //resetear los campos del form
-          $('#form-editar-personaje').trigger('reset');
-      }else{
-        //mostrar el alert de no editado
-        $('#no-editado').hide('slow');
-        $('#no-editado').show(1000);
-        $('#no-editado').hide(3000);
-        //resetea los campos del form
-        $('#form-editar-personaje').trigger('reset');
-      }
+      funcion='editar_especie';
+      let nombre= $('#nombre').val();
+      let edad= $('#vida').val();
+      let peso= $('#peso').val();
+      let altura= $('#altura').val();
+      let longitud= $('#longitud').val();
+      let estatus= $('#estatus').val();
+      let anatomia= $('#anatomia').val();
+      let alimentacion= $('#alimentacion').val();
+      let reproduccion= $('#reproduccion').val();
+      let distribucion= $('#distribucion').val();
+      let habilidades= $('#habilidades').val();
+      let domesticacion= $('#domesticacion').val();
+      let explotacion= $('#explotacion').val();
+      let otros= $('#otros').val();
+      let id_especie= $('#id_especie_editar').val();
+      $.post('../controlador/especiesController.php', {id_especie, nombre, edad, peso, altura, longitud, estatus, anatomia, alimentacion, reproduccion, distribucion, habilidades, domesticacion, explotacion, otros, funcion},(response)=>{
+        if(response=='editado'){
+            $('#editado').hide('slow');
+            $('#editado').show(1000);
+            $('#editado').hide(3000);
+            $('#form-editar-especie').trigger('reset');
+        }else{
+          $('#no-editado').hide('slow');
+          $('#no-editado').show(1000);
+          $('#no-editado').hide(3000);
+          $('#form-editar-especie').trigger('reset');
+        }
     })
     e.preventDefault();
   });

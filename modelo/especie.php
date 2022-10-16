@@ -25,8 +25,7 @@ class Especie{
         }
     }
 
-    function buscar()
-    {
+    function buscar(){
         //se ha introducido algún caracter a buscar, se devuelven los usuarios que encagen con la consulta
         if(!empty($_POST['consulta'])){
             $consulta=$_POST['consulta'];
@@ -72,11 +71,11 @@ class Especie{
         return $this->objetos;
     }
 
-    function editar($id_personaje, $nombre, $apellidos, $descripcion, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $especie, $sexo)
+    function editarEspecie($id_especie, $nombre, $edad, $peso, $altura, $longitud, $estatus, $anatomia, $alimentacion, $reproduccion, $distribucion, $habilidades, $domesticacion, $explotacion, $otros)
     {
-        $sql="UPDATE personaje SET Nombre=:nombre, Apellidos=:apellidos, Descripcion=:descripcion, Personalidad=:personalidad, Deseos=:deseos, Miedos=:miedos, Magia=:magia, Historia=:historia, Religion=:religion, Familia=:familia, Politica=:politica, Especie=:especie, Sexo=:sexo WHERE id=:id_personaje";
+        $sql="UPDATE especies SET nombre=:nombre, edad=:edad, peso=:peso, altura=:altura, longitud=:longitud, estatus=:estatus, anatomia=:anatomia, alimentacion=:alimentacion, reproduccion=:reproduccion, distribucion=:distribucion, habilidades=:habilidades, domesticacion=:domesticacion, explotacion=:explotacion, otros=:otros WHERE id_especie=:id";
         $query=$this->acceso->prepare($sql);
-        $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':descripcion'=>$descripcion, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':especie'=>$especie, ':sexo'=>$sexo, ':id_personaje'=>$id_personaje));
+        $query->execute(array(':nombre'=>$nombre, ':edad'=>$edad, ':peso'=>$peso, ':altura'=>$altura, ':longitud'=>$longitud, ':estatus'=>$estatus, ':anatomia'=>$anatomia, ':alimentacion'=>$alimentacion, ':reproduccion'=>$reproduccion, ':distribucion'=>$distribucion, ':habilidades'=>$habilidades, ':domesticacion'=>$domesticacion, ':explotacion'=>$explotacion, ':otros'=>$otros, ':id'=>$id_especie));
         
     }
 
