@@ -12,20 +12,32 @@
 <div class="modal fade" id="eliminarEspecie" tabindex="-1" role="dialog" aria-labelledby="Eliminar especie" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="eliminarEspecieLabel">Eliminar evento</h5>
-                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Confirmar eliminar evento.</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                <form class="col-md-auto needs-validation" method="POST" action="/Aeberion/editarEvento.php" >
-                    <input type="hidden" name="borrar" value="borrar">
-                    <input type="hidden" name="id" id="eventoModalId" value="eventoModalId">
-                    <button type="submit" class="btn btn-danger">Eliminar</button>
-                </form>
+            <div class="card card-danger">
+                <div class="card-header">
+                    <h5 class="card-title" id="eliminarEspecieLabel">Eliminar especie</h5>
+                    <button data-dismiss="modal" aria-label="close" class="close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-success text-center" id='deleted' style='display:none'>
+                        <span><i class="fas fa-check m-1"></i>Especie eliminada</span>
+                    </div>
+                    <div class="alert alert-danger text-center" id='no-deleted' style='display:none'>
+                        <span><i class="fas fa-times m-1"></i>No se pudo eliminar la especie</span>
+                    </div>
+                    <p id="texto-borrar">Confirmar eliminar especie.</p>
+                </div>
+                <div class="card-footer">
+                    <form id="form-borrar-especie" class="col-md-auto" >
+                        <input type="hidden" name="nombre_especie_borrar" id="nombre_especie_borrar">
+                        <input type="hidden" name="id_especie_borrar" id="id_especie_borrar">
+                        <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                        <button type="submit" id="borrar-button" class="btn btn-danger borrar-especie">Eliminar</button>
+                    </form>
+                    <a class="btn btn-primary" type="button" id="borrar-volver-button" href="../index.php" style="display:none">Volver</a>
+                    <!--<button type="button" class="btn btn-primary" id="borrar-volver-button" data-dismiss="modal" style="display:none">Volver</button>-->
+                </div>
             </div>
 		</div>
 	</div>

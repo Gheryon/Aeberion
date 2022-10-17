@@ -56,20 +56,76 @@ $(document).ready(function(){
         $('#nombre').html(especie.nombre);
         $('#especies-title').html(especie.nombre);
         $('#especies-title-h1').html(especie.nombre);
-        $('#anatomia').html(especie.anatomia);
-        $('#alimentacion').html(especie.alimentacion);
-        $('#reproduccion').html(especie.reproduccion);
-        $('#distribucion').html(especie.distribucion);
-        $('#habilidades').html(especie.habilidades);
-        $('#domesticacion').html(especie.domesticacion);
-        $('#explotacion').html(especie.explotacion);
-        $('#otros').html(especie.otros);
-        $('#imagen').html(especie.imagen);
-        $('#vida').html(especie.vida);
-        $('#altura').html(especie.altura);
-        $('#peso').html(especie.peso);
-        $('#longitud').html(especie.longitud);
-        $('#estatus').html(especie.estatus);
+        if(especie.anatomia==undefined){
+          $('#anatomia-row').hide();
+        }else{
+          $('#anatomia').html(especie.anatomia);
+        }
+        if(especie.alimentacion==undefined){
+          $('#alimentacion-row').hide();
+        }else{
+          $('#alimentacion').html(especie.alimentacion);
+        }
+        if(especie.reproduccion==undefined){
+          $('#reproduccion-row').hide();
+        }else{
+          $('#reproduccion').html(especie.reproduccion);
+        }
+        if(especie.distribucion==undefined){
+          $('#distribucion-row').hide();
+        }else{
+          $('#distribucion').html(especie.distribucion);
+        }
+        if(especie.habilidades==undefined){
+          $('#habilidades-row').hide();
+        }else{
+          $('#habilidades').html(especie.habilidades);
+        }
+        if(especie.domesticacion==undefined){
+          $('#domesticacion-row').hide();
+        }else{
+          $('#domesticacion').html(especie.domesticacion);
+        }
+        if(especie.explotacion==undefined){
+          $('#explotacion-row').hide();
+        }else{
+          $('#explotacion').html(especie.explotacion);
+        }
+        if(especie.otros==undefined){
+          $('#otros-div').hide();
+        }else{
+          $('#otros').html(especie.otros);
+        }
+        if(especie.imagen==undefined){
+          $('#imagen-row').hide();
+        }else{
+          $('#imagen').html(especie.imagen);
+        }
+        if(especie.vida==undefined){
+          $('#vida-row').hide();
+        }else{
+          $('#vida').html(especie.vida);
+        }
+        if(especie.altura==undefined){
+          $('#altura-row').hide();
+        }else{
+          $('#altura').html(especie.altura);
+        }
+        if(especie.peso==undefined){
+          $('#peso-row').hide();
+        }else{
+          $('#peso').html(especie.peso);
+        }
+        if(especie.longitud==undefined){
+          $('#longitud-row').hide();
+        }else{
+          $('#longitud').html(especie.longitud);
+        }
+        if(especie.estatus==undefined){
+          $('#estatus-row').hide();
+        }else{
+          $('#estatus').html(especie.estatus);
+        }
       });
     }
 
@@ -93,20 +149,33 @@ $(document).ready(function(){
         $('#longitud').val(especie.longitud);
         $('#estatus').val(especie.estatus);
         $('#id_especie_editar').val(especie.id_especie);
+        $('#id_especie_borrar').val(especie.id_especie);
+        $('#nombre_especie_borrar').val(especie.nombre);
       });
     }
 
-    $(document).on('click', '.borrar-especie',(e)=>{
+    $('#form-borrar-especie').submit(e=>{
       funcion='borrar_especie';
-      const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
-      console.log(elemento);
-      const id=$(elemento).attr('personajeId');
-      console.log(id);
-      const nombre=$(elemento).attr('personajeNombre');
-      console.log(nombre);
-      $('#id_personaje').val(id);
-      $('#nombre_personaje').val(nombre);
-      $('#funcion').val(funcion);
+      const id= $('#id_especie_borrar').val();
+      $.post('../controlador/especiesController.php',{id, funcion},(response)=>{
+        console.log(response);
+        if(response=='borrado'){
+          $('#deleted').hide('slow');
+          $('#deleted').show(1000);
+          $('#borrar-volver-button').show();
+          $('#borrar-button').hide();
+          $('#cancelar-editar-button').hide();
+          $('#texto-borrar').hide('slow');
+        }else{
+          $('#no-deleted').hide('slow');
+          $('#no-deleted').show(1000);
+          $('#borrar-volver-button').show();
+          $('#borrar-button').hide();
+          $('#cancelar-editar-button').hide();
+          $('#texto-borrar').hide('slow');
+        }
+      });
+      e.preventDefault();
     });
 
     $('#form-confirmar-borrado').submit(e=>{

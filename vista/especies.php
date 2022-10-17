@@ -33,39 +33,39 @@
                     </div>
                     <div class="row personaje">
                         <h2>Anatomía y morfología</h2>
-                        <div class="row">
+                        <div class="row" id="anatomia-row">
                             <h3>Descripción anatómica</h3>
-                            <div class="div" id="anatomia"></div>
+                            <div id="anatomia"></div>
                         </div>
-                        <div class="row ">
+                        <div class="row" id="alimentacion-row">
                             <h3>Alimentación</h3>
                             <div id="alimentacion"></div>
                         </div>
-                        <div class="row ">
+                        <div class="row" id="reproduccion-row">
                             <h3>Reproducción y crecimiento</h3>
                             <div id="reproduccion"></div>
                         </div>
                     </div>
                     <div class="row personaje">
                         <h2>Hábitats y usos</h2>
-                        <div class="row">
+                        <div class="row" id="distribucion-row">
                             <h3>Distribución y hábitats</h3>
                             <div id="distribucion"></div>
                         </div>
-                        <div class="row">
+                        <div class="row" id="habilidades-row">
                             <h3>Habilidades</h3>
                             <div id="habilidades"></div>
                         </div>
-                        <div class="row ">
+                        <div class="row" id="domesticacion-row">
                             <h3>Domesticación</h3>
                             <div id="domesticacion"></div>
                         </div>
-                        <div class="row ">
+                        <div class="row" id="explotacion-row">
                             <h3>Explotación</h3>
                             <div id="explotacion"></div>
                         </div>
                     </div>
-                    <div class="row personaje">
+                    <div class="row personaje" id="otros-div">
                         <h2>Otros</h2>
                         <div class="row">
                             <h3>Otros</h3>
@@ -79,27 +79,27 @@
                         <div class="card-body">
                             <!--<h5 class="card-title">Card title</h5>-->
                             <div class="row personaje">
-                                <div class="row">
+                                <div class="row" id="imagen-row">
                                     <h3>Imagen</h3>
                                     <div id="imagen"></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" id="vida-row">
                                     <h3>Vida media</h3>
                                     <div id="vida"></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" id="altura-row">
                                     <h3>Altura</h3>
                                     <div id="altura"></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" id="peso-row">
                                     <h3>Peso</h3>
                                     <div id="peso"></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" id="longitud-row">
                                     <h3>Longitud</h3>
                                     <div id="longitud"></div>
                                 </div>
-                                <div class="row">
+                                <div class="row" id="estatus-row">
                                     <h3>Estatus</h3>
                                     <div id="estatus"></div>
                                 </div>

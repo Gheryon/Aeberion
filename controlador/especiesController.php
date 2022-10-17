@@ -23,7 +23,7 @@ if($_POST['funcion']=='crear_nueva_especie'){
 }
 
 if($_POST['funcion']=='borrar_especie'){
-    $id_borrado=$_POST['id_especie'];
+    $id_borrado=$_POST['id'];
     $especie->borrarEspecie($id_borrado);
 }
 
