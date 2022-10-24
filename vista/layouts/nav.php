@@ -163,18 +163,18 @@
             </ul>
           </li>
           <li class="nav-item">
-            <a href="cronicas.php" class="nav-link">
-              <i class="nav-icon fa-solid fa-book-open"></i>
+            <a href="lugares.php" class="nav-link">
+              <i class="nav-icon fas fa-tree"></i>
               <p>
-                Crónicas
+                Lugares
               </p>
             </a>
           </li>
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+            <a href="cronicas.php" class="nav-link">
+              <i class="nav-icon fa-solid fa-book-open"></i>
               <p>
-                Lugares
+                Crónicas
               </p>
             </a>
           </li>

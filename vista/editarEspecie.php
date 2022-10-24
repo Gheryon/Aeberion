@@ -3,7 +3,7 @@
 <input id="id_especie_editar" name="id_especie" type="hidden" value="<?php echo $_POST['id_especie']?>">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="../css/style.css"/>-->
+    <link rel="stylesheet" href="../css/style.css"/>
     <title>Editar especie</title>
 
 <?php include_once 'layouts/nav.php';?>
@@ -36,7 +36,6 @@
                         <button type="submit" id="borrar-button" class="btn btn-danger borrar-especie">Eliminar</button>
                     </form>
                     <a class="btn btn-primary" type="button" id="borrar-volver-button" href="../index.php" style="display:none">Volver</a>
-                    <!--<button type="button" class="btn btn-primary" id="borrar-volver-button" data-dismiss="modal" style="display:none">Volver</button>-->
                 </div>
             </div>
 		</div>

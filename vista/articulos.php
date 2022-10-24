@@ -3,6 +3,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="css/style.css"/>-->
     <title>Apuntes</title>
+<!-- summernote -->
+<link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 
     <?php include_once 'layouts/nav.php';?>
 
@@ -43,7 +45,7 @@
 </div>
 
 <div class="modal fade" id="crearArticulo" tabindex="-1" role="dialog" aria-labelledby="crear-articulo" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="card card-success">
         <div class="card-header">
@@ -68,7 +70,9 @@
               <input id="nombre-articulo" type="text" class="input form-control" placeholder="Nombre del artículo" required>
               <input type="hidden" id="id_editar_art">
               <label class="mt-2" for="contenido-articulo">Contenido</label>
-              <textarea name="contenido-articulo" id="contenido-articulo" class="form-control" cols="30" rows="10"></textarea>
+              <textarea name="contenido-articulo" id="contenido-articulo" class="form-control summernote" aria-label="With textarea" cols="30" rows="10">
+              
+              </textarea>
             </div>
         </div>
         <div class="card-footer">
@@ -160,7 +164,6 @@
 
                 </div>
             </div>
-            
         </div> <!-- /container -->
     </section>
     <!-- /.content -->
@@ -169,4 +172,14 @@
 
 <?php include_once 'layouts/footer.php';?>
 
-<script src='../js/articulos.js'></script>
+<!-- Summernote -->
+<script src="../js/summernote-bs4.min.js"></script>
+<script src="../js/articulos.js"></script>
+<script>
+  $(function () {
+    // Summernote
+    $('.summernote').summernote({
+      height: 300
+    })
+  })
+</script>

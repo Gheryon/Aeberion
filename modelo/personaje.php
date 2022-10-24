@@ -9,7 +9,7 @@ class Personaje{
         $this->acceso = $db->pdo;
     }
 
-    function nuevoPersonaje($nombre, $apellidos, $descripcion, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo){
+    function nuevoPersonaje($nombre, $apellidos, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo){
         //se busca si ya existe el personaje
         $sql="SELECT id FROM personaje WHERE Nombre=:nombre";
         $query=$this->acceso->prepare($sql);
@@ -19,9 +19,9 @@ class Personaje{
         if(!empty($this->objetos)){
             echo "noadd";
         }else{
-            $sql="INSERT INTO personaje(Nombre, Apellidos, Descripcion, Personalidad, Deseos, Miedos, Magia, Historia, Religion, Familia, Politica, Retrato, Especie, Sexo) VALUES (:nombre, :apellidos, :descripcion, :personalidad, :deseos, :miedos, :magia, :historia, :religion, :familia, :politica, :retrato, :especie, :sexo);";
+            $sql="INSERT INTO personaje(Nombre, Apellidos, Descripcion, DescripcionShort, Personalidad, Deseos, Miedos, Magia, Historia, Religion, Familia, Politica, Retrato, Especie, Sexo) VALUES (:nombre, :apellidos, :descripcion, :descripcionshort, :personalidad, :deseos, :miedos, :magia, :historia, :religion, :familia, :politica, :retrato, :especie, :sexo);";
             $query=$this->acceso->prepare($sql);
-            $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':descripcion'=>$descripcion, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':retrato'=>$retrato, ':especie'=>$especie, ':sexo'=>$sexo));
+            $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':descripcion'=>$descripcion, ':descripcionshort'=>$descripcionShort, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':retrato'=>$retrato, ':especie'=>$especie, ':sexo'=>$sexo));
             echo "add";
         }
     }
@@ -79,11 +79,11 @@ class Personaje{
         return $personaje;
     }
     
-    function editar($id_personaje, $nombre, $apellidos, $descripcion, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $especie, $sexo)
+    function editar($id_personaje, $nombre, $apellidos, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $especie, $sexo)
     {
-        $sql="UPDATE personaje SET Nombre=:nombre, Apellidos=:apellidos, Descripcion=:descripcion, Personalidad=:personalidad, Deseos=:deseos, Miedos=:miedos, Magia=:magia, Historia=:historia, Religion=:religion, Familia=:familia, Politica=:politica, Especie=:especie, Sexo=:sexo WHERE id=:id_personaje";
+        $sql="UPDATE personaje SET Nombre=:nombre, Apellidos=:apellidos, Descripcion=:descripcion, DescripcionShort=:descripcionshort, Personalidad=:personalidad, Deseos=:deseos, Miedos=:miedos, Magia=:magia, Historia=:historia, Religion=:religion, Familia=:familia, Politica=:politica, Especie=:especie, Sexo=:sexo WHERE id=:id_personaje";
         $query=$this->acceso->prepare($sql);
-        $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':descripcion'=>$descripcion, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':especie'=>$especie, ':sexo'=>$sexo, ':id_personaje'=>$id_personaje));
+        $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':descripcion'=>$descripcion, ':descripcionshort'=>$descripcionShort, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':especie'=>$especie, ':sexo'=>$sexo, ':id_personaje'=>$id_personaje));
         
     }
 

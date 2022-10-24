@@ -36,6 +36,7 @@
           <p><a href=https://smodin.io/es/reproduzca-automaticamente-texto-en-espanol-gratis>Smodin</a></p>
           <p><a href=https://huggingface.co/spaces/dalle-mini/dalle-mini>DALL-E mini</a></p>
           <p><a href=https://beta.dreamstudio.ai/dream>DreamStudio</a></p>
+          <p><a href=https://www.mage.space>Mage</a></p>
       </div>
       <div class="col">
           <h2>Seres fantásticos</h2>

@@ -87,7 +87,8 @@ $(document).ready(function() {
         const tipo=$(elemento).attr('artTipo');
         $('#id_editar_art').val(id);
         $('#nombre-articulo').val(nombre);
-        $('#contenido-articulo').val(contenido);
+        //$('#contenido-articulo').val(contenido);
+        $('#contenido-articulo').summernote('code',contenido);
         $('#tipo-articulo').val(tipo);
         edit=true;
     });
@@ -139,5 +140,46 @@ $(document).ready(function() {
         
         $('#id_articulo').val(id);
         $('#nombre-articulo-borrar').val(nombre);
+    });
+
+    /*----------para summernote en cronicas.php---------*/
+    $(document).on('click', '.guardar-cronica', (e)=>{
+        let contenido_articulo=$('#summernote').val();
+        console.log(contenido_articulo);
+
+        let nombre_cronica=$('#nombre-cronica').val();
+        //let nombre_articulo="Prueba";
+        let id_editado=$('#id_editar_art').val();
+        let tipo="Cronica";
+        //si edit es false, se crea un articulo, si es true, se modifica
+        if(edit==false){
+            funcion='crear';
+        }else{
+            funcion='editar';
+        }
+        $.post('../controlador/articulosController.php', {nombre_articulo, contenido_articulo, id_editado, tipo, funcion}, (response)=>{
+            console.log(response);
+            if(response=='add'){
+                $('#add-cronica').hide('slow');
+                $('#add-cronica').show(1000);
+                $('#add-cronica').hide(3000);
+                $('#summernote').trigger('reset');
+                //buscar_articulos();
+            }
+            if(response=='noadd'){
+                $('#noadd-cronica').hide('slow');
+                $('#noadd-cronica').show(1000);
+                $('#noadd-cronica').hide(3000);
+                $('#summernote').trigger('reset');
+            }
+            if(response=='edit'){
+                $('#edit-cronica').hide('slow');
+                $('#edit-cronica').show(1000);
+                $('#edit-cronica').hide(3000);
+                $('#summernote').trigger('reset');
+            }
+            edit=false;
+        })
+        e.preventDefault();
     });
 });

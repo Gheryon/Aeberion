@@ -1,11 +1,16 @@
 $(document).ready(function(){
     buscar_personajes();
     var funcion='';
+    var id_personaje_editar = $('#id_personaje_editar').val();
+    if(id_personaje_editar!=undefined){
+      buscar_personaje_editar(id_personaje_editar);
+    }
 
     $('#form-create-personaje').submit(e=>{
         let nombre= $('#Nombre').val();
         let apellidos= $('#Apellidos').val();
         let descripcion= $('#Descripcion').val();
+        let descripcionShort= $('#DescripcionShort').val();
         let personalidad= $('#Personalidad').val();
         let deseos= $('#Deseos').val();
         let miedos= $('#Miedos').val();
@@ -18,22 +23,20 @@ $(document).ready(function(){
         let especie= $('#inputEspecie').val();
         let sexo= $('#inputSexo').val();
         funcion='crear_nuevo_personaje';
-        $.post('../controlador/personajeController.php',{nombre, apellidos, descripcion, personalidad, deseos, miedos, magia, historia, religion, familia, politica, retrato, especie, sexo, funcion},(response)=>{
+        $.post('../controlador/personajeController.php',{nombre, apellidos, descripcion, descripcionShort, personalidad, deseos, miedos, magia, historia, religion, familia, politica, retrato, especie, sexo, funcion},(response)=>{
           if(response=='add'){
-            //mostrar el alert de éxito
-            //$('#add').hide('slow');
-            //$('#add').show(1000);
-            //$('#add').hide(3000);
-            //resetea los campos de la card
-            //$('#form-create-personaje').trigger('reset');
-            //buscar_datos();
+            $('#add').hide('slow');
+            $('#add').show(1000);
+            $('#add').hide(3000);
+            $('#form-create-personaje').trigger('reset');
+            $('#submit-add-button').hide();
+            $('#cancelar-add-button').hide();
+            $('#volver-add-button').show();
           }else{
-            //mostrar el alert de error
-            /*$('#noadd').hide('slow');
-            $('#noadd').show(1000);
-            $('#noadd').hide(3000);*/
-            //resetea los campos de la card
-            //$('#form-create-personaje').trigger('reset');
+            $('#no-add').hide('slow');
+            $('#no-add').show(1000);
+            $('#no-add').hide(3000);
+            $('#form-create-personaje').trigger('reset');
           }
         });
         //para prevenir la actualización por defecto de la página
@@ -43,23 +46,22 @@ $(document).ready(function(){
       function buscar_personajes(consulta) {
         funcion='buscar_personajes';
         $.post('../controlador/personajeController.php', {consulta, funcion},(response)=>{
-            //console.log(response);
             const personajes= JSON.parse(response);
             let template='';
             personajes.forEach(personaje => {
-                template+=`
-                <div personajeId="${personaje.id}" personajeNombre="${personaje.nombre}" class="col-12 col-sm6 col-md-4 d-flex align-items-stretch flex-column">
-              <div class="card bg-light d-flex flex-fill">
-              <div class="card-header text-muted border-bottom-0">
+              template+=`
+              <div personajeId="${personaje.id}" personajeNombre="${personaje.nombre}" class="col-12 col-sm6 col-md-4 d-flex align-items-stretch flex-column">
+                <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0">
               </div>
               <div class="card-body pt-0">
                 <div class="row">
                   <div class="col-7">
                     <h2 class="lead"><b>${personaje.nombre} ${personaje.apellidos}</b></h2>
-                    <p class="text-muted text-sm"><b>Sobre mí: </b> ${personaje.descripcion} </p>
+                    <p class="text-muted text-sm"><b>Descripción breve: </b> ${personaje.descripcionshort} </p>
                     <ul class="ml-4 mb-0 fa-ul text-muted">
-                    <li class="small"><span class="fa-li"><i class="fa-solid fa-dna"></i></span> Especie: + ${personaje.especie}</li>
-                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-smile-wink"></i></span> Sexo #: + ${personaje.sexo}</li>
+                    <li class="small"><span class="fa-li"><i class="fa-solid fa-dna"></i></span> Especie: ${personaje.especie}</li>
+                    <li class="small"><span class="fa-li"><i class="fas fa-lg fa-smile-wink"></i></span> Sexo: ${personaje.sexo}</li>
                     </ul>
                   </div>
                   <div class="col-5 text-center">
@@ -69,18 +71,15 @@ $(document).ready(function(){
               </div>
               <div class="card-footer">
                 <div class="text-right">
-                  <button class="detalles-personaje btn btn-info mr-1" type="button">
+                  <button class="detalles-personaje btn btn-info btn-sm" type="button">
                   <a href=personaje.php?id=${personaje.id} class="text-reset"><i class="fas fa-id-card mr-1"></i>Detalles</a>
                   </button>
                   <form class="btn" action="editarPersonaje.php" method="post">
-                    <button class="editar-personaje btn btn-success mr-1">
+                    <button class="editar-personaje btn btn-success btn-sm">
                     <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
                     <input type="hidden" name="id" value="${personaje.id}">
                   </form>
-                  <!--<button class="editar-personaje btn btn-success mr-1">
-                    <a href=editarPersonaje.php?id=${personaje.id} class="text-reset"><i class="fas fa-pencil-alt mr-1"></i>Editar</a>
-                    </button>-->
-                  <button class="borrar-personaje btn btn-danger mr-1" type="button" data-toggle="modal" data-target="#confirmar">
+                  <button class="borrar-personaje btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#confirmar">
                       <i class="fas fa-trash mr-1"></i>Eliminar
                   </button>
                 </div>
@@ -105,11 +104,8 @@ $(document).ready(function(){
       funcion='borrar_personaje';
       //se quiere acceder al elemento personajeid de la card y guardarlo en elemento, para ello hay que subir 4 veces desde donde está el boton ascender
       const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
-      console.log(elemento);
       const id=$(elemento).attr('personajeId');
-      console.log(id);
       const nombre=$(elemento).attr('personajeNombre');
-      console.log(nombre);
       $('#id_personaje').val(id);
       $('#nombre_personaje').val(nombre);
       $('#funcion').val(funcion);
@@ -143,6 +139,7 @@ $(document).ready(function(){
       let nombre= $('#Nombre').val();
       let apellidos= $('#Apellidos').val();
       let descripcion= $('#Descripcion').val();
+      let descripcionShort= $('#DescripcionShort').val();
       let personalidad= $('#Personalidad').val();
       let deseos= $('#Deseos').val();
       let miedos= $('#Miedos').val();
@@ -154,23 +151,22 @@ $(document).ready(function(){
       let retrato= $('#Retrato').val();
       let especie= $('#inputEspecie').val();
       let sexo= $('#inputSexo').val();
-      let id_personaje= $('#id_personaje').val();
+      let id_personaje= $('#id_personaje_editar').val();
       funcion='editar_personaje';
-      $.post('../controlador/personajeController.php',{nombre, apellidos, descripcion, personalidad, deseos, miedos, magia, historia, religion, familia, politica, retrato, especie, sexo, id_personaje, funcion},(response)=>{
+      $.post('../controlador/personajeController.php',{nombre, apellidos, descripcion, descripcionShort, personalidad, deseos, miedos, magia, historia, religion, familia, politica, retrato, especie, sexo, id_personaje, funcion},(response)=>{
         console.log(response);
       if(response=='editado'){
-          //mostrar el alert de editado
           $('#editado').hide('slow');
           $('#editado').show(1000);
           $('#editado').hide(3000);
-          //resetear los campos del form
           $('#form-editar-personaje').trigger('reset');
+          $('#submit-editar-button').hide();
+          $('#cancelar-editar-button').hide();
+          $('#volver-editar-button').show();
       }else{
-        //mostrar el alert de no editado
         $('#no-editado').hide('slow');
         $('#no-editado').show(1000);
         $('#no-editado').hide(3000);
-        //resetea los campos del form
         $('#form-editar-personaje').trigger('reset');
       }
     })
@@ -207,55 +203,28 @@ $(document).ready(function(){
         });
         e.preventDefault();
     });
-  /*buscar_personaje(id_personaje);
-    function buscar_personaje(dato) {
+
+    function buscar_personaje_editar(dato) {
       funcion='buscar_personaje';
-      $.post('../controlador/personajeController.php',{dato, funcion}, (response)=>{
-          //console.log(response);
-          let nombre='';
-          let apellidos='';
-          let edad='';
-          let dni='';
-          let tipo='';
-          let telefono='';
-          let residencia='';
-          let correo='';
-          let sexo='';
-          let adicional='';
-          //parse decodifica el json de string a los valores
-          const personaje = JSON.parse(response);
-          nombre+=`${personaje.nombre}`;
-          apellidos+=`${personaje.apellidos}`;
-          edad+=`${personaje.edad}`;
-          dni+=`${personaje.dni}`;
-          if(personaje.tipo=='Root'){
-              tipo+=`<h1 class="badge badge-danger">${personaje.tipo}</h1>`;
-            }
-            if(personaje.tipo=='Administrador'){
-              tipo+=`<h1 class="badge badge-warning">${personaje.tipo}</h1>`;
-            }
-            if(personaje.tipo=='Tecnico'){
-              tipo+=`<h1 class="badge badge-info">${personaje.tipo}</h1>`;
-            }
-          telefono+=`${personaje.telefono}`;
-          residencia+=`${personaje.residencia}`;
-          correo+=`${personaje.correo}`;
-          sexo+=`${personaje.sexo}`;
-          adicional+=`${personaje.adicional}`;
-          $('#nombre_us').html(nombre);
-          $('#apellidos_us').html(apellidos);
-          $('#edad').html(edad);
-          $('#dni_us').html(dni);
-          $('#us_tipo').html(tipo);
-          $('#telefono_us').html(telefono);
-          $('#residencia_us').html(residencia);
-          $('#correo_us').html(correo);
-          $('#sexo_us').html(sexo);
-          $('#adicional_us').html(adicional);
-          $('#avatar-content').attr('src',personaje.avatar);
-          $('#avatar-modal-pass').attr('src',personaje.avatar);
-          $('#avatar-modal-avatar').attr('src',personaje.avatar);
-          $('#avatar-nav').attr('src',personaje.avatar);
-      })
-  }*/
+      $.post('../controlador/personajeController.php', {dato, funcion},(response)=>{
+        const personaje= JSON.parse(response);
+        $('#Nombre').val(personaje.nombre);
+        $('#Apellidos').val(personaje.apellidos);
+        $('#Descripcion').val(personaje.descripcion);
+        $('#DescripcionShort').val(personaje.descripcionshort);
+        $('#Personalidad').val(personaje.personalidad);
+        $('#Miedos').val(personaje.miedos);
+        $('#Deseos').val(personaje.deseos);
+        $('#Magia').val(personaje.magia);
+        $('#Historia').val(personaje.historia);
+        $('#Religion').val(personaje.religion);
+        $('#Familia').val(personaje.familia);
+        $('#Politica').val(personaje.politica);
+        $('#modal-retrato').attr('src', personaje.retrato);
+        $('#retrato-content').attr('src',personaje.retrato);
+        $('#inputEspecie').val(personaje.especie);
+        $('#inputSexo').val(personaje.sexo);
+        $('#id_personaje').val(personaje.id_personaje);
+      });
+    }
 })

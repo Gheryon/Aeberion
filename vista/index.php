@@ -9,8 +9,8 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Aeberion</h1>
+          <div class="col-sm-12">
+            <h1 class="fw-bolder text-center">Aeberion</h1>
           </div>
           <img src="/Aeberion/imagenes/Aeberion.jpeg" class="img-fluid" alt="Aeberion.jpeg">
         </div>

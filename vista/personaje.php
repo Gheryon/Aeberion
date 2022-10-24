@@ -40,6 +40,13 @@
                     </div>
                 </div>
                 <div class="row personaje">
+                    <h2>Descripción breve</h2>
+                    <div class="row">
+                        <h3>Descripción breve</h3>
+                        <div><?php echo $personaje['DescripcionShort']; ?></div>
+                    </div>
+                </div>
+                <div class="row personaje">
                     <h2>Historia</h2>
                     <div class="row">
                         <h3>Historia</h3>

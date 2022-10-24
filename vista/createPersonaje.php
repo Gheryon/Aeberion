@@ -22,14 +22,21 @@
     <section class="content">
         <div class="container">
             <div class="span10 offset1">
+            <div class="alert alert-success text-center" id='add' style='display:none'>
+                <span><i class="fas fa-check m-1"></i>Personaje añadido</span>
+            </div>
+            <div class="alert alert-danger text-center" id='no-add' style='display:none'>
+                <span><i class="fas fa-times m-1"></i>No se pudo añadir el personaje</span>
+            </div>
             <form id="form-create-personaje" class="row g-3 mt-3 position-relative needs-validation" action="createPersonaje.php" method="post" enctype="multipart/form-data">
             <div class="row justify-content-md-center">
                 <div class="col-md-auto form-actions">
-                        <button type="submit" class="btn btn-success">Añadir</button>
-                        <a class="btn btn-danger" href="../index.php">Cancelar</a>
-                    </div>
+                    <button type="submit" id="submit-add-button" class="btn btn-primary">Añadir</button>
+                    <a class="btn btn-danger" id="cancelar-add-button" href="personajes.php">Cancelar</a>
+                    <a class="btn btn-success" type="button" id="volver-add-button" href="../index.php" style="display:none">Volver</a>
+                </div>
             </div>
-            <div class="row mt-3 justify-content-md-center border fondoNombre">
+            <div class="row mt-3 mb-3 justify-content-md-center border fondoNombre">
                 <div class="col-md-3">
                     <label for="Nombre" class="form-label">Nombre</label>
                     <input type="text" name="Nombre" class="form-control" id="Nombre" placeholder="Nombre" required>
@@ -64,68 +71,54 @@
                     <label for="Retrato" class="form-label">Retrato</label>
                     <input type="file" name="Retrato" class="form-control" id="Retrato" placeholder="retrato" disabled>
                 </div>
+            <div class="row mt-2 mb-3">
+                    <label for="DescripcionShort" class="form-label">Descripción breve</label>
+                    <textarea name="DescripcionShort" class="form-control" id="DescripcionShort" rows="2" aria-label="With textarea"></textarea>
+                </div>
             </div>
             <!----------------------------------------------->
             <div class="row mt-2 justify-content-md-center border fondoMente">
-                <div class="col-6">
-                    <div class="input-group">
-                        <span class="input-group-text">Descripción física</span>
-                        <textarea name="Descripcion" class="form-control" id="Descripcion" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2">
+                    <label for="Descripcion" class="form-label">Descripción física</label>
+                    <textarea name="Descripcion" class="form-control" id="Descripcion" rows="4" aria-label="With textarea"></textarea>
                 </div>
-                <div class="col-6">
-                    <div class="input-group">
-                        <span class="input-group-text">Personalidad</span>
-                        <textarea name="Personalidad" class="form-control" id="Personalidad" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2">
+                    <label for="Personalidad" class="form-label">Personalidad</label>
+                    <textarea name="Personalidad" class="form-control" id="Personalidad" rows="4" aria-label="With textarea"></textarea>
                 </div>
-                <div class="col-4 mt-2">
-                    <div class="input-group">
-                        <span class="input-group-text">Principales deseos</span>
-                        <textarea name="Deseos" class="form-control" id="Deseos" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2">
+                    <label for="Deseos" class="form-label">Principales deseos</label>
+                    <textarea name="Deseos" class="form-control" id="Deseos" rows="4" aria-label="With textarea"></textarea>
                 </div>
-                <div class="col-4 mt-2">
-                    <div class="input-group">
-                        <span class="input-group-text">Principales miedos</span>
-                        <textarea name="Miedos" class="form-control" id="Miedos" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2">
+                    <label for="Miedos" class="form-label">Principales miedos</label>
+                    <textarea name="Miedos" class="form-control" id="Miedos" rows="4" aria-label="With textarea"></textarea>
                 </div>
-                <div class="col-4 mt-2">
-                    <div class="input-group">
-                        <span class="input-group-text">Habilidades Mágicas</span>
-                        <textarea name="Magia" class="form-control" id="Magia" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2 mb-3">
+                    <label for="Magia" class="form-label">Habilidades Mágicas</label>
+                    <textarea name="Magia" class="form-control" id="Magia" rows="4" aria-label="With textarea"></textarea>
                 </div>
             </div>
             <!----------------------------------------------->
             <div class="row mt-2 justify-content-md-center border fondoPolitica">
-                <div class="col-4 ">
-                    <div class="input-group">
-                        <span class="input-group-text">Religión</span>
-                        <textarea name="Religion" class="form-control" id="Religion" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2">
+                    <label for="Religion" class="form-label">Religión</label>
+                    <textarea name="Religion" class="form-control" id="Religion" rows="4" aria-label="With textarea"></textarea>
                 </div>
-                <div class="col-4 ">
-                    <div class="input-group">
-                        <span class="input-group-text">Familia</span>
-                        <textarea name="Familia" class="form-control" id="Familia" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2">
+                    <label for="Familia" class="form-label">Familia</label>
+                    <textarea name="Familia" class="form-control" id="Familia" rows="4" aria-label="With textarea"></textarea>
                 </div>
-                <div class="col-4 ">
-                    <div class="input-group">
-                        <span class="input-group-text">Política</span>
-                        <textarea name="Politica" class="form-control" id="Politica" aria-label="With textarea"></textarea>
-                    </div>
+                <div class="row mt-2">
+                    <label for="Politica" class="form-label">Política</label>
+                    <textarea name="Politica" class="form-control" id="Politica" rows="4" aria-label="With textarea"></textarea>
                 </div>
             </div>
             <!----------------------------------------------->
-            <div class="row mt-2 justify-content-md-center border fondoHistoria">
-                <div class="col ">
-                    <div class="input-group cajaAlta">
-                        <span class="input-group-text">Historia</span>
-                        <textarea name="Historia" class="form-control" id="Historia" aria-label="With textarea"></textarea>
-                    </div>
+            <div class="row mt-3 mb-3 justify-content-md-center border fondoHistoria">
+                <div class="row mt-2">
+                    <label for="Historia" class="form-label">Historia</label>
+                    <textarea name="Historia" class="form-control" id="Historia" rows="8" aria-label="With textarea"></textarea>
                 </div>
             </div>
             </form>

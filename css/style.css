@@ -110,20 +110,8 @@ nav li:hover{
 	background-color: rgb(238, 229, 181);
 }
 
-.fondoNombre{
+.fondoLight{
 	background-color:lightgoldenrodyellow;
-}
-
-.fondoMente{
-	background-color: rgba(0, 255, 42, 0.233);
-}
-
-.fondoPolitica{
-	background-color: mediumpurple;
-}
-
-.fondoHistoria{
-	background-color: lightblue;
 }
 
 aside{

@@ -1,20 +1,8 @@
-<?php
-	include 'config.php';
-  require_once('../modelo/personaje.php');
+<?php include_once 'layouts/header.php'; ?>
+<input id="id_personaje_editar" name="id_personaje_editar" type="hidden" value="<?php echo $_POST['id']?>">
 
-  $p = new Personaje();
-
-	if(isset($_POST['id'])){
-    $id=$_POST['id'];
-    }else{
-      header('Location: ../index.php');
-    }
-
-    $personaje=$p->getPersonaje($id);
-
-	include_once 'layouts/header.php';
-?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<link rel="stylesheet" href="../css/style.css"/>
 <title>Editar personaje</title>
 
 <?php include_once 'layouts/nav.php';?>
@@ -28,7 +16,7 @@
       </div>
       <div class="modal-body">
         <div class="text-center">
-            <img id="modal-retrato" src="<?php echo '../imagenes/Retratos/'.$personaje->retrato; ?>" alt="imagen-perfil" class="profile-user-image img-fluid img-circle">
+            <img id="modal-retrato" alt="imagen-perfil" class="profile-user-image img-fluid img-circle" width="300" height="300">
         </div>
         <div class="alert alert-success text-center" id='cambiado' style='display:none'>
             <span><i class="fas fa-check m-1"></i>Retrato cambiado</span>
@@ -58,8 +46,8 @@
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Editar personaje</h1>
+          <div class="col-sm-12">
+            <h1 class="fw-bolder text-center">Editar personaje</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -78,31 +66,29 @@
         <form id="form-editar-personaje" class="row g-3 mt-3 position-relative needs-validation" action="editarPersonaje.php" method="post" enctype="multipart/form-data">
           <div class="row justify-content-md-center">
             <div class="col-md-auto form-actions">
-              <button type="submit" class="btn btn-success">Actualizar</button>
-              <a class="btn btn-danger" href="personajes.php">Cancelar</a>
+              <button type="submit" id="submit-editar-button" class="btn btn-success">Actualizar</button>
+              <a class="btn btn-danger" id="cancelar-editar-button" href="personajes.php">Cancelar</a>
+              <a class="btn btn-primary" type="button" id="volver-editar-button" href="personajes.php" style="display:none">Volver</a>
             </div>
           </div>
-          <div class="row mt-3 mb-2 justify-content-md-center border fondoNombre">
+          <div class="row mt-3 mb-2 justify-content-md-center border fondoLight">
             <div class="col-md">
-              <div class="row">
-                <div class="col-md-3">
-                  <input type="hidden" name="id_personaje" id="id_personaje" value="<?php echo $id; ?>">
+              <div class="row justify-content-md-center mr-2">
+                <div class="col-md">
                   <label for="Nombre" class="form-label">Nombre</label>
-                  <input type="text" name="Nombre" class="form-control" id="Nombre" value="<?php echo $personaje->nombre; ?>" required>
+                  <input type="text" name="Nombre" class="form-control" id="Nombre" required>
                     <div class="invalid-feedback">
                       Nombre necesario.
                     </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md">
                   <label for="Apellidos" class="form-label">Apellidos</label>
-                  <input type="text" name="Apellidos" class="form-control" id="Apellidos" value="<?php echo $personaje->apellidos; ?>">
+                  <input type="text" name="Apellidos" class="form-control" id="Apellidos">
                 </div>
-              </div>
-              <div class="row">
                 <div class="col-md-2">
                   <label for="sexo" class="form-label">Sexo</label>
                   <select class="form-select" name="Sexo" id="inputSexo" required>
-                    <option selected value="<?php echo $personaje->sexo; ?>"><?php echo $personaje->sexo; ?></option>
+                    <option selected disabled value="">Elegir</option>
                     <option>Hombre</option>
                     <option>Mujer</option>
                   </select>
@@ -110,7 +96,7 @@
                 <div class="col-md-2">
                   <label for="Especie" class="form-label">Especie</label>
                   <select class="form-select" name="Especie" id="inputEspecie" required>
-                    <option selected value="<?php echo $personaje->especie; ?>"><?php echo $personaje->especie; ?></option>
+                    <option selected disabled value="">Elegir</option>
                     <option>Humanos</option>
                     <option>Elfos</option>
                     <option>Enanos</option>
@@ -119,95 +105,80 @@
                   </select>
                 </div>
               </div>
+              <div class="row mt-2 mb-3 mr-2 ml-1">
+                  <label for="DescripcionShort" class="form-label">Descripción breve</label>
+                  <textarea name="DescripcionShort" class="form-control" id="DescripcionShort" rows="2" aria-label="With textarea"></textarea>
+              </div>
             </div>
             <div class="col-md-3">
               <div class="row">
                 <label for="Retrato" class="form-label">Retrato</label>
-              </div>
-              <div class="row">
-                <img id="retrato-content" src="<?php echo '../imagenes/Retratos/'.$personaje->retrato; ?>" class="profile-user-img img-fluid img-circle" alt="" width="280" height="280">
-                <button type="button" data-toggle="modal" data-target="#cambiar-retrato" class="btn btn-primary btn-sm">Cambiar retrato</button>
+                <img id="retrato-content" class="profile-user-img img-fluid" alt="" width="300" height="300">
+                <button type="button" data-toggle="modal" data-target="#cambiar-retrato" class="btn btn-primary btn-sm mt-2">Cambiar retrato</button>
               </div>                
+            </div>
             </div>
           </div>
           <!----------------------------------------------->
-            <div class="row mt-2 justify-content-md-center border fondoMente">
+            <div class="row mt-2 justify-content-md-center border fondoLight">
               <div class="row mt-2">
                 <div class="col">
                     <label for="Descripcion" class="form-label">Descripción física</label>
-                    <textarea class="form-control" id="Descripcion" rows="1" aria-label="With textarea">
-                    <?php echo $personaje->descripcion; ?>
-                    </textarea>
+                    <textarea class="form-control" id="Descripcion" rows="4" aria-label="With textarea"></textarea>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col mt-2">
                     <label for="Personalidad" class="form-label">Personalidad</label>
-                    <textarea class="form-control" id="Personalidad" rows="1">
-                    <?php echo $personaje->personalidad; ?>
-                    </textarea>
+                    <textarea name="Personalidad" class="form-control" id="Personalidad" rows="4"></textarea>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col mt-2">
                     <label for="Deseos" class="form-label">Principales deseos</label>
-                    <textarea class="form-control" id="Deseos" rows="1">
-                    <?php echo $personaje->deseos; ?>
-                    </textarea>
+                    <textarea name="Deseos" class="form-control" id="Deseos" rows="4"></textarea>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col mt-2">
                   <label for="Miedos" class="form-label">Principales miedos</label>
-                  <textarea name="Miedos" class="form-control" id="Miedos" rows="1" aria-label="With textarea">
-                  <?php echo $personaje->miedos; ?>
-                  </textarea>
+                  <textarea name="Miedos" class="form-control" id="Miedos" rows="4" aria-label="With textarea"></textarea>
                 </div>
               </div>
               <div class="row mt-2 mb-3">
                 <div class="col mt-2">
                   <label for="Magia" class="form-label">Habilidades Mágicas</label>
-                  <textarea name="Magia" class="form-control" id="Magia" rows="1" aria-label="With textarea">
-                  <?php echo $personaje->magia; ?>
-                  </textarea>
+                  <textarea name="Magia" class="form-control" id="Magia" rows="4" aria-label="With textarea"></textarea>
                 </div>
               </div>
             </div>
             <!----------------------------------------------->
-            <div class="row mt-2 justify-content-md-center border fondoPolitica">
+            <div class="row mt-2 justify-content-md-center border fondoLight">
               <div class="row mt-2">
                 <div class="col mt-2 ">
                   <label for="Religion" class="form-label">Religión</label>
-                  <textarea name="Religion" class="form-control" id="Religion" rows="1" aria-label="With textarea">
-                  <?php echo $personaje->religion; ?>
-                  </textarea>
+                  <textarea name="Religion" class="form-control" id="Religion" rows="4" aria-label="With textarea"></textarea>
                 </div>
               </div>
               <div class="row mt-2">
                 <div class="col mt-2 ">
                   <label for="Familia" class="form-label">Familia</label>
-                  <textarea name="Familia" class="form-control" id="Familia" rows="1" aria-label="With textarea">
-                  <?php echo $personaje->familia; ?>
-                  </textarea>
+                  <textarea name="Familia" class="form-control" id="Familia" rows="4" aria-label="With textarea"></textarea>
                 </div>
               </div>
               <div class="row mt-2 mb-3">
                 <div class="col mt-2">
                   <label for="Politica" class="form-label">Política</label>
-                  <textarea name="Politica" class="form-control" id="Politica" rows="1" aria-label="With textarea">
-                  <?php echo $personaje->politica; ?>
-                  </textarea>
+                  <textarea name="Politica" class="form-control" id="Politica" rows="4" aria-label="With textarea"></textarea>
                 </div>
               </div>
             </div>
             <!----------------------------------------------->
-            <div class="row mt-2 justify-content-md-center border fondoHistoria">
+            <div class="row mt-2 justify-content-md-center border fondoLight">
               <div class="row mt-2 mb-3">
                 <div class="col ">
                   <label for="Historia" class="form-label">Historia</label>
-                  <textarea name="Historia" class="form-control" id="Historia" rows="5" aria-label="With textarea">
-                  <?php echo $personaje->historia; ?>
-                  </textarea>
+                  <textarea name="Historia" class="form-control" id="Historia" rows="8" aria-label="With textarea"></textarea>
                 </div>
               </div>
             </div>
