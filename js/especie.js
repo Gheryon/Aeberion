@@ -234,35 +234,4 @@ $(document).ready(function(){
     })
     e.preventDefault();
   });
-
-  $('#form-retrato').submit(e=>{
-        let formData = new FormData($('#form-retrato')[0]);
-        $.ajax({
-            url:'../controlador/personajeController.php',
-            type:'POST',
-            data:formData,
-            cache:false,
-            processData:false,
-            contentType:false
-        }).done(function(response){
-            console.log(response);
-            //se reemplazan los avatares del modal y del content
-            const json=JSON.parse(response);
-            if(json.alert=='edit'){
-                $('#retrato-content').attr('src',json.ruta);
-                $('#cambiado').hide('slow');
-                $('#cambiado').show(1000);
-                $('#cambiado').hide(3000);
-                $('#form-retrato').trigger('reset');
-                $('#modal-retrato').attr('src',json.ruta);
-                //buscar_personaje(id_personaje);
-            }else{
-                $('#noedit').hide('slow');
-                $('#noedit').show(1000);
-                $('#noedit').hide(3000);
-                $('#form-retrato').trigger('reset');
-            }
-        });
-        e.preventDefault();
-    });
 })

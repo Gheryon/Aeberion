@@ -1,4 +1,5 @@
 <?php include_once 'layouts/header.php';?>
+<input id="cargar-cronicas" name="cargar-cronicas" type="hidden" value="cargar-cronicas">
 
   <title>Crónicas</title>
   <!-- summernote -->
@@ -21,6 +22,38 @@
 
     <!-- Main content -->
     <section class="content">
+    <div class="container-fluid">
+      <div class="card card-dark">
+        <div class="card-header">
+          <h3 class="card-title">Buscar crónicas</h3>
+          <div class="input-group">
+              <input type="text" id="buscar-articulo" placeholder="Título"class="form-control float-left">
+              <div class="input-group-append">
+                <button class="btn btn-default">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+          </div>
+        </div>
+        <div class="card-body p-0 table-responsive">
+          <table class="table table-hover text-nowrap">
+            <thread class="table-success">
+              <tr>
+                <th>Acción</th>
+                <th>Título</th>
+                <th>Clasificacion</th>
+              </tr>
+            </thread>
+            <tbody class="table-active" id="articulos">
+
+            </tbody>
+          </table>
+        </div>
+        <div class="card-footer">
+
+        </div>
+      </div>
+  </div> <!-- /container -->
       <div class="row">
         <div class="col-md-12">
           <div class="card card-outline card-info">

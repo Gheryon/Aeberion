@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="card-footer">
-          <select class="form-select" name="tipo" id="tipo-articulo">
+          <select class="form-select" name="tipo-articulo" id="tipo-articulo">
             <option selected disabled value="">Tipo</option>
             <option>Canon</option>
             <option>Referencia</option>

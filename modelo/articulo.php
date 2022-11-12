@@ -44,6 +44,25 @@ class Articulo{
             return $this->objetos;
         }
     }
+
+    function buscarCronicas(){
+        //se ha introducido algún caracter a buscar, se devuelven los articulos que encagen con la consulta
+        if(!empty($_POST['consulta'])){
+            $consulta=$_POST['consulta'];
+            $sql="SELECT * FROM articulosgenericos WHERE nombre LIKE :consulta AND tipo = 'Cronica'";
+            $query=$this->acceso->prepare($sql);
+            $query->execute(array(':consulta'=>"%$consulta%"));
+            $this->objetos=$query->fetchAll();
+            return $this->objetos;
+        }else{
+            //se devuelven todos los articulos
+            $sql="SELECT * FROM articulosgenericos WHERE nombre NOT LIKE '' AND tipo = 'Cronica' ORDER BY id_articulo LIMIT 25";
+            $query=$this->acceso->prepare($sql);
+            $query->execute();
+            $this->objetos=$query->fetchAll();
+            return $this->objetos;
+        }
+    }
     function borrar($id){
         $sql="DELETE FROM articulosgenericos WHERE id_articulo=:id";
         $query=$this->acceso->prepare($sql);

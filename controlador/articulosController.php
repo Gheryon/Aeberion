@@ -35,6 +35,23 @@ if($_POST['funcion']=='buscar')
     $jsonstring = json_encode($json);
     echo $jsonstring;
 }
+
+if($_POST['funcion']=='buscar-cronicas')
+{
+    $articulo->buscarCronicas();
+    $json=array();
+    foreach ($articulo->objetos as $objeto) {
+        $json[]=array(
+            'id'=>$objeto->id_articulo,
+            'nombre'=>$objeto->nombre,
+            'contenido'=>$objeto->contenido,
+            'tipo'=>$objeto->tipo
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}
+
 if($_POST['funcion']=='detalles')
 {
     $json=array();
@@ -43,7 +60,8 @@ if($_POST['funcion']=='detalles')
         $json[]=array(
             'id'=>$objeto->id_articulo,
             'nombre'=>$objeto->nombre,
-            'contenido'=>$objeto->contenido
+            'contenido'=>$objeto->contenido,
+            'tipo'=>$objeto->tipo
         );
     }
     $jsonstring = json_encode($json[0]);

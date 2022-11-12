@@ -1,5 +1,6 @@
 $(document).ready(function() {
     //buscar_articulos() para que automáticamente se muestren todos los articulos
+    var carga = $('#cargar-cronicas').val();
     buscar_articulos();
     var funcion;
     var edit=false;
@@ -46,14 +47,18 @@ $(document).ready(function() {
     });
 
     function buscar_articulos(consulta){
-        funcion='buscar';
+        if(carga=="cargar-cronicas"){
+            funcion='buscar-cronicas';
+        }else{
+            funcion='buscar';
+        }
         $.post('../controlador/articulosController.php', {consulta, funcion}, (response)=>{
             //console.log(response);
             const articulos = JSON.parse(response);
             let template='';
             articulos.forEach(articulo => {
                 template+=`
-                    <tr artId="${articulo.id}" artNombre="${articulo.nombre}" artContenido="${articulo.contenido}" artTipo="${articulo.tipo}">
+                    <tr artId="${articulo.id}" artNombre="${articulo.nombre}" artTipo="${articulo.tipo}">
                         <td>
                             <button class="detalles btn btn-info" title="Ver articulo" type="button" data-toggle="modal" data-target="#verArticulo"><i class="fas fa-id-card mr-1"></i></button>
                             <button class="editar btn btn-success" title="Editar articulo" type="button" data-toggle="modal" data-target="#crearArticulo"><i class="fas fa-pencil-alt"></i></button>
@@ -82,15 +87,15 @@ $(document).ready(function() {
         //se usan 2 parentElement para llegar al tr desde el button #editar en el que se hace click
         const elemento=$(this)[0].activeElement.parentElement.parentElement;
         const id=$(elemento).attr('artId');
-        const nombre=$(elemento).attr('artNombre');
-        const contenido=$(elemento).attr('artContenido');
-        const tipo=$(elemento).attr('artTipo');
-        $('#id_editar_art').val(id);
-        $('#nombre-articulo').val(nombre);
-        //$('#contenido-articulo').val(contenido);
-        $('#contenido-articulo').summernote('code',contenido);
-        $('#tipo-articulo').val(tipo);
-        edit=true;
+        funcion='detalles';
+        $.post('../controlador/articulosController.php', {id, funcion}, (response)=>{
+            const articulo = JSON.parse(response);
+            $('#id_editar_art').val(articulo.id);
+            $('#nombre-articulo').val(articulo.nombre);
+            $('#contenido-articulo').summernote('code',articulo.contenido);
+            $('#tipo-articulo').val(articulo.tipo);
+            edit=true;
+        })
     });
 
     $(document).on('click', '.detalles', (e)=>{

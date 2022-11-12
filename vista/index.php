@@ -19,31 +19,94 @@
 
     <!-- Main content -->
     <section class="content">
-
-      <!-- Default box -->
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title">Title</h3>
-
-          <div class="card-tools">
-            <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-              <i class="fas fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-              <i class="fas fa-times"></i>
-            </button>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
+                <h3>Instituciones</h3>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-building-columns"></i>
+              </div>
+              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
+                <h3>Religiones</h3>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-place-of-worship"></i>
+              </div>
+              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
+                <h3>Personajes</h3>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-people-group"></i>
+              </div>
+              <a href="personajes.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
+                <h3>Especies</h3>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-dna"></i>
+              </div>
+              <a href="personajes.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
+                <h3>Lugares</h3>
+              </div>
+              <div class="icon">
+                <i class="fas fa-tree"></i>
+              </div>
+              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
+                <h3>Crónicas</h3>
+              </div>
+              <div class="icon">
+                <i class="fas fa-book-open"></i>
+              </div>
+              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
+                <h3>Cronologías</h3>
+              </div>
+              <div class="icon">
+                <i class="fas fa-columns"></i>
+              </div>
+              <a href="timelines.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
           </div>
         </div>
-        <div class="card-body">
-          Start creating your amazing application!
-        </div>
-        <!-- /.card-body -->
-        <div class="card-footer">
-          Footer
-        </div>
-        <!-- /.card-footer-->
       </div>
-      <!-- /.card -->
     </section>
     <!-- /.content -->
   </div>
