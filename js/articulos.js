@@ -1,9 +1,19 @@
 $(document).ready(function() {
     //buscar_articulos() para que automáticamente se muestren todos los articulos
     var carga = $('#cargar-cronicas').val();
-    buscar_articulos();
     var funcion;
     var edit=false;
+    var id_editar=$('#id_editar').val();
+    var id_detalles=$('#id_cronica_detalles').val();
+
+    if(id_detalles!=undefined){
+        buscar_cronica_detalles(id_detalles);
+    }
+    if(id_editar!=undefined){
+        buscar_cronica_editar(id_editar);
+    }else{
+        buscar_articulos();
+    }
 
     $('#form-crear-articulo').submit(e=>{
         let nombre_articulo=$('#nombre-articulo').val();
@@ -53,21 +63,36 @@ $(document).ready(function() {
             funcion='buscar';
         }
         $.post('../controlador/articulosController.php', {consulta, funcion}, (response)=>{
-            //console.log(response);
             const articulos = JSON.parse(response);
             let template='';
             articulos.forEach(articulo => {
                 template+=`
-                    <tr artId="${articulo.id}" artNombre="${articulo.nombre}" artTipo="${articulo.tipo}">
-                        <td>
+                    <tr artId="${articulo.id}" artNombre="${articulo.nombre}" artTipo="${articulo.tipo}">`;
+                        if(funcion=='buscar-cronicas'){
+                            template+=`<td>
+                            <button class="detalles btn btn-sm btn-info" title="Ver crónica" type="button">
+                            <a href=vistaCronica.php?id_cronica=${articulo.id} class="text-reset"><i class="fas fa-id-card mr-1"></i></a>
+                            </button>
+                            <form class="btn" action="createCronica.php" method="post">
+                                <button class="editar btn btn-success btn-sm" title="Editar crónica">
+                                <i class="fas fa-pencil-alt mr-1"></i></button>
+                                <input type="hidden" name="id" value="${articulo.id}">
+                            </form>
+                            <button class="borrar btn btn-danger btn-sm" title="Borrar crónica" type="button" data-toggle="modal" data-target="#confirmar"><i class="fas fa-trash"></i></button>
+                `;
+                        }else{
+                            template+=`<td>
                             <button class="detalles btn btn-info" title="Ver articulo" type="button" data-toggle="modal" data-target="#verArticulo"><i class="fas fa-id-card mr-1"></i></button>
                             <button class="editar btn btn-success" title="Editar articulo" type="button" data-toggle="modal" data-target="#crearArticulo"><i class="fas fa-pencil-alt"></i></button>
                             <button class="borrar btn btn-danger" title="Borrar articulo" type="button" data-toggle="modal" data-target="#confirmar"><i class="fas fa-trash"></i></button>
-                        </td>
-                        <td>"${articulo.nombre}"</td>
-                        <td>"${articulo.tipo}"</td>
-                    </tr>
                 `;
+                        }
+                    template+=`
+                    </td>
+                    <td>"${articulo.nombre}"</td>
+                    <td>"${articulo.tipo}"</td>
+                </tr>`;
+                        
             });
             $('#articulos').html(template);
         })
@@ -147,16 +172,37 @@ $(document).ready(function() {
         $('#nombre-articulo-borrar').val(nombre);
     });
 
-    /*----------para summernote en cronicas.php---------*/
-    $(document).on('click', '.guardar-cronica', (e)=>{
-        let contenido_articulo=$('#summernote').val();
-        console.log(contenido_articulo);
+    /*----------para cronicas en createCronica.php---------*/
+    function buscar_cronica_detalles(dato) {
+        funcion='detalles';
+        const id=dato;
+        $.post('../controlador/articulosController.php', {id, funcion}, (response)=>{
+            const articulo = JSON.parse(response);
+            $('#cronica-title').html(articulo.nombre);
+            $('#cronica-title-h1').html(articulo.nombre);
+            $('#contenido-cronica').html(articulo.contenido);
+        })
+    };
+    function buscar_cronica_editar(dato) {
+        funcion='detalles';
+        const id=$('#id_editar').val();
+        $.post('../controlador/articulosController.php', {id, funcion}, (response)=>{
+            const articulo = JSON.parse(response);
+            $('#id_editar_cronica').val(articulo.id);
+            $('#nombre-cronica').val(articulo.nombre);
+            $('#contenido-cronica').summernote('code',articulo.contenido);
+            $('#no-edit-title').html("Editar crónica");
+            $('#no-edit-title-h1').html("Editar crónica");
+            edit=true;
+        })
+    };
 
-        let nombre_cronica=$('#nombre-cronica').val();
-        //let nombre_articulo="Prueba";
-        let id_editado=$('#id_editar_art').val();
+    $('#form-create-cronica').submit(e=>{
+        let nombre_articulo=$('#nombre-cronica').val();
+        let contenido_articulo=$('#contenido-cronica').val();
+        let id_editado=$('#id_editar_cronica').val();
         let tipo="Cronica";
-        //si edit es false, se crea un articulo, si es true, se modifica
+        //si edit es false, se crea una cronica, si es true, se modifica
         if(edit==false){
             funcion='crear';
         }else{
@@ -168,20 +214,28 @@ $(document).ready(function() {
                 $('#add-cronica').hide('slow');
                 $('#add-cronica').show(1000);
                 $('#add-cronica').hide(3000);
-                $('#summernote').trigger('reset');
-                //buscar_articulos();
+                $('#form-create-cronica').trigger('reset');
+                $('#cancelar-cronica').hide();
+                $('#guardar-cronica').hide();
+                $('#volver-editar-button').show();
             }
             if(response=='noadd'){
                 $('#noadd-cronica').hide('slow');
                 $('#noadd-cronica').show(1000);
                 $('#noadd-cronica').hide(3000);
-                $('#summernote').trigger('reset');
+                $('#form-create-cronica').trigger('reset');
+                $('#cancelar-cronica').hide();
+                $('#guardar-cronica').hide();
+                $('#volver-editar-button').show();
             }
             if(response=='edit'){
                 $('#edit-cronica').hide('slow');
                 $('#edit-cronica').show(1000);
                 $('#edit-cronica').hide(3000);
-                $('#summernote').trigger('reset');
+                $('#form-create-cronica').trigger('reset');
+                $('#cancelar-cronica').hide();
+                $('#guardar-cronica').hide();
+                $('#volver-editar-button').show();
             }
             edit=false;
         })

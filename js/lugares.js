@@ -72,7 +72,7 @@ $(document).ready(function(){
                     <h2 class="lead"><b>${lugar.nombre}</b></h2>
                     <p class="text-muted text-sm"><b>Descripción breve: </b> ${lugar.descripcion} </p>
                     <ul class="ml-4 mb-0 fa-ul text-muted">
-                    <li class="small"><span class="fa-li"><i class="fa-solid fa-dna"></i></span> Tipo: ${lugar.tipo}</li>
+                    <li class="small"><span class="fa-li"><i class="fa-solid fa-mountain-sun"></i></span> Tipo: ${lugar.tipo}</li>
                     </ul>
                   </div>
                   <div class="small-box bg-success">

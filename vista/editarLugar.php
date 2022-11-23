@@ -32,7 +32,7 @@
                     <form id="form-borrar-lugar" class="col-md-auto" >
                         <input type="hidden" name="nombre_lugar_borrar" id="nombre_lugar_borrar">
                         <input type="hidden" name="id_lugar_borrar" id="id_lugar_borrar">
-                        <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="cancelar-borrar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" id="borrar-button" class="btn btn-danger borrar-lugar">Eliminar</button>
                     </form>
                     <a class="btn btn-primary" type="button" id="borrar-volver-button" href="../index.php" style="display:none">Volver</a>

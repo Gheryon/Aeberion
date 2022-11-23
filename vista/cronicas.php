@@ -2,11 +2,45 @@
 <input id="cargar-cronicas" name="cargar-cronicas" type="hidden" value="cargar-cronicas">
 
   <title>Crónicas</title>
-  <!-- summernote -->
-  <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 
   <?php include_once 'layouts/nav.php';?>
-    
+
+<div class="modal fade" id="confirmar" tabindex="-1" role="dialog" aria-labelledby="confirmar-eliminacion" aria-hidden="true">
+  <div class="modal-dialog modal-sm" role="document">
+    <div class="modal-content">
+      <div class="card card-danger">
+        <div class="card-header">
+          <h3 class="card-title">Confirmar eliminación</h3>
+          <button data-dismiss="modal" aria-label="close" class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-success text-center" id='confirmado' style='display:none'>
+              <span><i class="fas fa-check m-1"></i>Crónica eliminado</span>
+          </div>
+          <div class="alert alert-danger text-center" id='rechazado' style='display:none'>
+              <span><i class="fas fa-times m-1"></i>Error al eliminar crónica.</span>
+          </div>
+          <form id="form-borrar-articulo" class=" text-center">
+            <div class="input-group mb-3">
+                <div class="input-grup-prepend">
+                    <span class="input-group-text"> ¿Borrar crónica <p id="nombre-articulo-borrar"></p>?</span>
+                </div>
+                <input type="hidden" id="id_articulo">
+                <input type="hidden" id="funcion">
+            </div>
+        </div>
+        <div class="card-footer text-right">
+          <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" class="btn bg-gradient-danger">Eliminar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -25,15 +59,23 @@
     <div class="container-fluid">
       <div class="card card-dark">
         <div class="card-header">
+          <div class="row ">
+            <div class="col">
           <h3 class="card-title">Buscar crónicas</h3>
-          <div class="input-group">
-              <input type="text" id="buscar-articulo" placeholder="Título"class="form-control float-left">
-              <div class="input-group-append">
-                <button class="btn btn-default">
-                  <i class="fas fa-search"></i>
-                </button>
+              <div class="input-group">
+                  <input type="text" id="buscar-articulo" placeholder="Título"class="form-control float-left">
+                  <div class="input-group-append">
+                    <button class="btn btn-default">
+                      <i class="fas fa-search"></i>
+                    </button>
+                  </div>
               </div>
+            </div>
+            <div class="col-1 align-self-end">
+              <a type="button" class="btn btn-success" href="createCronica.php">Nueva</a>
+            </div>
           </div>
+          
         </div>
         <div class="card-body p-0 table-responsive">
           <table class="table table-hover text-nowrap">
@@ -53,57 +95,11 @@
 
         </div>
       </div>
-  </div> <!-- /container -->
-      <div class="row">
-        <div class="col-md-12">
-          <div class="card card-outline card-info">
-            <div class="card-header">
-              <h3 class="card-title">
-                Summernote
-              </h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="alert alert-success text-center" id='add-cronica' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Crónica añadida</span>
-            </div>
-            <div class="alert alert-danger text-center" id='noadd-cronica' style='display:none'>
-                <span><i class="fas fa-times m-1"></i>Ya existe la crónica</span>
-            </div>
-            <div class="alert alert-success text-center" id='edit-cronica' style='display:none'>
-                <span><i class="fas fa-check m-1"></i>Crónica editada</span>
-            </div>
-            <div class="card-body">
-              <div class="mb-2">
-                <label for="nombre" class="form-label">Nombre</label>
-                <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" required>
-              </div>
-              <textarea class="form-control" id="summernote" rows="8" aria-label="With textarea">
-                Place <em>some</em> <u>text</u> <strong>here</strong>
-              </textarea>
-            </div>
-            <button type="button" class="btn btn-success guardar-cronica" >Guardar</button>
-            <div class="card-footer">
-              Visit <a href="https://github.com/summernote/summernote/">Summernote</a> documentation for more examples and information about the plugin.
-            </div>
-          </div>
-        </div>
-        <!-- /.col-->
-      </div>
-      <!-- ./row -->
+    </div> <!-- /container -->
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
   <?php include_once 'layouts/footer.php'; ?>
 
-<!-- Summernote -->
-<script src="../js/summernote-bs4.min.js"></script>
 <script src="../js/articulos.js"></script>
-<script>
-  $(function () {
-    // Summernote
-    $('#summernote').summernote({
-      height: 300
-    })
-  })
-</script>
