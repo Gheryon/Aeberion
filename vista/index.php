@@ -30,7 +30,7 @@
               <div class="icon">
                 <i class="fa-solid fa-building-columns"></i>
               </div>
-              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="paises.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -66,7 +66,7 @@
               <div class="icon">
                 <i class="fa-solid fa-dna"></i>
               </div>
-              <a href="personajes.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -78,7 +78,7 @@
               <div class="icon">
                 <i class="fas fa-tree"></i>
               </div>
-              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="lugares.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">
@@ -90,7 +90,7 @@
               <div class="icon">
                 <i class="fas fa-book-open"></i>
               </div>
-              <a href="#" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+              <a href="cronicas.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
           <div class="col-lg-3 col-6">

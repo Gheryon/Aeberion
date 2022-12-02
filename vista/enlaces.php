@@ -44,6 +44,8 @@
             <div class="col"><h4>España</h4>
               <p><a href=https://elretohistorico.com/animales-fantasticos-y-donde-encontrarlos-en-espana>Animales fantásticos españoles</a></p>
               <p><a href=https://www.abc.es/historia/abci-santa-compana-coco-criaturas-fantasticas-peligro-extincion-olvido-espana-202201051749_noticia.html>Más animales fantásticos españoles</a></p>
+              <p><a href=https://www.youtube.com/watch?v=0FoB98tj2yY>Más animales fantásticos españoles [A-E]</a></p>
+              <p><a href=https://www.youtube.com/watch?v=CKH8duH8h18>Más animales fantásticos españoles [F-L]</a></p>
             </div>
             </div>
           <div class="row">
