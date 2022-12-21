@@ -67,6 +67,7 @@
                 </a>
               </li>
               <li class="nav-item">
+              <form class="" method="POST" action="nuevoEvento.php" ></form>
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Órdenes militares</p>

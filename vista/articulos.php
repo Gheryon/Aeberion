@@ -66,8 +66,20 @@
           </div>
           <form id="form-crear-articulo">
             <div class="form-group">
-              <label for="nombre-articulo">Nombre</label>
-              <input id="nombre-articulo" type="text" class="input form-control" placeholder="Nombre del artículo" required>
+              <div class="row">
+                <div class="col">
+                  <label for="nombre-articulo">Nombre</label>
+                  <input id="nombre-articulo" type="text" class="input form-control" placeholder="Nombre del artículo" required>
+                </div>
+                <div class="col">
+                  <label for="tipo-articulo">Tipo</label>
+                  <select class="form-select" name="tipo-articulo" id="tipo-articulo">
+                    <!--<option selected disabled value=""></option>-->
+                    <option>Referencia</option>
+                    <option>Canon</option>
+                  </select>
+                </div>
+              </div>
               <input type="hidden" id="id_editar_art">
               <label class="mt-2" for="contenido-articulo">Contenido</label>
               <textarea name="contenido-articulo" id="contenido-articulo" class="form-control summernote" aria-label="With textarea" cols="30" rows="10">
@@ -76,11 +88,6 @@
             </div>
         </div>
         <div class="card-footer">
-          <select class="form-select" name="tipo-articulo" id="tipo-articulo">
-            <option selected disabled value="">Tipo</option>
-            <option>Canon</option>
-            <option>Referencia</option>
-          </select>
           <button type="submit" class="btn bg-gradient-primary float-right m-1">Guardar</button>
           <button type="button" data-dismiss="modal" class="btn btn-outline-secondary float-right m-1">Cerrar</button>
         </form>

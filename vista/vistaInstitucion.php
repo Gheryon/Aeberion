@@ -1,5 +1,11 @@
-<?php include_once 'layouts/header.php';?>
-<input id="id_institucion" type="hidden" value="<?php echo $_GET['id_institucion']?>">
+<?php include_once 'layouts/header.php';
+
+if(isset($_GET['id_institucion'])){
+    ?>
+    <input id="id_institucion" type="hidden" value="<?php echo $_GET['id_institucion']?>">
+<?php
+}
+?>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="../css/style.css"/>
@@ -136,7 +142,7 @@
                 </div>
             </div>
             <div class="row justify-content-md-center">
-                <form class="btn" action="editarInstitucion.php" method="post">
+                <form class="btn" action="createInstitucion.php" method="post">
                     <button class="editar-personaje btn btn-success mr-1">
                     <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
                     <input type="hidden" name="id_institucion" value="<?php echo $_GET['id_institucion']?>">

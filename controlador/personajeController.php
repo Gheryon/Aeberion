@@ -134,7 +134,11 @@ if($_POST['funcion']=='cambiar_retrato'){
         move_uploaded_file($_FILES['retrato']['tmp_name'],$ruta);
         $personaje->cambiar_retrato($_POST['id_personaje'], $nombre);
         foreach ($personaje->objetos as $objeto) {
-            unlink('../imagenes/Retratos/'.$objeto->retrato);
+            if($objeto->retrato!='default.png'){
+                if(file_exists('../imagenes/Retratos/'.$objeto->retrato)){
+                    unlink('../imagenes/Retratos/'.$objeto->retrato);
+                }
+            }
         }
         $json=array();
         $json[]=array(

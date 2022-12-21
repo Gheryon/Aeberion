@@ -28,7 +28,7 @@
             <div class="input-group mb-3 ml-3 mt-2">
                 <input type="file" name="retrato" class="input-group">
                 <input type="hidden" name="funcion" value="cambiar_retrato">
-                <input type="hidden" name="id_personaje" value="<?php echo $id?>">
+                <input type="hidden" name="id_personaje" value="<?php echo $_POST['id']?>">
             </div>
       </div>
       <div class="modal-footer">

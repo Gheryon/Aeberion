@@ -183,7 +183,7 @@ $(document).ready(function(){
             processData:false,
             contentType:false
         }).done(function(response){
-            console.log(response);
+          console.log(response);
             //se reemplazan los avatares del modal y del content
             const json=JSON.parse(response);
             if(json.alert=='edit'){
@@ -191,15 +191,14 @@ $(document).ready(function(){
                 $('#cambiado').hide('slow');
                 $('#cambiado').show(1000);
                 $('#cambiado').hide(3000);
-                $('#form-retrato').trigger('reset');
                 $('#modal-retrato').attr('src',json.ruta);
                 //buscar_personaje(id_personaje);
             }else{
                 $('#noedit').hide('slow');
                 $('#noedit').show(1000);
                 $('#noedit').hide(3000);
-                $('#form-retrato').trigger('reset');
             }
+            $('#form-retrato').trigger('reset');
         });
         e.preventDefault();
     });
