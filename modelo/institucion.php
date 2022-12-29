@@ -25,23 +25,45 @@ class Institucion{
         }
     }
 
-    function buscar(){
+    function buscar($tipo){
         //se ha introducido algún caracter a buscar, se devuelven las entradas que encagen con la consulta
         if(!empty($_POST['consulta'])){
             $consulta=$_POST['consulta'];
             $sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta";
+            if($tipo=="paises"){
+                $sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND (tipo='reino' OR tipo='republica' OR tipo='confederacion' OR tipo='imperio' OR tipo='señorio' OR tipo='ducado' OR tipo='tribu' OR tipo='condado' OR tipo='marquesado')";
+            }
+            if($tipo=="cantones"){
+                $sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND tipo='canton'";
+            }
+            if($tipo=="orden_militar"){
+                $sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND tipo='orden militar'";
+            }
+            if($tipo=="orden_magica"){
+                $sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND (tipo='torre magica' OR tipo='orden magica')";
+            }
             $query=$this->acceso->prepare($sql);
             $query->execute(array(':consulta'=>"%$consulta%"));
-            $this->objetos=$query->fetchAll();
-            return $this->objetos;
         }else{
             //se devuelven todas las entradas
             $sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' ORDER BY nombre LIMIT 25";
+            if($tipo=="paises"){
+                $sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND (tipo='reino' OR tipo='republica' OR tipo='confederacion' OR tipo='imperio' OR tipo='señorio' OR tipo='ducado' OR tipo='tribu' OR tipo='condado' OR tipo='marquesado') ORDER BY nombre LIMIT 25";
+            }
+            if($tipo=="cantones"){
+                $sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND tipo='canton'";
+            }
+            if($tipo=="orden_militar"){
+                $sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND tipo='Orden militar'";
+            }
+            if($tipo=="orden_magica"){
+                $sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND (tipo='torre magica' OR tipo='orden magica')";
+            }
             $query=$this->acceso->prepare($sql);
             $query->execute();
-            $this->objetos=$query->fetchAll();
-            return $this->objetos;
         }
+        $this->objetos=$query->fetchAll();
+        return $this->objetos;
     }
 
     function borrarLugar($id){

@@ -1,5 +1,40 @@
-<?php include_once 'layouts/header.php';?>
-  <title>Países</title>
+<?php include_once 'layouts/header.php';
+
+if(isset($_GET['tipo_institucion'])){
+  ?>
+<input id="tipo" type="hidden" value="<?php echo $_GET['tipo_institucion']?>">
+<?php
+}else{
+  ?>
+<input id="tipo" type="hidden" value="paises">
+  <?php
+}
+
+if(isset($_GET['tipo_institucion'])){
+  if ($_GET['tipo_institucion']=='paises') {?>
+    <title>Países</title>
+  <?php
+  }
+  if ($_GET['tipo_institucion']=='orden_militar') {?>
+    <title>Órdenes militares</title>
+    <?php
+  }
+  if ($_GET['tipo_institucion']=='orden_magica') {?>
+    <title>Órdenes mágicas</title>
+    <?php
+  }
+    if ($_GET['tipo_institucion']=='cantones') {?>
+      <title>Cantones</title>
+    <?php
+  }
+    if ($_GET['tipo_institucion']=='dinastias') {?>
+      <title>Dinastías</title>
+    <?php
+  }}else{?>
+    <title>Países e instituciones</title>
+  <?php
+  }
+?>
 
 <?php include_once 'layouts/nav.php';?>
 
@@ -45,7 +80,32 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1 class="fw-bolder text-center">Países e instituciones</h1>
+            <?php
+            if(isset($_GET['tipo_institucion'])){
+              if ($_GET['tipo_institucion']=='paises') {?>
+              <h1 class="fw-bolder text-center">Países e instituciones</h1>
+              <?php
+              }
+              if ($_GET['tipo_institucion']=='orden_militar') {?>
+                <h1 class="fw-bolder text-center">Órdenes militares</h1>
+                <?php
+              }
+              if ($_GET['tipo_institucion']=='orden_magica') {?>
+                <h1 class="fw-bolder text-center">Órdenes mágicas</h1>
+                <?php
+              }
+                if ($_GET['tipo_institucion']=='cantones') {?>
+                <h1 class="fw-bolder text-center">Cantones</h1>
+                <?php
+              }
+                if ($_GET['tipo_institucion']=='dinastias') {?>
+                <h1 class="fw-bolder text-center">Dinastías</h1>
+                <?php
+              }}else{?>
+                <h1 class="fw-bolder text-center">Países e instituciones</h1>
+              <?php
+              }
+            ?>
           </div>
         </div>
       </div><!-- /.container-fluid -->

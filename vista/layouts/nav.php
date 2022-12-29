@@ -55,32 +55,31 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="paises.php" class="nav-link">
+                <a href="paises.php?tipo_institucion=paises" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Países</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="paises.php?tipo_institucion=cantones" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Cantones</p>
                 </a>
               </li>
               <li class="nav-item">
-              <form class="" method="POST" action="nuevoEvento.php" ></form>
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Órdenes militares</p>
-                </a>
+                  <a href="paises.php?tipo_institucion=orden_militar" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Órdenes militares</p>
+                  </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="paises.php?tipo_institucion=orden_magica" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Órdenes mágicas</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="paises.php?tipo_institucion=dinastias" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Dinastías</p>
                 </a>

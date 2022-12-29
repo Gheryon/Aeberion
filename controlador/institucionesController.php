@@ -3,29 +3,6 @@ include_once '../modelo/institucion.php';
 $institucion=new Institucion();
 
 if($_POST['funcion']=='crear_nueva_institucion'){
-    /*$nombre_institucion=$_POST['nombre_institucion'];
-    $gentilicio=$_POST['gentilicio'];
-    $capital=$_POST['capital'];
-    $tipo=$_POST['tipo'];
-    $fundacion=$_POST['fundacion'];
-    $disolucion=$_POST['disolucion'];
-    $lema=$_POST['lema'];
-    $descripcion_breve=$_POST['descripcion_breve'];
-    $historia=$_POST['historia'];
-    $politica_interior_exterior=$_POST['politica_interior_exterior'];
-    $militar=$_POST['militar'];
-    $estructura_organizativa=$_POST['estructura_organizativa'];
-    $territorio=$_POST['territorio'];
-    $fronteras=$_POST['fronteras'];
-    $demografia=$_POST['demografia'];
-    $cultura=$_POST['cultura'];
-    $religion=$_POST['religion'];
-    $educacion=$_POST['educacion'];
-    $tecnologia=$_POST['tecnologia'];
-    $economia=$_POST['economia'];
-    $recursos_naturales=$_POST['recursos_naturales'];
-    $otros=$_POST['otros'];
-    $escudo="default.png";*/
     $nombre_institucion=$gentilicio=$descripcion_breve=$capital=$tipo=$fundacion=$disolucion=$lema=$historia=$politica_interior_exterior=$militar=$estructura_organizativa=$territorio=$fronteras=$demografia=$cultura=$educacion=$religion=$recursos_naturales=$economia=$tecnologia=$escudo=$otros=null;
 
     if(isset($_POST['nombre_institucion'])) {
@@ -83,7 +60,7 @@ if($_POST['funcion']=='crear_nueva_institucion'){
 
 if($_POST['funcion']=='buscar_instituciones'){
     $json=array();
-    $institucion->buscar();
+    $institucion->buscar($_POST['tipo_institucion']);
     foreach ($institucion->objetos as $objeto) {
         $json[]=array(
             'id'=>$objeto->id_organizacion,

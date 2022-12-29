@@ -20,71 +20,15 @@ $(document).ready(function(){
   }
   //si ni id_institucion ni id_institucion_editar están definidos, estamos en paises.php y se cargan todos
   if(id_institucion==undefined&&id_institucion_editar==undefined){
-    buscar_paises();
+    buscar_instituciones();
   }
 
-  $('#form-create-institucion2').submit(e=>{
-    let formData = new FormData($('#form-create-institucion')[0]);
-    console.log(formData);
-      let nombre= $('#nombre_institucion').val();
-      let gentilicio= $('#gentilicio').val();
-      let capital= $('#capital').val();
-      let tipo= $('#tipo').val();
-      let fundacion= $('#fundacion').val();
-      let disolucion= $('#disolucion').val();
-      let lema= $('#lema').val();
-      let descripcion= $('#descripcion_breve').val();
-      let historia= $('#historia').val();
-      let politica_interior_exterior= $('#politica_interior_exterior').val();
-      let militar= $('#militar').val();
-      let estructura_organizativa= $('#estructura_organizativa').val();
-      let territorio= $('#territorio').val();
-      let fronteras= $('#fronteras').val();
-      let demografia= $('#demografia').val();
-      let cultura= $('#cultura').val();
-      let religion= $('#religion').val();
-      let educacion= $('#educacion').val();
-      let tecnologia= $('#tecnologia').val();
-      let economia= $('#economia').val();
-      let recursos_naturales= $('#recursos_naturales').val();
-      let otros= $('#otros').val();
-      let escudo=$('#escudo').val();
-      if(editar==false){
-        funcion='crear_nueva_institucion';
-        console.log("editar false");
-      }else{
-        funcion='editar_institucion';
-        id=$('#id_editado').val();
-      }
-      $.post('../controlador/institucionesController.php',{nombre, escudo, gentilicio, capital, tipo, fundacion, disolucion, lema, descripcion, historia, politica_interior_exterior, militar, estructura_organizativa, territorio, fronteras, demografia, cultura, religion, educacion, tecnologia, economia, recursos_naturales, otros, funcion, id},(response)=>{
-        if(response=='no-add'){
-          $('#no-add').hide('slow');
-          $('#no-add').show(1000);
-          $('#form-create-institucion').trigger('reset');
-        }else{
-          if(response=='add'){
-            $('#add').hide('slow');
-            $('#add').show(1000);
-          }
-          if(response=='editado'){
-            $('#editado').hide('slow');
-            $('#editado').show(1000);
-          }
-          $('#form-create-institucion').trigger('reset');
-          $('#submit-crear-button').hide();
-          $('#cancelar-crear-button').hide();
-          $('#volver-crear-button').show();
-        }
-        editar=false;
-      });
-      //para prevenir la actualización por defecto de la página
-      e.preventDefault();
-    });
-
-  function buscar_paises(consulta) {
+  function buscar_instituciones(consulta) {
     funcion='buscar_instituciones';
-    $.post('../controlador/institucionesController.php', {consulta, funcion},(response)=>{
-      console.log(response);
+    tipo_institucion=$('#tipo').val();
+    console.log(tipo_institucion);
+    $.post('../controlador/institucionesController.php', {consulta, funcion, tipo_institucion},(response)=>{
+      //console.log(response);
       const paises= JSON.parse(response);
       let template='';
       paises.forEach(pais => {
@@ -265,7 +209,6 @@ $(document).ready(function(){
   function buscar_institucion_editar(dato) {
     funcion='ver_institucion';
     $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
-      console.log(response);
       editar=true;
       const institucion= JSON.parse(response);
       $('#institucion-create-title').html("Editar "+institucion.nombre);
@@ -276,7 +219,6 @@ $(document).ready(function(){
       $('#fundacion').val(institucion.fundacion);
       $('#disolucion').val(institucion.disolucion);
       $('#lema').val(institucion.lema);
-      //$('#escudo').val(institucion.escudo);
       $('#escudo-img').attr('src',institucion.escudo);
       $('#descripcion_breve').summernote('code', institucion.descripcion);
       $('#historia').summernote('code', institucion.historia);
@@ -303,10 +245,8 @@ $(document).ready(function(){
 
 $('#form-create-institucion').submit(e=>{
   let formData = new FormData($('#form-create-institucion')[0]);
-  //let formData = new FormData($('#form-create-institucion'));
   if(editar==false){
     formData.append('funcion', 'crear_nueva_institucion');
-    console.log("editar false");
   }else{
     formData.append('funcion', 'editar_institucion');
     id=$('#id_editado').val();
@@ -320,7 +260,6 @@ $('#form-create-institucion').submit(e=>{
       processData:false,
       contentType:false
   }).done(function(response){
-      console.log(response);
       //const json=JSON.parse(response);
       //console.log(json);
       if(response=='no-add'){
@@ -352,7 +291,6 @@ $(document).on('click', '.cambia-escudo',(e)=>{
   console.log("cambiar escudo click");
   $('#subir_escudo').val('Si');
 });
-
 
 $(document).on('click', '.borrar-institucion',(e)=>{
   funcion='borrar_institucion';
