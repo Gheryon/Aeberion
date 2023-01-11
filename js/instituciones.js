@@ -9,14 +9,14 @@ $(document).ready(function(){
     //console.log(id_institucion);
     ver_institucion(id_institucion);
   }else{
-    console.log("no id-institucion ver");
+    //console.log("no id-institucion ver");
   }
   //si id_institucion_editar está definido, se va a editar una entrada
   if(id_institucion_editar!=undefined){
-    console.log(id_institucion_editar);
+    //console.log(id_institucion_editar);
     buscar_institucion_editar(id_institucion_editar);
   }else{
-    console.log("no id-institucion editar");
+    //console.log("no id-institucion editar");
   }
   //si ni id_institucion ni id_institucion_editar están definidos, estamos en paises.php y se cargan todos
   if(id_institucion==undefined&&id_institucion_editar==undefined){
@@ -26,7 +26,6 @@ $(document).ready(function(){
   function buscar_instituciones(consulta) {
     funcion='buscar_instituciones';
     tipo_institucion=$('#tipo').val();
-    console.log(tipo_institucion);
     $.post('../controlador/institucionesController.php', {consulta, funcion, tipo_institucion},(response)=>{
       //console.log(response);
       const paises= JSON.parse(response);
@@ -59,7 +58,7 @@ $(document).ready(function(){
               <i class="fas fa-pencil-alt"></i></button>
               <input type="hidden" name="id_institucion" value="${pais.id}">
             </form>
-            <button class="borrar-institucion btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarinstitucion" title="Borrar">
+            <button class="borrar-institucion btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarInstitucion" title="Borrar">
                 <i class="fas fa-trash"></i>
             </button>
           </div>
@@ -287,35 +286,30 @@ $('#form-create-institucion').submit(e=>{
   e.preventDefault();
 });
 
-$(document).on('click', '.cambia-escudo',(e)=>{
-  console.log("cambiar escudo click");
-  $('#subir_escudo').val('Si');
-});
-
 $(document).on('click', '.borrar-institucion',(e)=>{
   funcion='borrar_institucion';
   //se quiere acceder al elemento institucionId de la card y guardarlo en elemento, para ello hay que subir 4 veces desde donde está el boton ascender
   const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
   const id=$(elemento).attr('institucionId');
   const nombre=$(elemento).attr('institucionNombre');
-  $('#id_institucion_borrar').val(id);
-  $('#nombre_institucion_borrar').val(nombre);
+  $('#id_borrar').val(id);
+  $('#nombre_borrar').html(nombre);
   $('#funcion').val(funcion);
 });
 
 $('#form-borrar-institucion').submit(e=>{
-  let id_institucion=$('#id_institucion_borrar').val();
+  let id_institucion=$('#id_borrar').val();
   funcion=$('#funcion').val();
   $.post('../controlador/institucionesController.php', {id_institucion, funcion}, (response)=>{
-    if(response=='borrado')
-    {
+    console.log(response);
+    if(response=='borrado'){
       $('#borrado').hide('slow');
       $('#borrado').show(1000);
       $('#borrado').hide(3000);
       $('#form-borrar-institucion').trigger('reset');
       $('#borrar-volver-button').show();
       $('#borrar-button').hide();
-      //$('#cancelar-editar-button').hide();
+      $('#cancelar-editar-button').hide();
       $('#texto-borrar').hide('slow');
       buscar_instituciones();
     }else{

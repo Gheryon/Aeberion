@@ -39,36 +39,35 @@ if(isset($_GET['tipo_institucion'])){
 <?php include_once 'layouts/nav.php';?>
 
 <!-- Modal -->
-<div class="modal fade" id="eliminarLugar" tabindex="-1" role="dialog" aria-labelledby="Eliminar lugar" aria-hidden="true">
+<div class="modal fade" id="eliminarInstitucion" tabindex="-1" role="dialog" aria-labelledby="Eliminar" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-            <div class="card card-danger">
-                <div class="card-header">
-                    <h5 class="card-title" id="eliminarLugarLabel">Eliminar lugar</h5>
-                    <button data-dismiss="modal" aria-label="close" class="close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="card-body">
-                    <div class="alert alert-success text-center" id='borrado' style='display:none'>
-                        <span><i class="fas fa-check m-1"></i>Lugar eliminado</span>
-                    </div>
-                    <div class="alert alert-danger text-center" id='no-borrado' style='display:none'>
-                        <span><i class="fas fa-times m-1"></i>No se pudo eliminar</span>
-                    </div>
-                    <p id="texto-borrar">Confirmar eliminar lugar.</p>
-                </div>
-                <div class="card-footer">
-                    <form id="form-borrar-lugar" class="col-md-auto" >
-                        <!--<input type="hidden" name="nombre_lugar_borrar" id="nombre_lugar_borrar">-->
-                        <input type="hidden" name="id_lugar_borrar" id="id_lugar_borrar">
-                        <input type="hidden" name="funcion" id="funcion">
-                        <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
-                        <button type="submit" id="borrar-button" class="btn btn-danger">Eliminar</button>
-                        <a class="btn btn-primary" type="button" id="borrar-volver-button" href="../index.php" style="display:none">Volver</a>
-                    </form>
-                </div>
-            </div>
+      <div class="card card-danger">
+        <div class="card-header">
+          <h5 class="card-title" id="eliminarInstitucionLabel">Eliminar</h5>
+          <button data-dismiss="modal" aria-label="close" class="close">
+              <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-success text-center" id='borrado' style='display:none'>
+            <span><i class="fas fa-check m-1"></i>Eliminación exitosa.</span>
+          </div>
+          <div class="alert alert-danger text-center" id='no-borrado' style='display:none'>
+            <span><i class="fas fa-times m-1"></i>No se pudo eliminar</span>
+          </div>
+          <p id="texto-borrar">Confirmar eliminar <span id="nombre_borrar"></span>.</p>
+        </div>
+        <div class="card-footer">
+          <form id="form-borrar-institucion" class="col-md-auto" >
+            <input type="hidden" name="id_borrar" id="id_borrar">
+            <input type="hidden" name="funcion" id="funcion">
+            <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" id="borrar-button" class="btn btn-danger">Eliminar</button>
+            <a class="btn btn-primary" type="button" id="borrar-volver-button" href="../vista/paises.php" style="display:none">Volver</a>
+          </form>
+        </div>
+      </div>
 		</div>
 	</div>
 </div>

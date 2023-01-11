@@ -105,7 +105,7 @@ if(isset($_POST['id_institucion'])){?>
                 </div>
                 <div class="col-md-3 mt-2 mb-2">
                     <label for="escudo-img" class="form-label">Escudo</label>
-                    <img alt="escudo" id="escudo-img" class="img-fluid" width="185" height="180">
+                    <img alt="escudo" id="escudo-img" src="../imagenes/Escudos/default.png" class="img-fluid" width="185" height="180">
                     <input type="file" name="escudo" class="form-control cambia-escudo" id="escudo" placeholder="escudo">
                     <input id="subir_escudo" type="hidden" name="subir_escudo" value="No">
                 </div>

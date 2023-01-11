@@ -66,7 +66,19 @@ class Institucion{
         return $this->objetos;
     }
 
-    function borrarLugar($id){
+    function borrarInstitucion($id){
+        $sql="SELECT escudo FROM organizaciones WHERE id_organizacion=:id";
+        $query=$this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        $this->objetos=$query->fetchAll();
+        if(!empty($this->objetos)){
+            foreach ($this->objetos as $obj) {
+                $escudo=$obj->escudo;
+            }
+            if($escudo!='default.png'){
+                unlink('../imagenes/Escudos/'.$escudo);
+            }
+        }
         $sql="DELETE FROM organizaciones WHERE id_organizacion=:id";
         $query=$this->acceso->prepare($sql);
         $query->execute(array(':id'=>$id));
@@ -91,8 +103,7 @@ class Institucion{
         $query->execute(array(':nombre'=>$nombre_institucion, ':gentilicio'=>$gentilicio, ':capital'=>$capital, ':descripcionBreve'=>$descripcion_breve, ':tipo'=>$tipo, ':lema'=>$lema, ':demografia'=>$demografia, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':historia'=>$historia, ':estructura'=>$estructura_organizativa, ':politicaExteriorInterior'=>$politica_interior_exterior, ':frontera'=>$fronteras, ':militar'=>$militar, ':religion'=>$religion, ':cultura'=>$cultura, ':educacion'=>$educacion, ':tecnologia'=>$tecnologia, ':territorio'=>$territorio, ':economia'=>$economia, ':recursosNaturales'=>$recursos_naturales, ':otros'=>$otros, ':id'=>$id_institucion));
     }
 
-    function cambiar_escudo($id_institucion, $nombre)
-    {
+    function cambiar_escudo($id_institucion, $nombre){
         //primero se consulta si la contraseña actual es correcta
         $sql="SELECT escudo FROM organizaciones WHERE id_organizacion=:id";
         $query=$this->acceso->prepare($sql);

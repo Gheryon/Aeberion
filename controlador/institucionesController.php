@@ -49,13 +49,15 @@ if($_POST['funcion']=='crear_nueva_institucion'){
         $recursos_naturales=$_POST['recursos_naturales'];}
     if(isset($_POST['otros'])) {
         $otros=$_POST['otros'];}
-    if(isset($_POST['escudo'])){
-        $escudo=$_POST['escudo'];
+    if($_FILES['escudo']['size']){
+        $nombre_escudo=uniqid().'-'.$_FILES['escudo']['name'];
+        $ruta_escudo='../imagenes/Escudos/'.$nombre_escudo;
+        move_uploaded_file($_FILES['escudo']['tmp_name'],$ruta_escudo);
     }else{
-        $escudo="default.png";
+        $nombre_escudo="default.png";
     }
     
-    $institucion->createInstitucion($nombre_institucion, $escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros);
+    $institucion->createInstitucion($nombre_institucion, $nombre_escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros);
 }
 
 if($_POST['funcion']=='buscar_instituciones'){
@@ -113,8 +115,8 @@ if($_POST['funcion']=='ver_institucion'){
 }
 
 if($_POST['funcion']=='borrar_institucion'){
-  $id_borrado=$_POST['id_lugar'];
-  $lugar->borrarLugar($id_borrado);
+  $id_borrado=$_POST['id_institucion'];
+  $institucion->borrarInstitucion($id_borrado);
 }
 
 if($_POST['funcion']=='editar_institucion'){
@@ -165,39 +167,21 @@ if($_POST['funcion']=='editar_institucion'){
     if(isset($_POST['otros'])) {
         $otros=$_POST['otros'];}
     $id=$_POST['id_editado'];
-    
-    $institucion->editarInstitucion($nombre_institucion, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id);
-    echo 'editado';
-}
 
-if(isset($_POST['subir_escudo'])&&$_POST['subir_escudo']=='Si'){
-    if(($_FILES['escudo']['type']=='image/jpg')||($_FILES['escudo']['type']=='image/jpeg')||($_FILES['escudo']['type']=='image/png')||($_FILES['escudo']['type']=='image/gif'))
-    {
-        $nombre=uniqid().'-'.$_FILES['escudo']['name'];
-        $ruta='../imagenes/Escudos/'.$nombre;
-        move_uploaded_file($_FILES['escudo']['tmp_name'],$ruta);
-        $institucion->cambiar_escudo($_POST['id_editado'], $nombre);
+    if($_FILES['escudo']['size']){
+        $nombre_escudo=uniqid().'-'.$_FILES['escudo']['name'];
+        $ruta_escudo='../imagenes/Escudos/'.$nombre_escudo;
+        move_uploaded_file($_FILES['escudo']['tmp_name'],$ruta_escudo);
+        $institucion->cambiar_escudo($_POST['id_editado'], $nombre_escudo);
         foreach ($institucion->objetos as $objeto) {
             if($objeto->escudo!='default.png'){
                 unlink('../imagenes/Escudos/'.$objeto->escudo);
             }
         }
-        $json=array();
-        $json[]=array(
-            'ruta'=>$ruta,
-            'alert'=>'edit'
-        );
-        $jsonstring=json_encode($json[0]);
-        echo $jsonstring;
-    }else{
-        $json=array();
-        $json[]=array(
-            'alert'=>'noedit'
-        );
-        $jsonstring=json_encode($json[0]);
-        echo $jsonstring;
     }
     
+    $institucion->editarInstitucion($nombre_institucion, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id);
+    echo 'editado';
 }
 
 ?>
