@@ -133,7 +133,7 @@ if(isset($_POST['id_institucion'])){?>
                 <div class="row mt-2 mb-2">
                     <div class="col">
                         <label for="militar" class="form-label">Militar</label>
-                        <textarea class="form-control summernote" name="militar" id="militar" rows="1" aria-label="With textarea"></textarea>
+                        <textarea class="form-control summernote-lite" name="militar" id="militar" rows="1" aria-label="With textarea"></textarea>
                     </div>
                 </div>
                 <div class="row mt-2 mb-2">

@@ -1,24 +1,50 @@
 <?php
 include_once '../modelo/personaje.php';
 $personaje=new Personaje();
-if($_POST['funcion']=='crear_nuevo_personaje'){
-    $nombre=$_POST['nombre'];
-    $apellidos=$_POST['apellidos'];
-    $descripcion=$_POST['descripcion'];
-    $descripcionshort=$_POST['descripcionShort'];
-    $personalidad=$_POST['personalidad'];
-    $deseos=$_POST['deseos'];
-    $miedos=$_POST['miedos'];
-    $magia=$_POST['magia'];
-    $historia=$_POST['historia'];
-    $religion=$_POST['religion'];
-    $familia=$_POST['familia'];
-    $politica=$_POST['politica'];
-    //$retrato=$_POST['retrato'];
-    $especie=$_POST['especie'];
-    $sexo=$_POST['sexo'];
 
-    $retrato='default.png';
+if($_POST['funcion']=='crear_nuevo_personaje'){
+    $nombre=$nombre_familia=$gentilicio=$apellidos=$descripcion=$descripcionshort=$personalidad=$deseos=$miedos=$magia=$historia=$religion=$familia=$politica=$especie=$sexo=null;
+    if(isset($_POST['nombre'])) {
+        $nombre=$_POST['nombre'];}
+    if(isset($_POST['nombre_familia'])) {
+        $nombre_familia=$_POST['nombre_familia'];}
+    if(isset($_POST['lugar_nacimiento'])) {
+        $gentilicio=$_POST['lugar_nacimiento'];}
+    if(isset($_POST['apellidos'])) {
+        $apellidos=$_POST['apellidos'];}
+    if(isset($_POST['descripcion'])) {
+        $descripcion=$_POST['descripcion'];}
+    if(isset($_POST['descripcionShort'])) {
+        $descripcionshort=$_POST['descripcionShort'];}
+    if(isset($_POST['personalidad'])) {
+        $personalidad=$_POST['personalidad'];}
+    if(isset($_POST['deseos'])) {
+        $deseos=$_POST['deseos'];}
+    if(isset($_POST['miedos'])) {
+        $miedos=$_POST['miedos'];}
+    if(isset($_POST['magia'])) {
+        $magia=$_POST['magia'];}
+    if(isset($_POST['historia'])) {
+        $historia=$_POST['historia'];}
+    if(isset($_POST['religion'])) {
+        $religion=$_POST['religion'];}
+    if(isset($_POST['familia'])) {
+        $familia=$_POST['familia'];}
+    if(isset($_POST['politica'])) {
+        $politica=$_POST['politica'];}
+    if(isset($_POST['especie'])) {
+        $especie=$_POST['especie'];}
+    if(isset($_POST['sexo'])) {
+        $sexo=$_POST['sexo'];}
+
+    if($_FILES['retrato']['size']){
+        $retrato=uniqid().'-'.$_FILES['retrato']['name'];
+        $ruta_retrato='../imagenes/Retratos/'.$retrato;
+        move_uploaded_file($_FILES['retrato']['tmp_name'],$ruta_retrato);
+    }else{
+        $retrato="default.png";
+    }
+
     $personaje->nuevoPersonaje($nombre, $apellidos, $descripcion, $descripcionshort, $personalidad, $deseos, $miedos, $magia, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo);
 }
 

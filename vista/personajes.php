@@ -2,7 +2,7 @@
     <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="css/style.css"/>-->
-    <title>Lista de personajes</title>
+    <title>Personajes</title>
 
     <?php include_once 'layouts/nav.php';?>
 
@@ -47,7 +47,7 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 			<div class="col-sm-12">
-				<h1 class="fw-bolder text-center"> Lista de personajes </h1>
+				<h1 class="fw-bolder text-center"> Personajes </h1>
 			</div>
 			</div>
 		</div><!-- /.container-fluid -->
@@ -55,6 +55,12 @@
     
         <!-- Main content -->
     <section class="content">
+        <div class="row justify-content-md-center mb-2 mt-2">
+            <div class="col-md-auto">
+                <a href="../index.php" class="btn btn-success mr-1">Inicio</a>
+                <a href="createPersonaje.php" class="btn btn-success ml-1">Nuevo</a>
+            </div>
+        </div>
         <div class="container-fluid">
             <div class="card card-success">
                 <div class="card-header">
@@ -81,12 +87,6 @@
             </div>
             
         </div> <!-- /container -->
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-                <a href="../index.php" class="btn btn-success">Inicio</a>
-                <a href="createPersonaje.php" class="btn btn-success">Nuevo</a>
-            </div>
-        </div>
     </section>
     <!-- /.content -->
     </div>

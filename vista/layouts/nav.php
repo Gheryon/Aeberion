@@ -163,10 +163,28 @@
             </ul>
           </li>
           <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fa-solid fa-landmark"></i>
+              <p>
+                Asentamientos
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="lugares.php" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
               <p>
                 Lugares
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="lugares.php" class="nav-link">
+              <!--<i class="nav-icon fa-solid fa-swords"></i>--
+              <i class="nav-icon fa-sharp fa-solid fa-swords"></i>-->
+              <i class="nav-icon fa-solid fa-shield-halved"></i>
+              <p>
+                Guerras y batallas
               </p>
             </a>
           </li>

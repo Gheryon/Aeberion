@@ -3,6 +3,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <!--<link rel="stylesheet" href="../css/style.css"/>-->
     <title>Nuevo personaje</title>
+  <!-- summernote -->
+  <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 
 <?php include_once 'layouts/nav.php';?>
 
@@ -31,94 +33,109 @@
             <form id="form-create-personaje" class="row g-3 mt-3 position-relative needs-validation" action="createPersonaje.php" method="post" enctype="multipart/form-data">
             <div class="row justify-content-md-center">
                 <div class="col-md-auto form-actions">
-                    <button type="submit" id="submit-add-button" class="btn btn-primary">Añadir</button>
-                    <a class="btn btn-danger" id="cancelar-add-button" href="personajes.php">Cancelar</a>
-                    <a class="btn btn-success" type="button" id="volver-add-button" href="../index.php" style="display:none">Volver</a>
+                    <button type="submit" id="submit-crear-button" class="btn btn-success">Guardar</button>
+                    <a class="btn btn-danger" id="cancelar-crear-button" href="paises.php">Cancelar</a>
+                    <a class="btn btn-primary" type="button" id="volver-crear-button" href="personajes.php" style="display:none">Volver</a>
                 </div>
             </div>
             <div class="row mt-3 mb-3 justify-content-md-center border fondoNombre">
-                <div class="col-md-3">
-                    <label for="Nombre" class="form-label">Nombre</label>
-                    <input type="text" name="Nombre" class="form-control" id="Nombre" placeholder="Nombre" required>
-                    <div class="invalid-feedback">
-                        Nombre necesario.
+                <div class="col">
+                    <div class="row mt-2">
+                        <div class="col-md">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" required>
+                            <div class="invalid-feedback">
+                                Nombre necesario.
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <label for="nombre_familia" class="form-label">Nombre de familia</label>
+                            <input type="text" name="nombre_familia" class="form-control" id="nombre_familia" placeholder="Nombre de la familia o clan">
+                        </div>
+                        <div class="col-md">
+                            <label for="lugar_nacimiento" class="form-label">Lugar de nacimiento</label>
+                            <input type="text" name="lugar_nacimiento" class="form-control" id="lugar_nacimiento" placeholder="Lugar de nacimiento">
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            <input type="text" name="apellidos" class="form-control" id="apellidos" placeholder="Apellidos">
+                        </div>
+                        <div class="col-md-3">
+                            <label for="sexo" class="form-label">Sexo</label>
+                            <select class="form-select" name="sexo" id="inputSexo" required>
+                                <option selected disabled value="">Elegir</option>
+                                <option>Hombre</option>
+                                <option>Mujer</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="Especie" class="form-label">Especie</label>
+                            <select class="form-select" name="especie" id="inputEspecie" required>
+                                <option selected disabled value="">Elegir</option>
+                                <option>Humanos</option>
+                                <option>Elfos</option>
+                                <option>Enanos</option>
+                                <option>Semielfos</option>
+                                <option>Gnomos</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <label for="Apellidos" class="form-label">Apellidos</label>
-                    <input type="text" name="Apellidos" class="form-control" id="Apellidos" placeholder="Apellidos">
-                </div>
-                <div class="col-md-2">
-                    <label for="sexo" class="form-label">Sexo</label>
-                    <select class="form-select" name="Sexo" id="inputSexo" required>
-                        <option selected disabled value="">Elegir</option>
-                        <option>Hombre</option>
-                        <option>Mujer</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
-                    <label for="Especie" class="form-label">Especie</label>
-                    <select class="form-select" name="Especie" id="inputEspecie" required>
-                        <option selected disabled value="">Elegir</option>
-                        <option>Humanos</option>
-                        <option>Elfos</option>
-                        <option>Enanos</option>
-                        <option>Semielfos</option>
-                        <option>Gnomos</option>
-                    </select>
-                </div>
-                <div class="col-md-2">
+                <div class="col-md-3 mt-2 mb-2">
                     <label for="Retrato" class="form-label">Retrato</label>
-                    <input type="file" name="Retrato" class="form-control" id="Retrato" placeholder="retrato" disabled>
+                    <img alt="Retrato" id="retrato-img" src="../imagenes/Retratos/default.png" class="img-fluid" width="185" height="180">
+                    <input type="file" name="retrato" class="form-control" id="retrato" placeholder="retrato">
                 </div>
-            <div class="row mt-2 mb-3">
+                <div class="row mt-2 mb-3">
                     <label for="DescripcionShort" class="form-label">Descripción breve</label>
-                    <textarea name="DescripcionShort" class="form-control" id="DescripcionShort" rows="2" aria-label="With textarea"></textarea>
+                    <textarea name="DescripcionShort" class="form-control summernote-lite" id="DescripcionShort" rows="2" aria-label="With textarea"></textarea>
                 </div>
             </div>
             <!----------------------------------------------->
             <div class="row mt-2 justify-content-md-center border fondoMente">
                 <div class="row mt-2">
-                    <label for="Descripcion" class="form-label">Descripción física</label>
-                    <textarea name="Descripcion" class="form-control" id="Descripcion" rows="4" aria-label="With textarea"></textarea>
+                    <label for="descripcion" class="form-label">Descripción física</label>
+                    <textarea name="descripcion" class="form-control summernote-lite" id="descripcion" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2">
-                    <label for="Personalidad" class="form-label">Personalidad</label>
-                    <textarea name="Personalidad" class="form-control" id="Personalidad" rows="4" aria-label="With textarea"></textarea>
+                    <label for="personalidad" class="form-label">Personalidad</label>
+                    <textarea name="personalidad" class="form-control summernote-lite" id="personalidad" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2">
-                    <label for="Deseos" class="form-label">Principales deseos</label>
-                    <textarea name="Deseos" class="form-control" id="Deseos" rows="4" aria-label="With textarea"></textarea>
+                    <label for="deseos" class="form-label">Principales deseos</label>
+                    <textarea name="deseos" class="form-control summernote-lite" id="deseos" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2">
-                    <label for="Miedos" class="form-label">Principales miedos</label>
-                    <textarea name="Miedos" class="form-control" id="Miedos" rows="4" aria-label="With textarea"></textarea>
+                    <label for="miedos" class="form-label">Principales miedos</label>
+                    <textarea name="miedos" class="form-control summernote-lite" id="miedos" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2 mb-3">
-                    <label for="Magia" class="form-label">Habilidades Mágicas</label>
-                    <textarea name="Magia" class="form-control" id="Magia" rows="4" aria-label="With textarea"></textarea>
+                    <label for="magia" class="form-label">Habilidades Mágicas</label>
+                    <textarea name="magia" class="form-control summernote-lite" id="magia" rows="4" aria-label="With textarea"></textarea>
                 </div>
             </div>
             <!----------------------------------------------->
             <div class="row mt-2 justify-content-md-center border fondoPolitica">
                 <div class="row mt-2">
-                    <label for="Religion" class="form-label">Religión</label>
-                    <textarea name="Religion" class="form-control" id="Religion" rows="4" aria-label="With textarea"></textarea>
+                    <label for="religion" class="form-label">Religión</label>
+                    <textarea name="religion" class="form-control summernote-lite" id="religion" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2">
-                    <label for="Familia" class="form-label">Familia</label>
-                    <textarea name="Familia" class="form-control" id="Familia" rows="4" aria-label="With textarea"></textarea>
+                    <label for="familia" class="form-label">Familia</label>
+                    <textarea name="familia" class="form-control summernote-lite" id="familia" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2">
-                    <label for="Politica" class="form-label">Política</label>
-                    <textarea name="Politica" class="form-control" id="Politica" rows="4" aria-label="With textarea"></textarea>
+                    <label for="politica" class="form-label">Política</label>
+                    <textarea name="politica" class="form-control summernote-lite" id="politica" rows="4" aria-label="With textarea"></textarea>
                 </div>
             </div>
             <!----------------------------------------------->
             <div class="row mt-3 mb-3 justify-content-md-center border fondoHistoria">
                 <div class="row mt-2">
-                    <label for="Historia" class="form-label">Historia</label>
-                    <textarea name="Historia" class="form-control" id="Historia" rows="8" aria-label="With textarea"></textarea>
+                    <label for="historia" class="form-label">Historia</label>
+                    <textarea name="historia" class="form-control summernote" id="historia" rows="8" aria-label="With textarea"></textarea>
                 </div>
             </div>
             </form>
@@ -131,3 +148,16 @@
 <?php include_once 'layouts/footer.php';?>
 
 <script src="../js/personaje.js"></script>
+<!-- Summernote -->
+<script src="../js/summernote-bs4.min.js"></script>
+<script>
+  $(function () {
+    // Summernote
+    $('.summernote').summernote({
+      height: 250
+    })
+    $('.summernote-lite').summernote({
+      height: 100
+    })
+  })
+</script>

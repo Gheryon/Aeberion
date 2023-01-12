@@ -26,8 +26,7 @@ class Personaje{
         }
     }
 
-    function buscar()
-    {
+    function buscar(){
         //se ha introducido algún caracter a buscar, se devuelven los usuarios que encagen con la consulta
         if(!empty($_POST['consulta'])){
             $consulta=$_POST['consulta'];
@@ -47,6 +46,19 @@ class Personaje{
     }
 
     function borrarPersonaje($id){
+        $sql="SELECT retrato FROM personaje WHERE id=:id";
+        $query=$this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        $this->objetos=$query->fetchAll();
+        if(!empty($this->objetos)){
+            foreach ($this->objetos as $obj) {
+                $retrato=$obj->retrato;
+            }
+            if($retrato!='default.png'){
+                unlink('../imagenes/Retratos/'.$retrato);
+            }
+        }
+
         $sql="DELETE FROM personaje WHERE id=:id";
         $query=$this->acceso->prepare($sql);
         $query->execute(array(':id'=>$id));
@@ -79,16 +91,14 @@ class Personaje{
         return $personaje;
     }
     
-    function editar($id_personaje, $nombre, $apellidos, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $especie, $sexo)
-    {
+    function editar($id_personaje, $nombre, $apellidos, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $especie, $sexo){
         $sql="UPDATE personaje SET Nombre=:nombre, Apellidos=:apellidos, Descripcion=:descripcion, DescripcionShort=:descripcionshort, Personalidad=:personalidad, Deseos=:deseos, Miedos=:miedos, Magia=:magia, Historia=:historia, Religion=:religion, Familia=:familia, Politica=:politica, Especie=:especie, Sexo=:sexo WHERE id=:id_personaje";
         $query=$this->acceso->prepare($sql);
         $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':descripcion'=>$descripcion, ':descripcionshort'=>$descripcionShort, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':especie'=>$especie, ':sexo'=>$sexo, ':id_personaje'=>$id_personaje));
         
     }
 
-    function cambiar_retrato($id_personaje, $nombre)
-    {
+    function cambiar_retrato($id_personaje, $nombre){
         //primero se consulta si la contraseña actual es correcta
         $sql="SELECT retrato FROM personaje WHERE id=:id";
         $query=$this->acceso->prepare($sql);
