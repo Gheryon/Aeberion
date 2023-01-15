@@ -32,7 +32,7 @@
                     <form id="form-borrar-especie" class="col-md-auto" >
                         <input type="hidden" name="nombre_especie_borrar" id="nombre_especie_borrar">
                         <input type="hidden" name="id_especie_borrar" id="id_especie_borrar">
-                        <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+                        <button type="button" id="cancelar-borrar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
                         <button type="submit" id="borrar-button" class="btn btn-danger borrar-especie">Eliminar</button>
                     </form>
                     <a class="btn btn-primary" type="button" id="borrar-volver-button" href="../index.php" style="display:none">Volver</a>
@@ -67,9 +67,10 @@
             <form id="form-editar-especie" class="row g-3 mt-3 position-relative needs-validation">
             <div class="row justify-content-md-center">
                 <div class="col-md-auto form-actions">
-                    <button type="submit" class="btn btn-success">Editar</button>
-                    <a class="btn btn-primary" href="../index.php">Cancelar</a>
-                    <button type="button" class="btn btn-danger" data-id="a" data-toggle="modal" data-target="#eliminarEspecie">Borrar</button>
+                    <a class="btn btn-primary" type="button" id="volver-editar-button" href="../index.php" style="display:none">Volver</a>
+                    <button type="submit" id="submit-editar-button" class="btn btn-success">Guardar</button>
+                    <a class="btn btn-primary" id="cancelar-editar-button" href="../index.php">Cancelar</a>
+                    <button type="button" id="borrar-editar-button" class="btn btn-danger" data-id="a" data-toggle="modal" data-target="#eliminarEspecie">Borrar</button>
                 </div>
             </div>
             <div class="row mt-3 justify-content-md-center border">
@@ -185,3 +186,16 @@
 <?php include_once 'layouts/footer.php';?>
 
 <script src="../js/especie.js"></script>
+<!-- Summernote -->
+<script src="../js/summernote-bs4.min.js"></script>
+<script>
+  $(function () {
+    // Summernote
+    $('.summernote').summernote({
+      height: 250
+    })
+    $('.summernote-lite').summernote({
+      height: 100
+    })
+  })
+</script>

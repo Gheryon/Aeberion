@@ -24,6 +24,8 @@ if($_POST['funcion']=='crear_nuevo_personaje'){
         $miedos=$_POST['miedos'];}
     if(isset($_POST['magia'])) {
         $magia=$_POST['magia'];}
+    if(isset($_POST['educacion'])) {
+        $sexo=$_POST['educacion'];}
     if(isset($_POST['historia'])) {
         $historia=$_POST['historia'];}
     if(isset($_POST['religion'])) {
@@ -36,6 +38,8 @@ if($_POST['funcion']=='crear_nuevo_personaje'){
         $especie=$_POST['especie'];}
     if(isset($_POST['sexo'])) {
         $sexo=$_POST['sexo'];}
+    if(isset($_POST['otros'])) {
+        $sexo=$_POST['otros'];}
 
     if($_FILES['retrato']['size']){
         $retrato=uniqid().'-'.$_FILES['retrato']['name'];
@@ -45,7 +49,7 @@ if($_POST['funcion']=='crear_nuevo_personaje'){
         $retrato="default.png";
     }
 
-    $personaje->nuevoPersonaje($nombre, $apellidos, $descripcion, $descripcionshort, $personalidad, $deseos, $miedos, $magia, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo);
+    $personaje->nuevoPersonaje($nombre, $apellidos, $nombre_familia, $descripcion, $descripcionshort, $personalidad, $deseos, $miedos, $magia, $educacion, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo, $otros);
 }
 
 if($_POST['funcion']=='buscar_personajes'){

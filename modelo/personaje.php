@@ -9,7 +9,7 @@ class Personaje{
         $this->acceso = $db->pdo;
     }
 
-    function nuevoPersonaje($nombre, $apellidos, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo){
+    function nuevoPersonaje($nombre, $apellidos, $nombrefamilia, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $educacion, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo, $otros){
         //se busca si ya existe el personaje
         $sql="SELECT id FROM personaje WHERE Nombre=:nombre";
         $query=$this->acceso->prepare($sql);
@@ -19,9 +19,9 @@ class Personaje{
         if(!empty($this->objetos)){
             echo "noadd";
         }else{
-            $sql="INSERT INTO personaje(Nombre, Apellidos, Descripcion, DescripcionShort, Personalidad, Deseos, Miedos, Magia, Historia, Religion, Familia, Politica, Retrato, Especie, Sexo) VALUES (:nombre, :apellidos, :descripcion, :descripcionshort, :personalidad, :deseos, :miedos, :magia, :historia, :religion, :familia, :politica, :retrato, :especie, :sexo);";
+            $sql="INSERT INTO personaje(Nombre, Apellidos, nombreFamilia, Descripcion, DescripcionShort, Personalidad, Deseos, Miedos, Magia, educacion, Historia, Religion, Familia, Politica, Retrato, Especie, Sexo, otros) VALUES (:nombre, :apellidos, :nombrefamilia, :descripcion, :descripcionshort, :personalidad, :deseos, :miedos, :magia, :educacion, :historia, :religion, :familia, :politica, :retrato, :especie, :sexo, :otros);";
             $query=$this->acceso->prepare($sql);
-            $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':descripcion'=>$descripcion, ':descripcionshort'=>$descripcionShort, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':retrato'=>$retrato, ':especie'=>$especie, ':sexo'=>$sexo));
+            $query->execute(array(':nombre'=>$nombre, ':apellidos'=>$apellidos, ':nombrefamilia'=>$$nombrefamilia, ':descripcion'=>$descripcion, ':descripcionshort'=>$descripcionShort, ':personalidad'=>$personalidad, ':deseos'=>$deseos, ':miedos'=>$miedo, ':magia'=>$magia, ':educacion'=>$educacion, ':historia'=>$historia, ':religion'=>$religion, ':familia'=>$familia, ':politica'=>$politica, ':retrato'=>$retrato, ':especie'=>$especie, ':sexo'=>$sexo, ':otros'=>$otros));
             echo "add";
         }
     }

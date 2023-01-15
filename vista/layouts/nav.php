@@ -179,7 +179,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="lugares.php" class="nav-link">
+            <a href="conflictos.php" class="nav-link">
               <!--<i class="nav-icon fa-solid fa-swords"></i>--
               <i class="nav-icon fa-sharp fa-solid fa-swords"></i>-->
               <i class="nav-icon fa-solid fa-shield-halved"></i>

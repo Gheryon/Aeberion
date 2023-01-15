@@ -45,24 +45,24 @@
     	<!-- Content Header (Page header) -->
 		<section class="content-header">
 		<div class="container-fluid">
-			<div class="row mb-2">
-			<div class="col-sm-12">
-				<h1 class="fw-bolder text-center"> Personajes </h1>
-			</div>
+			<div class="row">
+                <div class="col-sm-12">
+                    <h1 class="fw-bolder text-center"> Personajes </h1>
+                </div>
 			</div>
 		</div><!-- /.container-fluid -->
 		</section>
     
         <!-- Main content -->
     <section class="content">
-        <div class="row justify-content-md-center mb-2 mt-2">
+        <div class="row justify-content-md-center mb-2">
             <div class="col-md-auto">
-                <a href="../index.php" class="btn btn-success mr-1">Inicio</a>
-                <a href="createPersonaje.php" class="btn btn-success ml-1">Nuevo</a>
+                <a href="../index.php" class="btn btn-dark">Inicio</a>
+                <a href="createPersonaje.php" class="btn btn-dark">Nuevo</a>
             </div>
         </div>
         <div class="container-fluid">
-            <div class="card card-success">
+            <div class="card card-dark">
                 <div class="card-header">
                     <h3 class="card-title">Búsqueda de personajes</h3>
                     <div class="input-group">

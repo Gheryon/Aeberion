@@ -119,15 +119,19 @@
             <!----------------------------------------------->
             <div class="row mt-2 justify-content-md-center border fondoPolitica">
                 <div class="row mt-2">
+                    <label for="educacion" class="form-label">Educación y cultura</label>
+                    <textarea name="educacion" class="form-control summernote-lite" id="educacion" rows="4" aria-label="With textarea"></textarea>
+                </div>
+                <div class="row mt-2">
                     <label for="religion" class="form-label">Religión</label>
                     <textarea name="religion" class="form-control summernote-lite" id="religion" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2">
-                    <label for="familia" class="form-label">Familia</label>
+                    <label for="familia" class="form-label">Familia y riqueza</label>
                     <textarea name="familia" class="form-control summernote-lite" id="familia" rows="4" aria-label="With textarea"></textarea>
                 </div>
                 <div class="row mt-2">
-                    <label for="politica" class="form-label">Política</label>
+                    <label for="politica" class="form-label">Política y títulos</label>
                     <textarea name="politica" class="form-control summernote-lite" id="politica" rows="4" aria-label="With textarea"></textarea>
                 </div>
             </div>
@@ -136,6 +140,10 @@
                 <div class="row mt-2">
                     <label for="historia" class="form-label">Historia</label>
                     <textarea name="historia" class="form-control summernote" id="historia" rows="8" aria-label="With textarea"></textarea>
+                </div>
+                <div class="row mt-2">
+                    <label for="otros" class="form-label">Otros</label>
+                    <textarea name="otros" class="form-control summernote-lite" id="otros" rows="4" aria-label="With textarea"></textarea>
                 </div>
             </div>
             </form>
