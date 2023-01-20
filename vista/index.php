@@ -85,6 +85,18 @@
             <!-- small box -->
             <div class="small-box bg-dark">
               <div class="inner">
+                <h3>Conflictos</h3>
+              </div>
+              <div class="icon">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <a href="conflictos.php" class="small-box-footer">Ver <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <div class="small-box bg-dark">
+              <div class="inner">
                 <h3>Crónicas</h3>
               </div>
               <div class="icon">

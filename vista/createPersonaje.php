@@ -53,40 +53,35 @@
                             <input type="text" name="nombre_familia" class="form-control" id="nombre_familia" placeholder="Nombre de la familia o clan">
                         </div>
                         <div class="col-md">
-                            <label for="lugar_nacimiento" class="form-label">Lugar de nacimiento</label>
-                            <input type="text" name="lugar_nacimiento" class="form-control" id="lugar_nacimiento" placeholder="Lugar de nacimiento">
+                            <label for="apellidos" class="form-label">Apellidos</label>
+                            <input type="text" name="apellidos" class="form-control" id="apellidos" placeholder="Apellidos">
                         </div>
                     </div>
                     <div class="row mt-2">
                         <div class="col-md">
-                            <label for="apellidos" class="form-label">Apellidos</label>
-                            <input type="text" name="apellidos" class="form-control" id="apellidos" placeholder="Apellidos">
+                            <label for="lugar_nacimiento" class="form-label">Lugar de nacimiento</label>
+                            <input type="text" name="lugar_nacimiento" class="form-control" id="lugar_nacimiento" placeholder="Lugar de nacimiento">
                         </div>
                         <div class="col-md-3">
                             <label for="sexo" class="form-label">Sexo</label>
-                            <select class="form-select" name="sexo" id="inputSexo" required>
+                            <select class="form-select" name="sexo" id="sexo" required>
                                 <option selected disabled value="">Elegir</option>
                                 <option>Hombre</option>
                                 <option>Mujer</option>
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <label for="Especie" class="form-label">Especie</label>
-                            <select class="form-select" name="especie" id="inputEspecie" required>
+                            <label for="especies_select" class="form-label">Especie</label>
+                            <select class="form-select" name="especie" id="especies_select" required>
                                 <option selected disabled value="">Elegir</option>
-                                <option>Humanos</option>
-                                <option>Elfos</option>
-                                <option>Enanos</option>
-                                <option>Semielfos</option>
-                                <option>Gnomos</option>
                             </select>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-3 mt-2 mb-2">
-                    <label for="Retrato" class="form-label">Retrato</label>
-                    <img alt="Retrato" id="retrato-img" src="../imagenes/Retratos/default.png" class="img-fluid" width="185" height="180">
-                    <input type="file" name="retrato" class="form-control" id="retrato" placeholder="retrato">
+                    <label for="retrato" class="form-label">Retrato</label>
+                    <img alt="retrato" id="retrato-img" src="../imagenes/Retratos/default.png" class="img-fluid" width="185" height="180">
+                    <input type="file" name="retrato" class="form-control" id="retrato">
                 </div>
                 <div class="row mt-2 mb-3">
                     <label for="DescripcionShort" class="form-label">Descripción breve</label>
@@ -155,7 +150,20 @@
   	<!-- /.content-wrapper -->
 <?php include_once 'layouts/footer.php';?>
 
-<script src="../js/personaje.js"></script>
+<script src="../js/personaje.js">
+    //fill_select_especies();
+    funcion='menu_especies';
+    $.post('../controlador/especiesController.php', {funcion}, (response)=>{
+        let especies=JSON.parse(response);
+        let template='';
+        especies.forEach(especie=>{
+            template+=`
+            <option value="${especie.id}">${especie.nombre}</option>
+            `;
+        });
+        $('#especies_select').html(template);
+    })
+</script>
 <!-- Summernote -->
 <script src="../js/summernote-bs4.min.js"></script>
 <script>
