@@ -1,6 +1,5 @@
 <?php
 include 'config.php';
-include 'serverFunctions.php';
 //basado en https://www.w3schools.com/php/php_form_validation.asp para mayor seguridad
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
 	if(!empty($_POST)){

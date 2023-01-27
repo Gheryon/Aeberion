@@ -8,8 +8,15 @@ if(isset($_POST['id'])){?>
   <title id="no-edit-title">Nueva crónica</title>
   <!-- summernote -->
   <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
+</header>
 
-  <?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
     
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

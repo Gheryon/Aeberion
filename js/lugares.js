@@ -57,6 +57,9 @@ $(document).ready(function(){
 
   function buscar_lugares(consulta) {
     funcion='buscar_lugares';
+		$('#busqueda-nav').show();
+    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
+    <a href="createLugar.php" class="btn btn-dark">Nuevo</a>`);
     $.post('../controlador/lugaresController.php', {consulta, funcion},(response)=>{
       const lugares= JSON.parse(response);
       let template='';

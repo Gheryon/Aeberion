@@ -25,6 +25,9 @@ $(document).ready(function(){
 
   function buscar_instituciones(consulta) {
     funcion='buscar_instituciones';
+    $('#busqueda-nav').show();
+    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
+    <a href="createInstitucion.php" class="btn btn-dark">Nuevo</a>`);
     tipo_institucion=$('#tipo').val();
     $.post('../controlador/institucionesController.php', {consulta, funcion, tipo_institucion},(response)=>{
       //console.log(response);

@@ -4,10 +4,17 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/style.css"/>
 <title>Editar personaje</title>
-  <!-- summernote -->
-  <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
+<!-- summernote -->
+<link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
+</head>
 
-<?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">

@@ -1,6 +1,7 @@
 <?php include_once 'layouts/header.php';?>
   <title>Guerras y batallas</title>
 
+</head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">

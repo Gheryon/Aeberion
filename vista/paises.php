@@ -35,7 +35,7 @@ if(isset($_GET['tipo_institucion'])){
   <?php
   }
 ?>
-
+</head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -118,16 +118,9 @@ if(isset($_GET['tipo_institucion'])){
 
     <!-- Main content -->
     <section class="content">
-      <div class="row justify-content-md-center mb-3">
-        <div class="col-md-auto">
-          <a href="../index.php" class="btn btn-success">Inicio</a>
-          <a href="createInstitucion.php" class="btn btn-success">Nuevo</a>
-        </div>
-      </div>
-
-        <div class="container-fluid">
-          <div class="card card-dark">
-            <div class="card-header">
+      <div class="container-fluid">
+        <div class="card card-dark">
+            <!--<div class="card-header">
               <h3 class="card-title">Búsqueda</h3>
               <div class="input-group">
                 <input type="text" id="buscar" placeholder="Nombre"class="form-control float-left">
@@ -137,7 +130,7 @@ if(isset($_GET['tipo_institucion'])){
                   </button>
                 </div>
               </div>
-            </div>
+            </div>-->
           <div class="card-body">
             <div class="row">
               <div id="instituciones" class="row d-flex align-items-stretch">

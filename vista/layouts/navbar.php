@@ -8,15 +8,19 @@
   </ul>
 
   <ul class="navbar-nav mr-auto">
+    <!--buttons-->
+    <li class="nav-item" id="nav-buttons">
+      
+    </li>
     <!-- Navbar Search -->
-    <li class="nav-item">
+    <li class="nav-item" id="busqueda-nav" style='display:none'>
       <a class="nav-link" data-widget="navbar-search" href="#" role="button">
         <i class="fas fa-search"></i>
       </a>
       <div class="navbar-search-block">
         <form class="form-inline">
-          <div class="input-group input-group-sm">
-            <input class="form-control form-control-navbar" type="search" placeholder="Búsqueda" aria-label="Search">
+          <div class="input-group">
+            <input id="buscar" class="form-control form-control-navbar" type="text" placeholder="Búsqueda">
             <div class="input-group-append">
               <button class="btn btn-navbar" type="submit">
                 <i class="fas fa-search"></i>
@@ -30,17 +34,6 @@
       </div>
     </li>
     <!-- SidebarSearch Form -->
-    
-    <!--<div class="form-inline">
-      <div class="input-group" data-widget="sidebar-search">
-        <input class="form-control form-control-navbar" type="search" placeholder="Búsqueda" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-sidebar">
-            <i class="fas fa-search fa-fw"></i>
-          </button>
-        </div>
-      </div>
-    </div>-->
   </ul>
 </nav>
 <!-- /.navbar -->

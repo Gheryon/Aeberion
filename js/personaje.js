@@ -51,8 +51,11 @@ $(document).ready(function(){
 
   function buscar_personajes(consulta) {
     funcion='buscar_personajes';
+    $('#busqueda-nav').show();
+    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
+    <a href="createPersonaje.php" class="btn btn-dark">Nuevo</a>`);
     $.post('../controlador/personajeController.php', {consulta, funcion},(response)=>{
-      console.log(response);
+      //console.log(response);
       const personajes= JSON.parse(response);
       let template='';
       personajes.forEach(personaje => {

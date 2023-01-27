@@ -3,8 +3,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <!--<link rel="stylesheet" href="css/style.css"/>-->
   <title>Personajes</title>
+</head>
 
-  <?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
 <div class="modal fade" id="confirmar" tabindex="-1" role="dialog" aria-labelledby="confirmar-eliminacion" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -53,17 +60,11 @@
     </div><!-- /.container-fluid -->
   </section>
   
-      <!-- Main content -->
+  <!-- Main content -->
   <section class="content">
-    <div class="row justify-content-md-center mb-2">
-      <div class="col-md-auto">
-        <a href="../index.php" class="btn btn-dark">Inicio</a>
-        <a href="createPersonaje.php" class="btn btn-dark">Nuevo</a>
-      </div>
-    </div>
-      <div class="container-fluid">
-        <div class="card card-dark">
-          <div class="card-header">
+    <div class="container-fluid">
+      <div class="card card-dark">
+          <!--<div class="card-header">
             <h3 class="card-title">Búsqueda de personajes</h3>
             <div class="input-group">
               <input type="text" id="buscar" placeholder="Nombre del personaje"class="form-control float-left">
@@ -73,7 +74,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div>-->
           <div class="card-body">
             <div class="row">
               <div id="personajes" class="row d-flex align-items-stretch">
@@ -85,7 +86,6 @@
 
           </div>
         </div>
-        
     </div> <!-- /container -->
   </section>
   <!-- /.content -->

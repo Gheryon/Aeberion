@@ -1,7 +1,8 @@
 <?php include_once 'layouts/header.php';?>
   <title>Lugares</title>
+</head>
 
-  <body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -59,16 +60,9 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="row justify-content-md-center mb-3">
-        <div class="col-md-auto">
-          <a href="../index.php" class="btn btn-success">Inicio</a>
-          <a href="createLugar.php" class="btn btn-success">Nuevo</a>
-        </div>
-      </div>
-
       <div class="container-fluid">
         <div class="card card-dark">
-          <div class="card-header">
+          <!--<div class="card-header">
             <h3 class="card-title">Búsqueda</h3>
             <div class="input-group">
               <input type="text" id="buscar" placeholder="Nombre del lugar"class="form-control float-left">
@@ -78,7 +72,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div>-->
           <div class="card-body">
             <div class="row">
               <div id="lugares" class="row d-flex align-items-stretch">
@@ -96,5 +90,5 @@
   </div>
   <!-- /.content-wrapper -->
   
-  <?php include_once 'layouts/footer.php';?>
-  <script src="../js/lugares.js"></script>
+<?php include_once 'layouts/footer.php';?>
+<script src="../js/lugares.js"></script>

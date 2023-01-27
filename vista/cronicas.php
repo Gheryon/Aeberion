@@ -2,6 +2,7 @@
 <input id="cargar-cronicas" name="cargar-cronicas" type="hidden" value="cargar-cronicas">
 
   <title>Crónicas</title>
+</head>
 
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -67,18 +68,18 @@
         <div class="card-header">
           <div class="row ">
             <div class="col">
-          <h3 class="card-title">Buscar crónicas</h3>
+          		<h3 class="card-title">Buscar crónicas</h3>
               <div class="input-group">
-                  <input type="text" id="buscar-articulo" placeholder="Título"class="form-control float-left">
-                  <div class="input-group-append">
-                    <button class="btn btn-default">
-                      <i class="fas fa-search"></i>
-                    </button>
-                  </div>
+								<input type="text" id="buscar-articulo" placeholder="Título"class="form-control float-left">
+								<div class="input-group-append">
+									<button class="btn btn-default">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
               </div>
             </div>
             <div class="col-1 align-self-end">
-              <a type="button" class="btn btn-success" href="createCronica.php">Nueva</a>
+              <a type="button" class="btn btn-dark" href="createCronica.php">Nueva</a>
             </div>
           </div>
           

@@ -3,7 +3,7 @@
   <title>Apuntes</title>
 <!-- summernote -->
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
-
+</head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
 <div class="wrapper">
@@ -138,15 +138,9 @@
     
         <!-- Main content -->
     <section class="content">
-      <div class="row justify-content-md-center">
-          <div class="col-md-auto">
-              <a href="../index.php" class="btn btn-dark">Inicio</a>
-              <button type="button" data-toggle="modal" data-target="#crearArticulo" class="btn btn-dark m-2">Nuevo</button>
-          </div>
-      </div>
       <div class="container-fluid">
         <div class="card card-dark">
-          <div class="card-header">
+          <!--<div class="card-header">
             <h3 class="card-title">Búsqueda de artículos</h3>
               <div class="input-group">
                 <input type="text" id="buscar-articulo" placeholder="Nombre del artículo"class="form-control float-left">
@@ -156,7 +150,7 @@
                   </button>
                 </div>
               </div>
-          </div>
+          </div>-->
           <div class="card-body p-0 table-responsive">
             <table class="table table-hover text-nowrap">
               <thread class="table-success">
