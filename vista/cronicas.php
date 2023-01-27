@@ -3,7 +3,13 @@
 
   <title>Crónicas</title>
 
-  <?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
 <div class="modal fade" id="confirmar" tabindex="-1" role="dialog" aria-labelledby="confirmar-eliminacion" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">

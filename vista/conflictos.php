@@ -1,7 +1,13 @@
 <?php include_once 'layouts/header.php';?>
   <title>Guerras y batallas</title>
 
-<?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
 <!-- Modal -->
 <div class="modal fade" id="eliminarConflicto" tabindex="-1" role="dialog" aria-labelledby="Eliminar lugar" aria-hidden="true">

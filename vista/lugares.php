@@ -1,7 +1,13 @@
 <?php include_once 'layouts/header.php';?>
   <title>Lugares</title>
 
-<?php include_once 'layouts/nav.php';?>
+  <body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
 <!-- Modal -->
 <div class="modal fade" id="eliminarLugar" tabindex="-1" role="dialog" aria-labelledby="Eliminar lugar" aria-hidden="true">
@@ -60,19 +66,19 @@
         </div>
       </div>
 
-        <div class="container-fluid">
-          <div class="card card-dark">
-            <div class="card-header">
-              <h3 class="card-title">Búsqueda</h3>
-              <div class="input-group">
-                <input type="text" id="buscar" placeholder="Nombre del lugar"class="form-control float-left">
-                <div class="input-group-append">
-                  <button class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
+      <div class="container-fluid">
+        <div class="card card-dark">
+          <div class="card-header">
+            <h3 class="card-title">Búsqueda</h3>
+            <div class="input-group">
+              <input type="text" id="buscar" placeholder="Nombre del lugar"class="form-control float-left">
+              <div class="input-group-append">
+                <button class="btn btn-default">
+                  <i class="fas fa-search"></i>
+                </button>
               </div>
             </div>
+          </div>
           <div class="card-body">
             <div class="row">
               <div id="lugares" class="row d-flex align-items-stretch">

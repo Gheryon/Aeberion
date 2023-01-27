@@ -1,7 +1,14 @@
 <?php include_once 'layouts/header.php';?>
-  <title>Aeberion</title>
+  
+<title>Aeberion</title>
 
-<?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">

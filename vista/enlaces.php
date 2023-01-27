@@ -1,12 +1,17 @@
 <?php include_once "layouts/header.php";?>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="../css/style.css"/>-->
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!--<link rel="stylesheet" href="../css/style.css"/>-->
 
-    <title>Enlaces</title>
+  <title>Enlaces</title>
 
-<?php include_once "layouts/nav.php";?>
-  <body>
+  <body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
     <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->

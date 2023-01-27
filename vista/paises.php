@@ -36,7 +36,13 @@ if(isset($_GET['tipo_institucion'])){
   }
 ?>
 
-<?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
 <!-- Modal -->
 <div class="modal fade" id="eliminarInstitucion" tabindex="-1" role="dialog" aria-labelledby="Eliminar" aria-hidden="true">

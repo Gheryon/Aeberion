@@ -1,12 +1,16 @@
 <?php include_once 'layouts/header.php'; ?>
-    <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!--<link rel="stylesheet" href="css/style.css"/>-->
-    <title>Apuntes</title>
+    
+  <title>Apuntes</title>
 <!-- summernote -->
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 
-    <?php include_once 'layouts/nav.php';?>
+<body class="hold-transition sidebar-mini">
+<!-- Site wrapper -->
+<div class="wrapper">
+<?php 
+  include_once 'layouts/navbar.php';
+  include_once 'layouts/menu.php';
+?>
 
 <div class="modal fade" id="confirmar" tabindex="-1" role="dialog" aria-labelledby="confirmar-eliminacion" aria-hidden="true">
   <div class="modal-dialog modal-sm" role="document">
@@ -119,63 +123,63 @@
   </div>
 </div>
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-    	<!-- Content Header (Page header) -->
-		<section class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-12">
-                        <h1 class="fw-bolder text-center"> Artículos </h1>
-                    </div>
-                </div>
-            </div><!-- /.container-fluid -->
-		</section>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-12">
+            <h1 class="fw-bolder text-center"> Artículos </h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
     
         <!-- Main content -->
     <section class="content">
-        <div class="row justify-content-md-center">
-            <div class="col-md-auto">
-                <a href="../index.php" class="btn btn-success">Inicio</a>
-                <button type="button" data-toggle="modal" data-target="#crearArticulo" class="btn bg-gradient-primary m-2">Nuevo</button>
-            </div>
+      <div class="row justify-content-md-center">
+          <div class="col-md-auto">
+              <a href="../index.php" class="btn btn-dark">Inicio</a>
+              <button type="button" data-toggle="modal" data-target="#crearArticulo" class="btn btn-dark m-2">Nuevo</button>
+          </div>
+      </div>
+      <div class="container-fluid">
+        <div class="card card-dark">
+          <div class="card-header">
+            <h3 class="card-title">Búsqueda de artículos</h3>
+              <div class="input-group">
+                <input type="text" id="buscar-articulo" placeholder="Nombre del artículo"class="form-control float-left">
+                <div class="input-group-append">
+                  <button class="btn btn-default">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+          </div>
+          <div class="card-body p-0 table-responsive">
+            <table class="table table-hover text-nowrap">
+              <thread class="table-success">
+                <tr>
+                  <th>Acción</th>
+                  <th>Título</th>
+                  <th>Clasificacion</th>
+                </tr>
+              </thread>
+              <tbody class="table-active" id="articulos">
+
+              </tbody>
+            </table>
+          </div>
+          <div class="card-footer">
+
+          </div>
         </div>
-        <div class="container-fluid">
-            <div class="card card-success">
-                <div class="card-header">
-                    <h3 class="card-title">Búsqueda de artículos</h3>
-                    <div class="input-group">
-                        <input type="text" id="buscar-articulo" placeholder="Nombre del artículo"class="form-control float-left">
-                        <div class="input-group-append">
-                            <button class="btn btn-default">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-body p-0 table-responsive">
-                  <table class="table table-hover text-nowrap">
-                    <thread class="table-success">
-                      <tr>
-                        <th>Acción</th>
-                        <th>Título</th>
-                        <th>Clasificacion</th>
-                      </tr>
-                    </thread>
-                    <tbody class="table-active" id="articulos">
-
-                    </tbody>
-                  </table>
-                </div>
-                <div class="card-footer">
-
-                </div>
-            </div>
-        </div> <!-- /container -->
+      </div> <!-- /container -->
     </section>
     <!-- /.content -->
-    </div>
-  	<!-- /.content-wrapper -->
+  </div>
+  <!-- /.content-wrapper -->
 
 <?php include_once 'layouts/footer.php';?>
 
