@@ -31,12 +31,12 @@
           <p id="texto-borrar">Confirmar eliminar lugar.</p>
         </div>
         <div class="card-footer">
-          <form id="form-borrar-lugar" class="col-md-auto" >
-            <input type="hidden" name="id_lugar_borrar" id="id_lugar_borrar">
+          <form id="form-borrar-conflicto" class="col-md-auto" >
+            <input type="hidden" name="id_borrar" id="id_borrar">
             <input type="hidden" name="funcion" id="funcion">
             <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
             <button type="submit" id="borrar-button" class="btn btn-danger">Eliminar</button>
-            <a class="btn btn-primary" type="button" id="borrar-volver-button" href="../index.php" style="display:none">Volver</a>
+            <a class="btn btn-primary" type="button" id="borrar-volver-button" data-dismiss="modal" style="display:none">Aceptar</a>
           </form>
         </div>
       </div>
@@ -59,16 +59,9 @@
 
     <!-- Main content -->
     <section class="content">
-      <div class="row justify-content-md-center mb-3">
-        <div class="col-md-auto">
-          <a href="../index.php" class="btn btn-dark">Inicio</a>
-          <a href="createConclicto.php" class="btn btn-dark">Nuevo</a>
-        </div>
-      </div>
-
       <div class="container-fluid">
         <div class="card card-dark">
-          <div class="card-header">
+          <!--<div class="card-header">
             <h3 class="card-title">Búsqueda</h3>
             <div class="input-group">
               <input type="text" id="buscar" placeholder="Nombre del lugar"class="form-control float-left">
@@ -78,7 +71,7 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div>-->
         <div class="card-body">
           <div class="row">
             <div id="conflictos" class="row d-flex align-items-stretch">
