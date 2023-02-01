@@ -55,12 +55,6 @@
               </a>
             </li>
             <li class="nav-item">
-              <a href="paises.php?tipo_institucion=dinastias" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dinastías</p>
-              </a>
-            </li>
-            <li class="nav-item">
               <a href="createInstitucion.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Nuevo</p>
@@ -75,23 +69,12 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="religiones.php" class="nav-link">
+              <a href="createReligion.php" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Hijos de los Dioses</p>
+                <p>Nueva religión</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Hijos del Profeta</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Nómadas</p>
-              </a>
-            </li>
+            <div class="div" id="menu_religiones"></div>
           </ul>
         </li>
         <li class="nav-item">
@@ -130,7 +113,7 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="asentamientos.php" class="nav-link">
             <i class="nav-icon fa-solid fa-landmark"></i>
             <p>
               Asentamientos

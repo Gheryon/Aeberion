@@ -1,3 +1,0 @@
-elementos a añadir a personaje: educacion/cultura, fecha nacimiento-muerte, otros, lugar nacimiento, titulos, riqueza
-
-religion: nombre, aparicion, cosmologia, etica, lugares sagrados, objetos sagrados, fiestas principales, deidades, lema, estructura, historia, etica, politica/influencia, rituales, sectas, doctrina

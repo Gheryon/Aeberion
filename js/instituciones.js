@@ -3,23 +3,25 @@ $(document).ready(function(){
   var editar=false;
   var id_institucion = $('#id_institucion').val();
   var id_institucion_editar = $('#id_institucion_editar').val();
+  var id_religion = $('#id_religion').val();
+  var id_religion_editar = $('#id_religion_editar').val();
   
-  //si id_institucion está definido, se va a consultar una entrada
+  //si id_institucion o id_religion están definidos, se va a consultar una entrada
   if(id_institucion!=undefined){
-    //console.log(id_institucion);
     ver_institucion(id_institucion);
-  }else{
-    //console.log("no id-institucion ver");
   }
-  //si id_institucion_editar está definido, se va a editar una entrada
+  if(id_religion!=undefined){
+    ver_religion(id_religion);
+  }
+  //si id_institucion_editar o id_religion_editar están definido, se va a editar una entrada
   if(id_institucion_editar!=undefined){
-    //console.log(id_institucion_editar);
     buscar_institucion_editar(id_institucion_editar);
-  }else{
-    //console.log("no id-institucion editar");
+  }
+  if(id_religion_editar!=undefined){
+    buscar_religion_editar(id_religion_editar);
   }
   //si ni id_institucion ni id_institucion_editar están definidos, estamos en paises.php y se cargan todos
-  if(id_institucion==undefined&&id_institucion_editar==undefined){
+  if(id_institucion==undefined&&id_institucion_editar==undefined&&id_religion==undefined&&id_religion_editar==undefined){
     buscar_instituciones();
   }
 
@@ -53,7 +55,7 @@ $(document).ready(function(){
         </div>
         <div class="card-footer">
           <div class="text-center">
-            <button class="detalles-institucion btn btn-info btn-sm" type="button" title="ver">
+            <button class="detalles-institucion btn btn-info btn-sm" type="button" title="Ver">
             <a href=vistaInstitucion.php?id_institucion=${pais.id} class="text-reset"><i class="fas fa-id-card"></i></a>
             </button>
             <form class="btn" action="createInstitucion.php" method="post">
@@ -86,125 +88,223 @@ $(document).ready(function(){
   function ver_institucion(dato) {
     funcion='ver_institucion';
     $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
-      //console.log(response);
+      console.log(response);
       const institucion= JSON.parse(response);
       $('#nombre').html(institucion.nombre);
       $('#institucion-title').html(institucion.nombre);
       $('#institucion-title-h1').html(institucion.nombre);
-      if(institucion.descripcion==undefined){
-        $('#descripcion-row').hide();
-      }else{
-        $('#descripcion_breve').html(institucion.descripcion);
+      template='';      
+      if(institucion.descripcion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Descripción</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.descripcion}
+          </div>
+        </div>`;
       }
-      if(institucion.historia==undefined){
-        $('#historia-row').hide();
-      }else{
-        $('#historia').html(institucion.historia);
+      if(institucion.historia!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Historia</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.historia}
+          </div>
+        </div>`;
       }
-      if(institucion.demografia==undefined){
-        $('#demografia-row').hide();
-      }else{
-        $('#demografia').html(institucion.demografia);
+      if(institucion.demografia!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Demografía</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.demografia}
+          </div>
+        </div>`;
       }
-      if(institucion.estructura==undefined){
-        $('#estructura-row').hide();
-      }else{
-        $('#estructura').html(institucion.estructura);
+      if(institucion.estructura!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Estructura organizativa</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.estructura}
+          </div>
+        </div>`;
       }
-      if(institucion.politica==undefined){
-        $('#politica-row').hide();
-      }else{
-        $('#politica').html(institucion.politica);
+      if(institucion.politica!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Política exterior e interior</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.politica}
+          </div>
+        </div>`;
       }
-      if(institucion.clima==undefined){
-        $('#clima-row').hide();
-      }else{
-        $('#clima').html(institucion.clima);
+      if(institucion.clima!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Clima</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.clima}
+          </div>
+        </div>`;
       }
-      if(institucion.frontera==undefined){
-        $('#frontera-row').hide();
-      }else{
-        $('#frontera').html(institucion.frontera);
+      if(institucion.frontera!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Fronteras</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.frontera}
+          </div>
+        </div>`;
       }
-      if(institucion.militar==undefined){
-        $('#militar-row').hide();
-      }else{
-        $('#militar').html(institucion.militar);
+      if(institucion.militar!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Militar</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.militar}
+          </div>
+        </div>`;
       }
-      if(institucion.religion==undefined){
-        $('#religion-row').hide();
-      }else{
-        $('#religion').html(institucion.religion);
+      if(institucion.religion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Religión</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.religion}
+          </div>
+        </div>`;
       }
-      if(institucion.cultura==undefined){
-        $('#cultura-div').hide();
-      }else{
-        $('#cultura').html(institucion.cultura);
+      if(institucion.cultura!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Cultura</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.cultura}
+          </div>
+        </div>`;
       }
-      if(institucion.educacion==undefined){
-        $('#educacion-row').hide();
-      }else{
-        $('#educacion').html(institucion.educacion);
+      if(institucion.educacion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Educación</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.educacion}
+          </div>
+        </div>`;
       }
-      if(institucion.tecnologia==undefined){
-        $('#tecnologia-row').hide();
-      }else{
-        $('#tecnologia').html(institucion.tecnologia);
+      if(institucion.territorio!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Territorio</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.territorio}
+          </div>
+        </div>`;
       }
-      if(institucion.territorio==undefined){
-        $('#territorio-row').hide();
-      }else{
-        $('#territorio').html(institucion.territorio);
+      if(institucion.economia!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Economía</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.economia}
+          </div>
+        </div>`;
       }
-      if(institucion.economia==undefined){
-        $('#economia-row').hide();
-      }else{
-        $('#economia').html(institucion.economia);
+      if(institucion.recursos!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Recursos naturales</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.recursos}
+          </div>
+        </div>`;
       }
-      if(institucion.recursos==undefined){
-        $('#recursos-row').hide();
-      }else{
-        $('#recursos').html(institucion.recursos);
+      if(institucion.tecnologia!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Tecnología y ciencia</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.tecnologia}
+          </div>
+        </div>`;
       }
-      if(institucion.otros==undefined){
-        $('#otros-row').hide();
-      }else{
-        $('#otros').html(institucion.otros);
+      if(institucion.otros!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Otros</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.otros}
+          </div>
+        </div>`;
       }
+      $('#content-left').html(template);
 
       //datos de la card
-      $('#escudo').attr('src',institucion.escudo);
-      
-      if(institucion.tipo==undefined){
-        $('#tipo-row').hide();
-      }else{
-        $('#tipo').html(institucion.tipo);
+      //$('#escudo').attr('src',institucion.escudo);
+      template='';
+      template+=`
+      <div class="row">
+        <h3>Escudo</h3>
+        <div class="row">
+          <img alt="escudo" id="escudo" class="img-fluid" src="${institucion.escudo}" width="300" height="300">
+        </div>
+      </div>`;
+      if(institucion.tipo!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Tipo</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.tipo}
+          </div>
+        </div>`;
       }
-      if(institucion.gentilicio==undefined){
-        $('#gentilicio-row').hide();
-      }else{
-        $('#gentilicio').html(institucion.gentilicio);
+      if(institucion.gentilicio!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Gentilicio</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.gentilicio}
+          </div>
+        </div>`;
       }
-      if(institucion.capital==undefined){
-        $('#capital-row').hide();
-      }else{
-        $('#capital').html(institucion.capital);
+      if(institucion.capital!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Capital</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.capital}
+          </div>
+        </div>`;
       }
-      if(institucion.lema==undefined){
-        $('#lema-row').hide();
-      }else{
-        $('#lema').html(institucion.lema);
+      if(institucion.lema!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Lema</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.lema}
+          </div>
+        </div>`;
       }
-      if(institucion.fundacion==undefined){
-        $('#fundacion-row').hide();
-      }else{
-        $('#fundacion').html(institucion.fundacion);
+      if(institucion.fundacion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Fundación</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.fundacion}
+          </div>
+        </div>`;
       }
-      if(institucion.disolucion==undefined){
-        $('#disolucion-row').hide();
-      }else{
-        $('#disolucion').html(institucion.disolucion);
+      if(institucion.disolucion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Disolución</h3>
+          <div class="row ml-2 mr-2">
+          ${institucion.disolucion}
+          </div>
+        </div>`;
       }
+      $('#content-right').html(template);
     });
   }
 
@@ -324,4 +424,229 @@ $('#form-borrar-institucion').submit(e=>{
   });
   e.preventDefault();
 });
+
+//////////////especifico de religiones////////////////
+$('#form-create-religion').submit(e=>{
+  let formData = new FormData($('#form-create-religion')[0]);
+  if(editar==false){
+    formData.append('funcion', 'crear_nueva_religion');
+  }else{
+    formData.append('funcion', 'editar_religion');
+    id=$('#id_editado').val();
+  }
+  console.log(formData);
+  $.ajax({
+      url:'../controlador/institucionesController.php',
+      type:'POST',
+      data:formData,
+      cache:false,
+      processData:false,
+      contentType:false
+  }).done(function(response){
+    console.log(response);
+      if(response=='no-add'){
+        $('#no-add').hide('slow');
+        $('#no-add').show(1000);
+        $('#form-create-religioin').trigger('reset');
+      }else{
+        if(response=='add'){
+          $('#add').hide('slow');
+          $('#add').show(1000);
+        }
+        if(response=='editado'){
+          $('#editado').hide('slow');
+          $('#editado').show(1000);
+        }
+        //if(json.ruta)
+          //$('#escudo-img').attr('src',json.ruta);
+        $('#form-create-religion').trigger('reset');
+        $('#submit-crear-button').hide();
+        $('#cancelar-crear-button').hide();
+        $('#volver-crear-button').show();
+      }
+      editar=false;
+  });
+  e.preventDefault();
+});
+
+function ver_religion(dato) {
+  funcion='ver_religion';
+  $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
+    //console.log(response);
+    const religion= JSON.parse(response);
+    $('#nombre').html(religion.nombre);
+    $('#religion-title').html(religion.nombre);
+    $('#religion-title-h1').html(religion.nombre);
+    template='';
+    if(religion.descripcion!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Descripción</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.descripcion}
+        </div>
+      </div>`;
+    }
+    if(religion.historia!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Historia</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.historia}
+        </div>
+      </div>`;
+    }
+    if(religion.cosmologia!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Cosmología</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.cosmologia}
+        </div>
+      </div>`;
+    }
+    if(religion.doctrina!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Doctrina</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.doctrina}
+        </div>
+      </div>`;
+    }
+    if(religion.deidades!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Deidades</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.deidades}
+        </div>
+      </div>`;
+    }
+    if(religion.elementos_sagrados!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Lugares y objetos sagrados</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.elementos_sagrados}
+        </div>
+      </div>`;
+    }
+    if(religion.cultura!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Fiestas y rituales principales</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.cultura}
+        </div>
+      </div>`;
+    }
+    if(religion.politica!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Influencia política</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.politica}
+        </div>
+      </div>`;
+    }
+    if(religion.estructura!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Estructura</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.estructura}
+        </div>
+      </div>`;
+    }
+    if(religion.sectas!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Sectas conocidas</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.sectas}
+        </div>
+      </div>`;
+    }
+    if(religion.otros!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Otros</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.otros}
+        </div>
+      </div>`;
+    }
+    $('#content-left').html(template);
+
+    //datos de la card
+    template='';
+    template+=`
+    <div class="row">
+      <h3>Escudo</h3>
+      <div class="row">
+        <img alt="escudo" id="escudo" class="img-fluid" src="${religion.escudo}" width="300" height="300">
+      </div>
+    </div>`;
+    if(religion.lema!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Lema</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.lema}
+        </div>
+      </div>`;
+    }
+    if(religion.fundacion!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Fundación</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.fundacion}
+        </div>
+      </div>`;
+    }
+    if(religion.disolucion!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Disolución</h3>
+        <div class="row ml-2 mr-2">
+        ${religion.disolucion}
+        </div>
+      </div>`;
+    }
+    $('#content-right').html(template);
+  });
+}
+
+function buscar_religion_editar(dato) {
+  funcion='ver_religion';
+  $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
+    editar=true;
+    const institucion= JSON.parse(response);
+    $('#religion-create-title').html("Editar "+institucion.nombre);
+    $('#religion-create-title-h1').html("Editar "+institucion.nombre);
+    $('#nombre_religion').val(institucion.nombre);
+    $('#fundacion').val(institucion.fundacion);
+    $('#disolucion').val(institucion.disolucion);
+    $('#lema').val(institucion.lema);
+    $('#escudo-img').attr('src',institucion.escudo);
+    $('#descripcion_breve').summernote('code', institucion.descripcion);
+    $('#historia').summernote('code', institucion.historia);
+    $('#politica').summernote('code', institucion.politica);
+    $('#tipo').val(institucion.tipo);
+    $('#cosmologia').summernote('code', institucion.cosmologia);
+    $('#estructura').summernote('code', institucion.estructura);
+    $('#doctrina').summernote('code', institucion.doctrina);
+    $('#deidades').summernote('code', institucion.deidades);
+    $('#demografia').summernote('code', institucion.elementos_sagrados);
+    $('#cultura').summernote('code', institucion.cultura);
+    $('#sectas').summernote('code', institucion.sectas);
+    $('#otros').summernote('code', institucion.otros);
+    
+    $('#id_editado').val(institucion.id);
+    //$('#id_institucion_cambiar_escudo').val(institucion.id);
+    //$('#nombre_institucion_borrar').val(institucion.nombre);
+  });
+}
 })

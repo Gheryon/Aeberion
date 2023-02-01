@@ -1,15 +1,15 @@
 <?php include_once 'layouts/header.php';
 
-if(isset($_GET['id_institucion'])){
+if(isset($_GET['id_religion'])){
     ?>
-    <input id="id_institucion" type="hidden" value="<?php echo $_GET['id_institucion']?>">
+    <input id="id_religion" type="hidden" value="<?php echo $_GET['id_religion']?>">
 <?php
 }
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/style.css"/>
-<title id="institucion-title">Institución</title>
+<title id="religion-title">Religión</title>
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
@@ -25,7 +25,7 @@ if(isset($_GET['id_institucion'])){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-12">
-            <h1 id="institucion-title-h1" class="fw-bolder text-center"> Institución </h1>
+            <h1 id="religion-title-h1" class="fw-bolder text-center"> Religión </h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -34,11 +34,11 @@ if(isset($_GET['id_institucion'])){
     <section class="content">
       <div class="container margin-top-20 mt-5 page">
         <div class="row justify-content-md-center">
-          <form class="btn" action="createInstitucion.php" method="post">
+          <form class="btn" action="createReligion.php" method="post">
             <button class="editar-personaje btn btn-success mr-1">
             <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
-            <input type="hidden" name="id_institucion" value="<?php echo $_GET['id_institucion']?>">
-            <a href="paises.php" class="btn btn-success">Volver</a>
+            <input type="hidden" name="id_religion" value="<?php echo $_GET['id_religion']?>">
+            <a href="index.php" class="btn btn-success">Volver</a>
           </form>
         </div>
         <div class="row article-content">

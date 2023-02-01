@@ -138,19 +138,19 @@ $(document).ready(function(){
       }
       $('#content-left').html(template);
 
-      //datos de la derecha
+      //datos de la card en la derecha
       template='<div class="row">';
       if(conflicto.tipo_conflicto!=undefined){
         template+=`
           <div class="col">
-            <h5>Tipo de conflicto</h5>
+            <h6><b>Tipo de conflicto</b></h6>
             <p>${conflicto.tipo_conflicto}</p>
           </div>`;
       }
       if(conflicto.tipo_conflicto!=undefined){
         template+=`
           <div class="col">
-            <h5>Tipo de localización</h5>
+            <h6><b>Tipo de localización</b></h6>
             <p>${conflicto.tipo_localizacion}</p>
           </div>`;
       }
@@ -159,14 +159,14 @@ $(document).ready(function(){
       if(conflicto.comienzo!=undefined){
         template+=`
           <div class="col">
-            <h5>Fecha de inicio</h5>
+            <h6><b>Fecha de inicio</b></h6>
             <p>${conflicto.comienzo}</p>
           </div>`;
       }
       if(conflicto.final!=undefined){
         template+=`
           <div class="col">
-            <h5>Fecha de finalización</h5>
+            <h6><b>Fecha de finalización</b></h6>
             <p>${conflicto.final}</p>
           </div>`;
       }

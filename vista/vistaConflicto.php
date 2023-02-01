@@ -45,8 +45,11 @@
               </div>
             </div>
           </div>
-          <div class="col-5" id="content-right">
-            
+          <div class="col-5 personaje">
+            <div class="card">
+                <div class="card-body" id="content-right">
+                </div>
+            </div>
           </div>
         </div>
       </div>
