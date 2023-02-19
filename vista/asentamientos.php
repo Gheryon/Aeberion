@@ -16,7 +16,7 @@
 		<div class="modal-content">
       <div class="card card-danger">
         <div class="card-header">
-          <h5 class="card-title" id="eliminarLugarLabel">Eliminar lugar</h5>
+          <h5 class="card-title" id="eliminarAsentamientoLabel">Eliminar asentamiento</h5>
           <button data-dismiss="modal" aria-label="close" class="close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -28,12 +28,15 @@
           <div class="alert alert-danger text-center" id='no-borrado' style='display:none'>
               <span><i class="fas fa-times m-1"></i>No se pudo eliminar</span>
           </div>
-          <p id="texto-borrar">Confirmar eliminar asentamiento.</p>
+          <div class="row">
+            <div id="texto-borrar" class="row d-flex align-items-stretch">
+
+            </div>
+          </div>
         </div>
         <div class="card-footer">
-          <form id="form-borrar-lugar" class="col-md-auto" >
-            <!--<input type="hidden" name="nombre_lugar_borrar" id="nombre_lugar_borrar">-->
-            <input type="hidden" name="id_lugar_borrar" id="id_lugar_borrar">
+          <form id="form-borrar-asentamiento" class="col-md-auto" >
+            <input type="hidden" name="id_borrar" id="id_borrar">
             <input type="hidden" name="funcion" id="funcion">
             <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
             <button type="submit" id="borrar-button" class="btn btn-danger">Eliminar</button>

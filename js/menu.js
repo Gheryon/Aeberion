@@ -28,7 +28,7 @@ $(document).ready(function(){
       religiones.forEach(religion => {
         template+=`
         <li class="nav-item">
-          <a href="vistaReligion.php?id_religion=${religion.id}" class="nav-link">
+          <a href="vistaContent.php?id_religion=${religion.id}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>${religion.nombre}</p>
           </a>

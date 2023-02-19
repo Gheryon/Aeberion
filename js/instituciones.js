@@ -56,7 +56,7 @@ $(document).ready(function(){
         <div class="card-footer">
           <div class="text-center">
             <button class="detalles-institucion btn btn-info btn-sm" type="button" title="Ver">
-            <a href=vistaInstitucion.php?id_institucion=${pais.id} class="text-reset"><i class="fas fa-id-card"></i></a>
+            <a href=vistaContent.php?id_institucion=${pais.id} class="text-reset"><i class="fas fa-id-card"></i></a>
             </button>
             <form class="btn" action="createInstitucion.php" method="post">
               <button class="editar-institucion btn btn-success btn-sm" title="Editar">
@@ -90,9 +90,14 @@ $(document).ready(function(){
     $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
       console.log(response);
       const institucion= JSON.parse(response);
+      $('#nav-buttons').html(`<a href="paises.php" class="btn btn-dark ml-2">Volver</a>
+      <form class="btn" action="createInstitucion.php" method="post">
+        <button class="btn btn-dark mr-1">Editar</button>
+        <input type="hidden" name="id_institucion" value="${institucion.id}">
+      </form>`);
       $('#nombre').html(institucion.nombre);
-      $('#institucion-title').html(institucion.nombre);
-      $('#institucion-title-h1').html(institucion.nombre);
+      $('#content-title').html(institucion.nombre);
+      $('#content-title-h1').html(institucion.nombre);
       template='';      
       if(institucion.descripcion!=undefined){
         template+=`
@@ -311,6 +316,7 @@ $(document).ready(function(){
   function buscar_institucion_editar(dato) {
     funcion='ver_institucion';
     $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
+      console.log(response);
       editar=true;
       const institucion= JSON.parse(response);
       $('#institucion-create-title').html("Editar "+institucion.nombre);
@@ -327,7 +333,7 @@ $(document).ready(function(){
       $('#politica_interior_exterior').summernote('code', institucion.politicaexteriorinterior);
       $('#tipo').val(institucion.tipo);
       $('#militar').summernote('code', institucion.militar);
-      $('#estructura').summernote('code', institucion.estructura);
+      $('#estructura_organizativa').summernote('code', institucion.estructura);
       $('#territorio').summernote('code', institucion.territorio);
       $('#fronteras').summernote('code', institucion.frontera);
       $('#demografia').summernote('code', institucion.demografia);
@@ -474,6 +480,11 @@ function ver_religion(dato) {
   $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
     //console.log(response);
     const religion= JSON.parse(response);
+    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark ml-2">Volver</a>
+    <form class="btn" action="createReligion.php" method="post">
+      <button class="btn btn-dark mr-1">Editar</button>
+      <input type="hidden" name="id_religion" value="${religion.id}">
+    </form>`);
     $('#nombre').html(religion.nombre);
     $('#religion-title').html(religion.nombre);
     $('#religion-title-h1').html(religion.nombre);
