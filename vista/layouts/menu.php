@@ -162,6 +162,14 @@
             </p>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="timeline.php" class="nav-link">
+            <i class="nav-icon fas fa-columns"></i>
+            <p>
+              Cronologías updated
+            </p>
+          </a>
+        </li>
         <li class="nav-header">OTROS</li>
         <li class="nav-item">
           <a href="articulos.php" class="nav-link">

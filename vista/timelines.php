@@ -123,7 +123,7 @@ $pdo->disconnect();
 				?>
 				<div class="timeline__item">
 					<div class="timeline__content">
-					<h2><?php echo $evento['anno'], " ", $evento['nombreEvento'];
+					<h2><?php echo $evento['anno'], " ", $evento['nombre'];
 							// echo "<a href=\"/Aeberion/editarEvento.php?id=$evento[id]\">E</a>";?>
 						<button type="button"><a href="<?php echo "editarEvento.php?id=$evento[id]";?>"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
 						<path d="<?php echo $iconoPathEdit ; ?>"/>

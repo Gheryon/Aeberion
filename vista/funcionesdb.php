@@ -108,45 +108,4 @@ public function updateEvento($id, $nombreEvento, $dia, $mes, $anno, $descripcion
 		return false;
 	}
 }
-
-/*
-  Funciones CRUD para personajes
-*/
-public function addPersonaje($Nombre, $Apellidos, $Descripcion, $Personalidad, $Deseos, $Miedos, $Historia, $Religion, $Familia, $Politica, $Retrato, $Especie, $Sexo)
-{
-  $sentence=$this->dbc->prepare("INSERT INTO personaje (Nombre, Apellidos, Descripcion, Personalidad, Deseos, Miedos, Historia, Religion, Familia, Politica, Retrato, Especie, Sexo) VALUES( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-	if($sentence->execute(array($Nombre, $Apellidos, $Descripcion, $Personalidad, $Deseos, $Miedos, $Historia, $Religion, $Familia, $Politica, $Retrato, $Especie, $Sexo)))
-	{
-		return false;
-	}
-	else
-	{
-		return true;
-	}
-}
-
-public function getPersonaje($id)
-{
-  $personaje=null;
-
-	$sentence=$this->dbc->prepare("SELECT * FROM personaje WHERE id = ?");
-	if($sentence->execute(array($id)))
-	{
-		while($row=$sentence->fetch())
-		{
-			$personaje=$row;
-		}
-	}
-	return $personaje;
-}
-
-public function updatePersonaje()
-{
-
-}
-
-public function removePersonaje()
-{
-
-}
 }

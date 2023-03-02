@@ -2,7 +2,7 @@
   
 <title>Aeberion</title>
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 

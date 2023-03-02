@@ -12,7 +12,7 @@ if(isset($_POST['id_institucion'])){?>
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
