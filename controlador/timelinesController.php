@@ -27,7 +27,18 @@ if($_POST['funcion']=='editar'){
 }
 
 if($_POST['funcion']=='buscar'){
-  $evento->buscar();
+  if(isset($_POST['orden'])){
+    $orden=$_POST['orden'];
+  }else{
+    $orden="ASC";
+  }
+  //si no se ha seleccionado un timeline, se seleccionan todos los eventos
+  if(isset($_POST['timeline'])){
+    $timeline=$_POST['timeline'];
+  }else{
+    $timeline=1;
+  }
+  $evento->buscar($orden, $timeline);
   $json=array();
   foreach ($evento->objetos as $objeto) {
     $fecha='';
@@ -65,8 +76,8 @@ if($_POST['funcion']=='detalles'){
       'mes'=>$objeto->mes,
       'dia'=>$objeto->dia,
       'descripcion'=>$objeto->descripcion,
-      'lineaTemporal'=>$objeto->lineatemporal,
       'lineaCronologica'=>$objeto->cronologia,
+      'id_linea_temporal'=>$objeto->id_linea_temporal,
       'tipo'=>$objeto->id_tipo_evento
     );
   }
@@ -89,6 +100,6 @@ if($_POST['funcion']=='fill_select_timelines'){
 
 if($_POST['funcion']=='borrar'){
   $id=$_POST['id'];
-  $articulo->borrar($id);
+  $evento->borrarEvento($id);
 }
 ?>

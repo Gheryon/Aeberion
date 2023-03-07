@@ -1,13 +1,58 @@
 $(document).ready(function(){
-  buscarEventos();
+  //por defecto, se obtienen todos los eventos (1->historia universal) en orden ascendente
+  buscarEventos(1, "ASC");
 
   var edit=false;
 
-  function buscarEventos(consulta) {
+  /*$(document).on('change', '#filter_timeline', function(){
+  //$('#filter_timeline').on('change', function(){
+    console.log(this.value);
+    orden=$('#order_timeline').val();
+    console.log(orden);
+  });*/
+
+  /*$(document).on('change', '#order_timeline', function(){
+  //$('#order_timeline').on('change', function(){ <--por lo que sea, no funciona así
+    orden=this.value;
+    console.log(orden);
+    cronologia=$('#filter_timeline').val();
+    console.log(cronologia);
+    buscarEventos(1, orden);
+  });*/
+  $('#form_filtrar_eventos').submit(e=>{
+    e.preventDefault();
+    cronologia=$('#filter_timeline').val();
+    orden=$('#order_timeline').val();
+    if(cronologia==undefined){
+      cronologia=1;
+    }
+    if(orden==undefined){
+      orden="ASC";
+    }
+    buscarEventos(cronologia, orden);
+	});
+
+  function buscarEventos(timeline, orden) {
+    $('#nav-buttons').html(`
+    <div class="row">
+    <a href="../index.php" class="btn btn-dark ml-2">Inicio</a>
+    <button type="button" class="nuevo-evento btn btn-dark ml-2" data-toggle="modal" data-target="#nuevoEvento">Nuevo evento</button>
+    <form id="form_filtrar_eventos" class="ml-2">
+      <!--<label for="filter_timeline" class="form-label">Línea temporal</label>-->
+      <select id="filter_timeline" class="form-select" name="filter_timeline"></select>
+      <!--<label for="order_timeline" class="form-label"></label>-->
+      <select id="order_timeline" class="form-select ml-2" name="order_timeline">
+        <option selected disabled value="ASC">Orden</option>
+        <option value="ASC">Ascendente</option>
+        <option value="DESC">Descendente</option>
+      </select>
+      <button type="submit" class="btn btn-dark ml-2">Filtrar</button>
+    </form>
+    </div>
+    `);
+    fill_select_timelines('#filter_timeline');
     funcion='buscar';
-    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
-    <button type="button" class="nuevo-evento btn btn-dark" data-toggle="modal" data-target="#nuevoEvento">Nuevo evento</button>`);
-    $.post('../controlador/timelinesController.php', {consulta, funcion},(response)=>{
+    $.post('../controlador/timelinesController.php', {timeline, orden, funcion},(response)=>{
       //console.log(response);
       const eventos= JSON.parse(response);
       let template='';
@@ -28,8 +73,8 @@ $(document).ready(function(){
                 ${evento.descripcion}
               </div>
               <div class="timeline-footer">
-                <button type="button" class="editar-evento2 btn btn-primary btn-sm" data-toggle="modal" data-id="${evento.id}" data-target="#nuevoEvento">Editar</button>
-                <a class="borrar-evento2 btn btn-danger btn-sm" data-toggle="modal" data-id="${evento.id}" data-target="#eliminarEvento">Eliminar</a>
+                <button type="button" class="editar-evento btn btn-primary btn-sm" data-toggle="modal" data-id="${evento.id}" data-target="#nuevoEvento">Editar</button>
+                <button type="button" id="${evento.id}" nombre="${evento.nombre}" class="borrar-evento btn btn-danger btn-sm" data-toggle="modal" data-target="#eliminarEvento">Eliminar</button>
               </div>
             </div>
           </div>
@@ -45,17 +90,16 @@ $(document).ready(function(){
     });
   }
 
-  function fill_select_timelines(){
+  function fill_select_timelines(id){
     funcion='fill_select_timelines';
     $.post('../controlador/timelinesController.php', {funcion}, (response)=>{
       let timelines=JSON.parse(response);
-      let template='';
+      let template=`
+      <option selected disabled value="1">Línea temporal</option>`;
       timelines.forEach(timeline=>{
-        template+=`
-        <option value="${timeline.id}">${timeline.nombre}</option>
-        `;
+        template+=`<option value="${timeline.id}">${timeline.nombre}</option>`;
       });
-      $('#select_timeline').html(template);
+      $(id).html(template);
     })
   }
 
@@ -98,46 +142,64 @@ $(document).ready(function(){
         edit=false;
     })
     e.preventDefault();
-});
+  });
 
   $(document).on('click', '.borrar-evento',(e)=>{
-    funcion='borrar_asentamiento';
-    //se quiere acceder al elemento Id de la card y guardarlo en elemento, para ello hay que subir 4 veces desde donde está el boton Confirmar eliminar asentamiento.
-    const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
-    const id=$(elemento).attr('asentamientoId');
-    const nombre=$(elemento).attr('asentamientoNombre');
+    funcion='borrar_evento';
+    let elemento=$(this)[0].activeElement;
+    const id=$(elemento).attr('id');
+    const nombre=$(elemento).attr('nombre');
     edit=false;
     $('#id_borrar').val(id);
-    $('#texto-borrar').html(`<div>¿Seguro de eliminar asentamiento <b>${nombre}</b>?</div>`);
+    $('#texto-borrar').html(`<div>¿Seguro de eliminar el evento <b>${nombre}</b>?</div>`);
     $('#funcion').val(funcion);
   });
 
+  $('#form-borrar-evento').submit(e=>{
+		let id=$('#id_borrar').val();
+		funcion='borrar';
+		$.post('../controlador/timelinesController.php', { id, funcion}, (response)=>{
+			if(response=='borrado'){
+				$('#borrado').hide('slow');
+				$('#borrado').show(1000);
+        buscarEventos();
+			}
+			if(response=='noborrado'){
+				$('#no-borrado').hide('slow');
+				$('#no-borrado').show(1000);
+			}
+		})
+		e.preventDefault();
+	});
+
   $(document).on('click', '.nuevo-evento',(e)=>{
-    fill_select_timelines();
+    fill_select_timelines('#select_timeline');
     edit=false;
   });
 
   $('#nuevoEvento').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     var id = button.data('id'); // Extracción del valor id del atributo data-*
-    console.log(id);
     //si id==undefined, se está creando un nuevo evento, si está definido, se está editando un evento
     if(id!=undefined){
-      fill_select_timelines();
+      fill_select_timelines('#select_timeline');
+      $('#submit-crear-button').show();
+      $('#cancelar-crear-button').show();
+      $('#volver-crear-button').hide();
       funcion='detalles';
       $.post('../controlador/timelinesController.php', {id, funcion}, (response)=>{
-        console.log(response);
+        //console.log(response);
         const evento = JSON.parse(response);
         $('#id_editar').val(evento.id);
         $('#nombreEvento').val(evento.nombre);
         $('#dia').val(evento.dia);
         $('#mes').val(evento.mes);
         $('#anno').val(evento.anno);
+        $('#select_timeline').val(evento.id_linea_temporal).trigger('change');
         $('#descripcion').summernote('code',evento.descripcion);
         //$('#tipo').val(evento.tipo);
         edit=true;
       })
     }
   });
-
 });

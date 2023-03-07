@@ -13,12 +13,12 @@
 ?>
 
 <!-- Modal -->
-<div class="modal fade" id="eliminarAsentamiento" tabindex="-1" role="dialog" aria-labelledby="Eliminar asentamiento" aria-hidden="true">
+<div class="modal fade" id="eliminarEvento" tabindex="-1" role="dialog" aria-labelledby="Eliminar evento" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
       <div class="card card-danger">
         <div class="card-header">
-          <h5 class="card-title" id="eliminarAsentamientoLabel">Eliminar asentamiento</h5>
+          <h5 class="card-title" id="eliminarEventoLabel">Eliminar asentamiento</h5>
           <button data-dismiss="modal" aria-label="close" class="close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="card-footer">
-          <form id="form-borrar-asentamiento" class="col-md-auto" >
+          <form id="form-borrar-evento" class="col-md-auto" >
             <input type="hidden" name="id" id="id_borrar">
             <input type="hidden" name="funcion" id="funcion">
             <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
@@ -50,7 +50,7 @@
 	</div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="nuevoEvento" tabindex="-1" role="dialog" aria-labelledby="Nuevo evento" aria-hidden="true">
+<div class="modal fade" id="nuevoEvento" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="Nuevo evento" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
       <div class="card card-dark">
@@ -80,7 +80,7 @@
                   Nombre necesario.
                 </div>
               </div>
-              <div class="col">
+              <div class="col-md-3">
                 <label for="inputFecha" class="form-label">Fecha</label>
                 <div class="input-group mb-2">
                   <input type="text" name="dia" id="dia" class="form-control" placeholder="Dia" aria-label="Dia">
@@ -88,7 +88,7 @@
                   <input type="text" name="anno" id="anno" class="form-control" placeholder="Año" aria-label="Año" required>
                 </div>
               </div>
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="select_timeline" class="form-label">Línea temporal</label>
                 <select class="form-select" name="lineaTemporal" id="select_timeline" required>
                   <option selected disabled value="">Elegir</option>
