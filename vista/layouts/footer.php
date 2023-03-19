@@ -19,9 +19,9 @@
 <script src="../js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="../js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="../js/demo.js"></script>
 <!-- menu -->
 <script src="../js/menu.js"></script>
+<!-- toastr -->
+<script src="../js/toastr.min.js"></script>
 </body>
 </html>

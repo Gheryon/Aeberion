@@ -3,6 +3,8 @@ $(document).ready(function(){
   buscarEventos(1, "ASC");
 
   var edit=false;
+  var orden="ASC";
+  var cronologia=1;
 
   /*$(document).on('change', '#filter_timeline', function(){
   //$('#filter_timeline').on('change', function(){
@@ -111,6 +113,7 @@ $(document).ready(function(){
     let descripcion=$('#descripcion').val();
     let id_editado=$('#id_editar').val();
     let lineaTemporal=$('#select_timeline').val();
+    console.log(lineaTemporal);
     //let tipo=$('#tipo').val();
     //si edit es false, se crea una entrada, si es true, se modifica
     if(edit==false){
@@ -134,7 +137,6 @@ $(document).ready(function(){
             $('#edit').show(1000);
             buscarEventos();
         }
-        //resetea los campos de la card
         $('#form-evento').trigger('reset');
         $('#submit-crear-button').hide();
         $('#cancelar-crear-button').hide();
@@ -188,13 +190,14 @@ $(document).ready(function(){
       $('#volver-crear-button').hide();
       funcion='detalles';
       $.post('../controlador/timelinesController.php', {id, funcion}, (response)=>{
-        //console.log(response);
+        console.log(response);
         const evento = JSON.parse(response);
         $('#id_editar').val(evento.id);
         $('#nombreEvento').val(evento.nombre);
         $('#dia').val(evento.dia);
         $('#mes').val(evento.mes);
         $('#anno').val(evento.anno);
+        console.log(evento.id_linea_temporal);
         $('#select_timeline').val(evento.id_linea_temporal).trigger('change');
         $('#descripcion').summernote('code',evento.descripcion);
         //$('#tipo').val(evento.tipo);

@@ -91,7 +91,6 @@
               <div class="col-md-3">
                 <label for="select_timeline" class="form-label">Línea temporal</label>
                 <select class="form-select" name="lineaTemporal" id="select_timeline" required>
-                  <option selected disabled value="">Elegir</option>
                   
                 </select>
               </div>

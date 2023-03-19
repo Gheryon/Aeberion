@@ -1,0 +1,180 @@
+<?php include_once 'layouts/header.php'; ?>
+<title>Panel de opciones</title>
+<!-- summernote -->
+<link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
+</head>
+
+<!-- Modal -->
+<div class="modal fade" id="confirmar_eliminacion" tabindex="-1" role="dialog" aria-labelledby="Confirmar eliminacion" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="card card-danger">
+        <div class="card-header">
+          <h5 class="card-title" id="confirmar_eliminacion">Confirmar eliminación</h5>
+          <button data-dismiss="modal" aria-label="close" class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-success text-center" id='borrado' style='display:none'>
+            <span><i class="fas fa-check m-1"></i>Eliminado</span>
+          </div>
+          <div class="alert alert-danger text-center" id='no-borrado' style='display:none'>
+            <span><i class="fas fa-times m-1"></i>No se pudo eliminar</span>
+          </div>
+          <div class="row">
+            <div id="texto-borrar" class="row d-flex align-items-stretch">
+
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <form id="form-confirmar-borrar" class="col-md-auto">
+            <input type="hidden" name="id_borrar" id="id_borrar">
+            <input type="hidden" name="funcion" id="funcion">
+            <button type="button" id="cancelar-borrar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" id="confirmar-borrar-button" class="btn btn-danger">Eliminar</button>
+            <button type="button" id="cerrar-borrar-button" class="btn btn-primary" data-dismiss="modal" style="display:none">Cerrar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editar_nombre" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="Editar nombre" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+      <div class="card card-dark">
+        <div class="card-header">
+          <h5 class="card-title" id="nuevoEventoLabel">Nuevo evento</h5>
+          <button data-dismiss="modal" aria-label="close" class="close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="card-body">
+          <form id="form-editar-nombre" class="col-md-auto" >
+            <input type="hidden" name="id_editar" id="id_editar">
+            <input type="hidden" name="funcion_editar" id="funcion_editar">
+            <div class="row">
+              <div class="col">
+                <label for="nombre_editar" class="form-label">Nombre</label>
+                <input type="text" name="nombre_editar" class="form-control" id="nombre_editar" required>
+                <div class="invalid-feedback">
+                  Nombre no puede estar sin contenido.
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="card-footer">
+          <button type="button" id="cancelar-editar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" id="submit-editar-button" class="btn btn-success">Guardar</button>
+          <button type="button" id="cerrar-editar-button" class="btn btn-primary" data-dismiss="modal" style="display:none">Cerrar</button>
+        </div>
+        </form>
+      </div>
+		</div>
+	</div>
+</div>
+
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+  <!-- Site wrapper -->
+  <div class="wrapper">
+    <?php
+    include_once 'layouts/navbar.php';
+    include_once 'layouts/menu.php';
+    ?>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-12">
+              <h1 class="fw-bolder text-center">Panel de configuración</h1>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+
+      <!-- Main content -->
+      <section class="content">
+        <div class="row container-fluid">
+          <div class="card col ml-2">
+            <div class="card-header">
+              <h5 class="card-title">Tipos de evento en el sistema</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm table-hover table-dark">
+                <thead class="bg-dark">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                <tbody id="tipos_evento_tabla">
+
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              <label for="nuevoTipoEvento" class="form-label">Añadir tipo de evento</label>
+              <form id="form-add-tipo-evento" class="row">
+                <div class="col">
+                  <input type="text" name="nuevoTipoEvento" class="form-control nombreEvento" id="nuevoTipoEvento" placeholder="Ej: descubrimiento">
+                </div>
+                <div class="col-3 align-bottom">
+                  <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div class="card col ml-2">
+            <div class="card-header">
+              <h5 class="card-title">Líneas cronológicas en el sistema</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-sm table-hover table-dark">
+                <thead class="bg-dark">
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Opciones</th>
+                  </tr>
+                </thead>
+                <tbody id="timelines_tabla">
+
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+            <label for="nuevoTimeline" class="form-label">Añadir cronologia</label>
+              <form id="form-add-timeline" class="row">
+                <div class="col">
+                  <input type="text" name="nuevoTimeline" class="form-control" id="nuevoTimeline" placeholder="Ej: Edad Media">
+                </div>
+                <div class="col-3 align-bottom">
+                  <button type="submit" class="btn btn-primary">Añadir</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div> <!-- /container -->
+      </section>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+    <?php include_once 'layouts/footer.php'; ?>
+    <script src="../js/configuraciones.js"></script>
+    <!-- Summernote -->
+    <script src="../js/summernote-bs4.min.js"></script>
+    <script>
+      $(function() {
+        // Summernote
+        $('.summernote').summernote({
+          height: 200
+        })
+      })
+    </script>

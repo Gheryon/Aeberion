@@ -9,3 +9,5 @@
   <link rel="stylesheet" href="../css/css/all.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../css/adminlte.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="../css/toastr.min.css">
