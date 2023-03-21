@@ -12,9 +12,7 @@ $(document).ready(function(){
     let id=$('#id_editar').val();
     let nombre=$('#nombre_editar').val();
     let funcion=$('#funcion_editar').val();
-    console.log(funcion);
     $.post('../controlador/configuracionController.php', {id, nombre, funcion},(response)=>{
-      console.log(response);
       if(response=='edit'){
         toastr.success('Elemento editado.', 'Éxito');
         if(funcion=='editar_tipo_evento'){
@@ -39,7 +37,6 @@ $(document).ready(function(){
     let id=$('#id_borrar').val();
     let funcion=$('#funcion').val();
     $.post('../controlador/configuracionController.php', {id, funcion},(response)=>{
-      console.log(response);
       if(response=='borrado'){
         toastr.success('Elemento borrado.', 'Éxito');
         if(funcion=='borrar_tipo_evento'){
@@ -82,10 +79,8 @@ $(document).ready(function(){
 
   $('#form-add-tipo-evento').submit(e=>{
     let nombre=$('#nuevoTipoEvento').val();
-    console.log(nombre);
     funcion='add_tipo_evento';
     $.post('../controlador/configuracionController.php', {nombre, funcion},(response)=>{
-      console.log(response);
       if(response=='add'){
         toastr.success('Tipo de evento añadido.', 'Éxito');
         buscarTiposEventos();
@@ -144,10 +139,8 @@ $(document).ready(function(){
 
   $('#form-add-timeline').submit(e=>{
     let nombre=$('#nuevoTimeline').val();
-    console.log(nombre);
     funcion='add_timeline';
     $.post('../controlador/configuracionController.php', {nombre, funcion},(response)=>{
-      console.log(response);
       if(response=='add'){
         toastr.success('Cronología añadida.', 'Éxito');
         buscarTimelines();
@@ -166,7 +159,6 @@ $(document).ready(function(){
     let id=$(elemento).attr('id');
     let nombre=$(elemento).attr('nombre');
     let funcion=$(elemento2).attr('funcion');
-    console.log(funcion);
     $('#id_borrar').val(id);
     $('#texto-borrar').html(`<div>Confirma la eliminación de la cronología <b>${nombre}</b>?</div>`);
     $('#funcion').val(funcion);

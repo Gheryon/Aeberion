@@ -3,6 +3,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!--<link rel="stylesheet" href="../css/style.css"/>-->
 <title>Nueva especie</title>
+<!-- summernote -->
+<link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
@@ -90,19 +92,19 @@
 						<div class="row mt-2">
 							<div class="col">
 								<label for="anatomia" class="form-label">Descripción anatómica</label>
-								<textarea class="form-control" name="anatomia" id="anatomia" rows="1" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="anatomia" id="anatomia" rows="1" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2">
 							<div class="col">
 								<label for="alimentacion" class="form-label">Alimentación</label>
-								<textarea class="form-control" id="alimentacion" rows="1" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" id="alimentacion" rows="1" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 							<div class="row mt-2 mb-2">
 								<div class="col">
 									<label for="reproduccion" class="form-label">Reproducción y crecimiento</label>
-									<textarea class="form-control" id="reproduccion" rows="1" aria-label="With textarea"></textarea>
+									<textarea class="form-control summernote" id="reproduccion" rows="1" aria-label="With textarea"></textarea>
 								</div>
 						</div>
 					</div>
@@ -112,25 +114,25 @@
 						<div class="row mt-2">
 							<div class="col">
 								<label for="distribucion" class="form-label">Distribución y hábitats</label>
-								<textarea class="form-control" id="distribucion" rows="1" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" id="distribucion" rows="1" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2">
 							<div class="col">
 								<label for="habilidades" class="form-label">Habilidades</label>
-								<textarea class="form-control" id="habilidades" rows="1" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" id="habilidades" rows="1" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2">
 							<div class="col">
 								<label for="domesticacion" class="form-label">Domesticación</label>
-								<textarea class="form-control" id="domesticacion" rows="1" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" id="domesticacion" rows="1" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2 mb-2">
 							<div class="col">
 								<label for="explotacion" class="form-label">Explotación</label>
-								<textarea class="form-control" id="explotacion" rows="1" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" id="explotacion" rows="1" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 					</div>
@@ -140,7 +142,7 @@
 						<div class="row mt-2 mb-2">
 							<div class="col">
 								<label for="otros" class="form-label">Otros</label>
-								<textarea class="form-control" id="otros" rows="1" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" id="otros" rows="1" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 					</div>
@@ -154,3 +156,13 @@
 <?php include_once 'layouts/footer.php';?>
 
 <script src="../js/especie.js"></script>
+<!-- Summernote -->
+<script src="../js/summernote-bs4.min.js"></script>
+<script>
+  $(function () {
+    // Summernote
+    $('.summernote').summernote({
+      height: 250
+    })
+  })
+</script>

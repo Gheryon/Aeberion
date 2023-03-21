@@ -10,7 +10,7 @@ $(document).ready(function(){
       especies.forEach(especie => {
         template+=`
         <li class="nav-item">
-          <a href="especies.php?id_especie=${especie.id}" class="nav-link">
+          <a href="vistaContent.php?id_especie=${especie.id}" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>${especie.nombre}</p>
           </a>

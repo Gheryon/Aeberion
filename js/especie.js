@@ -2,15 +2,11 @@ $(document).ready(function(){
   var funcion='';
   var id_especie = $('#id_especie').val();
   var id_especie_editar = $('#id_especie_editar').val();
-  if(id_especie==undefined){
+  if(id_especie!=undefined){
     //console.log("no id-especie");
-  }else{
-    //console.log(id_especie);
-    buscar_especie(id_especie);
+    ver_especie(id_especie);
   }
-  if(id_especie_editar==undefined){
-    //console.log("no id-especie editar");
-  }else{
+  if(id_especie_editar!=undefined){
     //console.log(id_especie_editar);
     buscar_especie_editar(id_especie_editar);
   }
@@ -48,83 +44,148 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  function buscar_especie(dato) {
+  function ver_especie(dato) {
     funcion='buscar_especie';
     $.post('../controlador/especiesController.php', {dato, funcion},(response)=>{
+      console.log(response);
       const especie= JSON.parse(response);
+      $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark ml-2">Volver</a>
+      <form class="btn" action="editarEspecie.php" method="post">
+        <button class="btn btn-dark mr-1">Editar</button>
+        <input type="hidden" name="id_especie" value="${especie.id_especie}">
+      </form>`);
       $('#nombre').html(especie.nombre);
-      $('#especies-title').html(especie.nombre);
-      $('#especies-title-h1').html(especie.nombre);
-      if(especie.anatomia==undefined){
-        $('#anatomia-row').hide();
-      }else{
-        $('#anatomia').html(especie.anatomia);
+      $('#content-title').html(especie.nombre);
+      $('#content-title-h1').html(especie.nombre);
+      let template='';
+      template+=`
+      <h2>Anatomía y morfología</h2>`;
+      if(especie.anatomia!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Descripción anatómica</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.anatomia}
+          </div>
+        </div>`;
       }
-      if(especie.alimentacion==undefined){
-        $('#alimentacion-row').hide();
-      }else{
-        $('#alimentacion').html(especie.alimentacion);
+      if(especie.alimentacion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Alimentación</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.alimentacion}
+          </div>
+        </div>`;
       }
-      if(especie.reproduccion==undefined){
-        $('#reproduccion-row').hide();
-      }else{
-        $('#reproduccion').html(especie.reproduccion);
+      if(especie.reproduccion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Reproducción y crecimiento</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.reproduccion}
+          </div>
+        </div>`;
       }
-      if(especie.distribucion==undefined){
-        $('#distribucion-row').hide();
-      }else{
-        $('#distribucion').html(especie.distribucion);
+      template+=`
+      <h2>Hábitats y usos</h2>`;
+      if(especie.distribucion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Distribución y hábitats</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.distribucion}
+          </div>
+        </div>`;
       }
-      if(especie.habilidades==undefined){
-        $('#habilidades-row').hide();
-      }else{
-        $('#habilidades').html(especie.habilidades);
+      if(especie.habilidades!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Habilidades</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.habilidades}
+          </div>
+        </div>`;
       }
-      if(especie.domesticacion==undefined){
-        $('#domesticacion-row').hide();
-      }else{
-        $('#domesticacion').html(especie.domesticacion);
+      if(especie.domesticacion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Domesticación</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.domesticacion}
+          </div>
+        </div>`;
       }
-      if(especie.explotacion==undefined){
-        $('#explotacion-row').hide();
-      }else{
-        $('#explotacion').html(especie.explotacion);
+      if(especie.explotacion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Explotación</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.domesticacion}
+          </div>
+        </div>`;
       }
-      if(especie.otros==undefined){
-        $('#otros-div').hide();
-      }else{
-        $('#otros').html(especie.otros);
+      template+=`
+      <h2>Otros</h2>`;
+      if(especie.otros!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Otros</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.otros}
+          </div>
+        </div>`;
       }
-      if(especie.imagen==undefined){
-        $('#imagen-row').hide();
-      }else{
-        $('#imagen').html(especie.imagen);
+      $('#content-left').html(template);
+      
+      //datos de la card
+      template='';
+      if(especie.vida!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Vida media</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.vida}
+          </div>
+        </div>`;
       }
-      if(especie.vida==undefined){
-        $('#vida-row').hide();
-      }else{
-        $('#vida').html(especie.vida);
+      if(especie.altura!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Altura</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.altura}
+          </div>
+        </div>`;
       }
-      if(especie.altura==undefined){
-        $('#altura-row').hide();
-      }else{
-        $('#altura').html(especie.altura);
+      if(especie.peso!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Peso</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.peso}
+          </div>
+        </div>`;
       }
-      if(especie.peso==undefined){
-        $('#peso-row').hide();
-      }else{
-        $('#peso').html(especie.peso);
+      if(especie.longitud!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Longitud</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.longitud}
+          </div>
+        </div>`;
       }
-      if(especie.longitud==undefined){
-        $('#longitud-row').hide();
-      }else{
-        $('#longitud').html(especie.longitud);
+      if(especie.estatus!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Estatus</h3>
+          <div class="row ml-2 mr-2">
+          ${especie.estatus}
+          </div>
+        </div>`;
       }
-      if(especie.estatus==undefined){
-        $('#estatus-row').hide();
-      }else{
-        $('#estatus').html(especie.estatus);
-      }
+      $('#content-right').html(template);
     });
   }
 
@@ -133,14 +194,14 @@ $(document).ready(function(){
     $.post('../controlador/especiesController.php', {dato, funcion},(response)=>{
       const especie= JSON.parse(response);
       $('#nombre').val(especie.nombre);
-      $('#anatomia').val(especie.anatomia);
-      $('#alimentacion').val(especie.alimentacion);
-      $('#reproduccion').val(especie.reproduccion);
-      $('#distribucion').val(especie.distribucion);
-      $('#habilidades').val(especie.habilidades);
-      $('#domesticacion').val(especie.domesticacion);
-      $('#explotacion').val(especie.explotacion);
-      $('#otros').val(especie.otros);
+      $('#anatomia').summernote('code', especie.anatomia);
+      $('#alimentacion').summernote('code', especie.alimentacion);
+      $('#reproduccion').summernote('code', especie.reproduccion);
+      $('#distribucion').summernote('code', especie.distribucion);
+      $('#habilidades').summernote('code', especie.habilidades);
+      $('#domesticacion').summernote('code', especie.domesticacion);
+      $('#explotacion').summernote('code', especie.explotacion);
+      $('#otros').summernote('code', especie.otros);
       $('#imagen').val(especie.imagen);
       $('#vida').val(especie.vida);
       $('#altura').val(especie.altura);

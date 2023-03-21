@@ -15,6 +15,11 @@ if(isset($_GET['id_asentamiento'])){
   <input id="id_asentamiento" type="hidden" value="<?php echo $_GET['id_asentamiento']?>">
 <?php
 }
+if(isset($_GET['id_especie'])){
+  ?>
+  <input id="id_especie" type="hidden" value="<?php echo $_GET['id_especie']?>">
+<?php
+}
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -74,3 +79,4 @@ if(isset($_GET['id_asentamiento'])){
 
 <script src="../js/instituciones.js"></script>
 <script src="../js/asentamientos.js"></script>
+<script src="../js/especie.js"></script>

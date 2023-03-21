@@ -23,7 +23,6 @@ $(document).ready(function(){
     $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
     <a href="createAsentamiento.php" class="btn btn-dark">Nuevo</a>`);
     $.post('../controlador/asentamientosController.php', {consulta, funcion},(response)=>{
-      console.log(response);
       const asentamientos= JSON.parse(response);
       let template='';
       asentamientos.forEach(asentamiento => {

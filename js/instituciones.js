@@ -5,6 +5,7 @@ $(document).ready(function(){
   var id_institucion_editar = $('#id_institucion_editar').val();
   var id_religion = $('#id_religion').val();
   var id_religion_editar = $('#id_religion_editar').val();
+  var id_especie = $('#id_especie').val();
   
   //si id_institucion o id_religion están definidos, se va a consultar una entrada
   if(id_institucion!=undefined){
@@ -21,7 +22,7 @@ $(document).ready(function(){
     buscar_religion_editar(id_religion_editar);
   }
   //si ni id_institucion ni id_institucion_editar están definidos, estamos en paises.php y se cargan todos
-  if(id_institucion==undefined&&id_institucion_editar==undefined&&id_religion==undefined&&id_religion_editar==undefined){
+  if(id_institucion==undefined&&id_institucion_editar==undefined&&id_religion==undefined&&id_religion_editar==undefined&&id_especie==undefined){
     buscar_instituciones();
   }
 
