@@ -1,6 +1,9 @@
 $(document).ready(function(){
   buscarTiposEventos();
   buscarTimelines();
+  buscarTiposOrganizaciones();
+  buscarTiposAsentamientos();
+  buscarTiposLugar();
 
   //para evitar que los mensajes toastr se acumulen en pantalla
   toastr.options={
@@ -20,6 +23,15 @@ $(document).ready(function(){
         }
         if(funcion=='editar_timeline'){
           buscarTimelines();
+        }
+        if(funcion=='editar_tipo_organizacion'){
+          buscarTiposOrganizaciones();
+        }
+        if(funcion=='editar_tipo_asentamiento'){
+          buscarTiposAsentamientos();
+        }
+        if(funcion=='editar_tipo_lugar'){
+          buscarTiposLugar();
         }
       }
       if(response=='no-edit'){
@@ -44,6 +56,15 @@ $(document).ready(function(){
         }
         if(funcion=='borrar_timeline'){
           buscarTimelines();
+        }
+        if(funcion=='borrar_tipo_organizacion'){
+          buscarTiposOrganizaciones();
+        }
+        if(funcion=='borrar_tipo_asentamiento'){
+          buscarTiposAsentamientos();
+        }
+        if(funcion=='borrar_tipo_lugar'){
+          buscarTiposLugar();
         }
       }
       if(response=='no-borrado'){
@@ -94,6 +115,9 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.borrar-tipo-evento',(e)=>{
+    $('#confirmar-borrar-button').show();
+    $('#cancelar-borrar-button').show();
+    $('#cerrar-borrar-button').hide();
     let elemento=$(this)[0].activeElement.parentElement.parentElement;
     let id=$(elemento).attr('id');
     let nombre=$(elemento).attr('nombre');
@@ -154,6 +178,9 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.borrar-timeline',(e)=>{
+    $('#confirmar-borrar-button').show();
+    $('#cancelar-borrar-button').show();
+    $('#cerrar-borrar-button').hide();
     let elemento=$(this)[0].activeElement.parentElement.parentElement;
     let elemento2=$(this)[0].activeElement;
     let id=$(elemento).attr('id');
@@ -165,6 +192,198 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.editar-timeline',(e)=>{
+    $('#submit-editar-button').show();
+    $('#cancelar-editar-button').show();
+    $('#cerrar-editar-button').hide();
+    let elemento=$(this)[0].activeElement.parentElement.parentElement;
+    let elemento2=$(this)[0].activeElement;
+    let id=$(elemento).attr('id');
+    let nombre=$(elemento).attr('nombre');
+    let funcion=$(elemento2).attr('funcion');
+    $('#id_editar').val(id);
+    $('#nombre_editar').val(nombre);
+    $('#funcion_editar').val(funcion);
+  });
+
+  /*******para gestionar tipos organizaciones******/
+  function buscarTiposOrganizaciones() {
+    funcion='get_tipos_organizacion';
+    $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+      //console.log(response);
+      const tipos= JSON.parse(response);
+      let template='';
+      tipos.forEach(tipo => {
+        template+=`
+				<tr id="${tipo.id}" nombre="${tipo.nombre}">
+					<td>${tipo.nombre}</td>
+					<td><button funcion="editar_tipo_organizacion" class="editar-tipo-organizacion btn btn-sm btn-success" data-toggle="modal" data-target="#editar_nombre"><i class="fas fa-pencil-alt"></i></button>
+              <button funcion="borrar_tipo_organizacion" class="borrar-tipo-organizacion btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmar_eliminacion"><i class="fas fa-times-circle"></i></button></td>
+				</tr>
+			`;
+      });
+      $('#tipos_organizacion_tabla').html(template);
+    });
+  }
+
+  $('#form-add-tipo-organizacion').submit(e=>{
+    let nombre=$('#nuevoTipoOrganizacion').val();
+    funcion='add_tipo_organizacion';
+    $.post('../controlador/configuracionController.php', {nombre, funcion},(response)=>{
+      if(response=='add'){
+        toastr.success('Tipo de organización añadida.', 'Éxito');
+        buscarTiposOrganizaciones();
+      }
+      if(response=='no-add'){
+        toastr.error('No se pudo añadir.', 'Error');
+      }
+      $('#form-add-tipo-organizacion').trigger('reset');
+    });
+    e.preventDefault();
+  });
+
+  $(document).on('click', '.borrar-tipo-organizacion',(e)=>{
+    $('#confirmar-borrar-button').show();
+    $('#cancelar-borrar-button').show();
+    $('#cerrar-borrar-button').hide();
+    let elemento=$(this)[0].activeElement.parentElement.parentElement;
+    let elemento2=$(this)[0].activeElement;
+    let id=$(elemento).attr('id');
+    let nombre=$(elemento).attr('nombre');
+    let funcion=$(elemento2).attr('funcion');
+    $('#id_borrar').val(id);
+    $('#texto-borrar').html(`<div>Confirma la eliminación del tipo <b>${nombre}</b>?</div>`);
+    $('#funcion').val(funcion);
+  });
+
+  $(document).on('click', '.editar-tipo-organizacion',(e)=>{
+    $('#submit-editar-button').show();
+    $('#cancelar-editar-button').show();
+    $('#cerrar-editar-button').hide();
+    let elemento=$(this)[0].activeElement.parentElement.parentElement;
+    let elemento2=$(this)[0].activeElement;
+    let id=$(elemento).attr('id');
+    let nombre=$(elemento).attr('nombre');
+    let funcion=$(elemento2).attr('funcion');
+    $('#id_editar').val(id);
+    $('#nombre_editar').val(nombre);
+    $('#funcion_editar').val(funcion);
+  });
+
+  /*******para gestionar tipos asentamientos******/
+  function buscarTiposAsentamientos() {
+    funcion='get_tipos_asentamiento';
+    $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+      //console.log(response);
+      const tipos= JSON.parse(response);
+      let template='';
+      tipos.forEach(tipo => {
+        template+=`
+				<tr id="${tipo.id}" nombre="${tipo.nombre}">
+					<td>${tipo.nombre}</td>
+					<td><button funcion="editar_tipo_asentamiento" class="editar-tipo-asentamiento btn btn-sm btn-success" data-toggle="modal" data-target="#editar_nombre"><i class="fas fa-pencil-alt"></i></button>
+              <button funcion="borrar_tipo_asentamiento" class="borrar-tipo-asentamiento btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmar_eliminacion"><i class="fas fa-times-circle"></i></button></td>
+				</tr>
+			`;
+      });
+      $('#tipos_asentamiento_tabla').html(template);
+    });
+  }
+
+  $('#form-add-tipo-asentamiento').submit(e=>{
+    let nombre=$('#nuevoTipoAsentamiento').val();
+    funcion='add_tipo_asentamiento';
+    $.post('../controlador/configuracionController.php', {nombre, funcion},(response)=>{
+      if(response=='add'){
+        toastr.success('Tipo de asentamiento añadido.', 'Éxito');
+        buscarTiposAsentamientos();
+      }
+      if(response=='no-add'){
+        toastr.error('No se pudo añadir.', 'Error');
+      }
+      $('#form-add-tipo-asentamiento').trigger('reset');
+    });
+    e.preventDefault();
+  });
+
+  $(document).on('click', '.borrar-tipo-asentamiento',(e)=>{
+    $('#confirmar-borrar-button').show();
+    $('#cancelar-borrar-button').show();
+    $('#cerrar-borrar-button').hide();
+    let elemento=$(this)[0].activeElement.parentElement.parentElement;
+    let elemento2=$(this)[0].activeElement;
+    let id=$(elemento).attr('id');
+    let nombre=$(elemento).attr('nombre');
+    let funcion=$(elemento2).attr('funcion');
+    $('#id_borrar').val(id);
+    $('#texto-borrar').html(`<div>Confirma la eliminación del tipo <b>${nombre}</b>?</div>`);
+    $('#funcion').val(funcion);
+  });
+
+  $(document).on('click', '.editar-tipo-asentamiento',(e)=>{
+    $('#submit-editar-button').show();
+    $('#cancelar-editar-button').show();
+    $('#cerrar-editar-button').hide();
+    let elemento=$(this)[0].activeElement.parentElement.parentElement;
+    let elemento2=$(this)[0].activeElement;
+    let id=$(elemento).attr('id');
+    let nombre=$(elemento).attr('nombre');
+    let funcion=$(elemento2).attr('funcion');
+    $('#id_editar').val(id);
+    $('#nombre_editar').val(nombre);
+    $('#funcion_editar').val(funcion);
+  });
+
+  /*******para gestionar tipos lugares******/
+  function buscarTiposLugar() {
+    funcion='get_tipos_lugar';
+    $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+      //console.log(response);
+      const tipos= JSON.parse(response);
+      let template='';
+      tipos.forEach(tipo => {
+        template+=`
+        <tr id="${tipo.id}" nombre="${tipo.nombre}">
+          <td>${tipo.nombre}</td>
+          <td><button funcion="editar_tipo_lugar" class="editar-tipo-lugar btn btn-sm btn-success" data-toggle="modal" data-target="#editar_nombre"><i class="fas fa-pencil-alt"></i></button>
+              <button funcion="borrar_tipo_lugar" class="borrar-tipo-lugar btn btn-sm btn-danger" data-toggle="modal" data-target="#confirmar_eliminacion"><i class="fas fa-times-circle"></i></button></td>
+        </tr>
+      `;
+      });
+      $('#tipos_lugares_tabla').html(template);
+    });
+  }
+
+  $('#form-add-tipo-lugar').submit(e=>{
+    let nombre=$('#nuevoTipoLugar').val();
+    funcion='add_tipo_lugar';
+    $.post('../controlador/configuracionController.php', {nombre, funcion},(response)=>{
+      if(response=='add'){
+        toastr.success('Tipo de lugar añadido.', 'Éxito');
+        buscarTiposLugar();
+      }
+      if(response=='no-add'){
+        toastr.error('No se pudo añadir.', 'Error');
+      }
+      $('#form-add-tipo-lugar').trigger('reset');
+    });
+    e.preventDefault();
+  });
+
+  $(document).on('click', '.borrar-tipo-lugar',(e)=>{
+    $('#confirmar-borrar-button').show();
+    $('#cancelar-borrar-button').show();
+    $('#cerrar-borrar-button').hide();
+    let elemento=$(this)[0].activeElement.parentElement.parentElement;
+    let elemento2=$(this)[0].activeElement;
+    let id=$(elemento).attr('id');
+    let nombre=$(elemento).attr('nombre');
+    let funcion=$(elemento2).attr('funcion');
+    $('#id_borrar').val(id);
+    $('#texto-borrar').html(`<div>Confirma la eliminación del tipo <b>${nombre}</b>?</div>`);
+    $('#funcion').val(funcion);
+  });
+
+  $(document).on('click', '.editar-tipo-lugar',(e)=>{
     $('#submit-editar-button').show();
     $('#cancelar-editar-button').show();
     $('#cerrar-editar-button').hide();

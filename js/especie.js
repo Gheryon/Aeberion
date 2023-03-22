@@ -121,7 +121,7 @@ $(document).ready(function(){
         <div class="row">
           <h3>Explotación</h3>
           <div class="row ml-2 mr-2">
-          ${especie.domesticacion}
+          ${especie.explotacion}
           </div>
         </div>`;
       }

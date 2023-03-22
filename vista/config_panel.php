@@ -100,64 +100,157 @@
 
       <!-- Main content -->
       <section class="content">
-        <div class="row container-fluid">
-          <div class="card col ml-2">
-            <div class="card-header">
-              <h5 class="card-title">Tipos de evento en el sistema</h5>
-            </div>
-            <div class="card-body">
-              <table class="table table-sm table-hover table-dark">
-                <thead class="bg-dark">
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Opciones</th>
-                  </tr>
-                </thead>
-                <tbody id="tipos_evento_tabla">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="card col ml-1">
+              <div class="card-header">
+                <h5 class="card-title">Tipos de evento en el sistema</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-sm table-hover table-dark">
+                  <thead class="bg-dark">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tipos_evento_tabla">
 
-                </tbody>
-              </table>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+                <label for="nuevoTipoEvento" class="form-label">Añadir tipo de evento</label>
+                <form id="form-add-tipo-evento" class="row">
+                  <div class="col">
+                    <input type="text" name="nuevoTipoEvento" class="form-control nombreEvento" id="nuevoTipoEvento" placeholder="Ej: descubrimiento">
+                  </div>
+                  <div class="col-3 align-bottom">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div class="card-footer">
-              <label for="nuevoTipoEvento" class="form-label">Añadir tipo de evento</label>
-              <form id="form-add-tipo-evento" class="row">
-                <div class="col">
-                  <input type="text" name="nuevoTipoEvento" class="form-control nombreEvento" id="nuevoTipoEvento" placeholder="Ej: descubrimiento">
-                </div>
-                <div class="col-3 align-bottom">
-                  <button type="submit" class="btn btn-primary">Añadir</button>
-                </div>
-              </form>
+
+            <div class="card col ml-1">
+              <div class="card-header">
+                <h5 class="card-title">Líneas cronológicas en el sistema</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-sm table-hover table-dark">
+                  <thead class="bg-dark">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="timelines_tabla">
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+              <label for="nuevoTimeline" class="form-label">Añadir cronologia</label>
+                <form id="form-add-timeline" class="row">
+                  <div class="col">
+                    <input type="text" name="nuevoTimeline" class="form-control" id="nuevoTimeline" placeholder="Ej: Edad Media">
+                  </div>
+                  <div class="col-3 align-bottom">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="card col ml-1">
+              <div class="card-header">
+                <h5 class="card-title">Tipos de organizaciones en el sistema</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-sm table-hover table-dark">
+                  <thead class="bg-dark">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tipos_organizacion_tabla">
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+              <label for="nuevoTimeline" class="form-label">Añadir tipo</label>
+                <form id="form-add-tipo-organizacion" class="row">
+                  <div class="col">
+                    <input type="text" name="nuevoTipoOrganizacion" class="form-control" id="nuevoTipoOrganizacion" placeholder="Ej: Reino">
+                  </div>
+                  <div class="col-3 align-bottom">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
+          <div class="row">
+            <div class="card col ml-1">
+              <div class="card-header">
+                <h5 class="card-title">Tipos de lugares en el sistema</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-sm table-hover table-dark">
+                  <thead class="bg-dark">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tipos_lugares_tabla">
 
-          <div class="card col ml-2">
-            <div class="card-header">
-              <h5 class="card-title">Líneas cronológicas en el sistema</h5>
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+              <label for="nuevoTipoLugar" class="form-label">Añadir tipo</label>
+                <form id="form-add-tipo-lugar" class="row">
+                  <div class="col">
+                    <input type="text" name="nuevoTipoLugar" class="form-control" id="nuevoTipoLugar" placeholder="Ej: Bosque">
+                  </div>
+                  <div class="col-3 align-bottom">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div class="card-body">
-              <table class="table table-sm table-hover table-dark">
-                <thead class="bg-dark">
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Opciones</th>
-                  </tr>
-                </thead>
-                <tbody id="timelines_tabla">
 
-                </tbody>
-              </table>
-            </div>
-            <div class="card-footer">
-            <label for="nuevoTimeline" class="form-label">Añadir cronologia</label>
-              <form id="form-add-timeline" class="row">
-                <div class="col">
-                  <input type="text" name="nuevoTimeline" class="form-control" id="nuevoTimeline" placeholder="Ej: Edad Media">
-                </div>
-                <div class="col-3 align-bottom">
-                  <button type="submit" class="btn btn-primary">Añadir</button>
-                </div>
-              </form>
+            <div class="card col ml-1">
+              <div class="card-header">
+                <h5 class="card-title">Tipos de asentamientos en el sistema</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-sm table-hover table-dark">
+                  <thead class="bg-dark">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tipos_asentamiento_tabla">
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+              <label for="nuevoTipoAsentamiento" class="form-label">Añadir tipo</label>
+                <form id="form-add-tipo-asentamiento" class="row">
+                  <div class="col">
+                    <input type="text" name="nuevoTipoAsentamiento" class="form-control" id="nuevoTipoAsentamiento" placeholder="Ej: Ciudad">
+                  </div>
+                  <div class="col-3 align-bottom">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div> <!-- /container -->
