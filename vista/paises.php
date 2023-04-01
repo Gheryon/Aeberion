@@ -4,13 +4,6 @@ if(isset($_GET['tipo_institucion'])){
   ?>
 <input id="tipo" type="hidden" value="<?php echo $_GET['tipo_institucion']?>">
 <?php
-}else{
-  ?>
-<input id="tipo" type="hidden" value="paises">
-  <?php
-}
-
-if(isset($_GET['tipo_institucion'])){
   if ($_GET['tipo_institucion']=='paises') {?>
     <title>Países</title>
   <?php
@@ -32,6 +25,7 @@ if(isset($_GET['tipo_institucion'])){
     <?php
   }}else{?>
     <title>Países e instituciones</title>
+    <input id="tipo" type="hidden" value="paises">
   <?php
   }
 ?>

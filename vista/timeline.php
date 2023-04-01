@@ -88,9 +88,9 @@
                   <input type="text" name="anno" id="anno" class="form-control" placeholder="Año" aria-label="Año" required>
                 </div>
               </div>
-              <div class="col-md-3">
+              <div class="col-md-4">
                 <label for="select_timeline" class="form-label">Línea temporal</label>
-                <select class="form-select" name="lineaTemporal" id="select_timeline" required>
+                <select class="form-select form-control" name="select_timeline" id="select_timeline" required>
                   
                 </select>
               </div>

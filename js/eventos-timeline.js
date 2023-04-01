@@ -1,55 +1,33 @@
 $(document).ready(function(){
-  //por defecto, se obtienen todos los eventos (1->historia universal) en orden ascendente
-  buscarEventos(1, "ASC");
 
   var edit=false;
-  var orden="ASC";
+  var orden="DESC";
   var cronologia=1;
+  //por defecto, se obtienen todos los eventos (1->historia universal) en orden descendente
+  buscarEventos(cronologia, orden);
 
-  /*$(document).on('change', '#filter_timeline', function(){
-  //$('#filter_timeline').on('change', function(){
-    console.log(this.value);
-    orden=$('#order_timeline').val();
-    console.log(orden);
-  });*/
+  $(document).on('change', '#filter_timeline', function(){
+    cronologia=this.value;
+    buscarEventos(cronologia, orden);
+  });
 
-  /*$(document).on('change', '#order_timeline', function(){
+  $(document).on('change', '#order_timeline', function(){
   //$('#order_timeline').on('change', function(){ <--por lo que sea, no funciona así
     orden=this.value;
-    console.log(orden);
-    cronologia=$('#filter_timeline').val();
-    console.log(cronologia);
-    buscarEventos(1, orden);
-  });*/
-  $('#form_filtrar_eventos').submit(e=>{
-    e.preventDefault();
-    cronologia=$('#filter_timeline').val();
-    orden=$('#order_timeline').val();
-    if(cronologia==undefined){
-      cronologia=1;
-    }
-    if(orden==undefined){
-      orden="ASC";
-    }
     buscarEventos(cronologia, orden);
-	});
+  });
 
   function buscarEventos(timeline, orden) {
     $('#nav-buttons').html(`
     <div class="row">
     <a href="../index.php" class="btn btn-dark ml-2">Inicio</a>
     <button type="button" class="nuevo-evento btn btn-dark ml-2" data-toggle="modal" data-target="#nuevoEvento">Nuevo evento</button>
-    <form id="form_filtrar_eventos" class="ml-2">
-      <!--<label for="filter_timeline" class="form-label">Línea temporal</label>-->
-      <select id="filter_timeline" class="form-select" name="filter_timeline"></select>
-      <!--<label for="order_timeline" class="form-label"></label>-->
+      <select id="filter_timeline" class="form-select ml-2" name="filter_timeline"></select>
       <select id="order_timeline" class="form-select ml-2" name="order_timeline">
         <option selected disabled value="ASC">Orden</option>
         <option value="ASC">Ascendente</option>
         <option value="DESC">Descendente</option>
       </select>
-      <button type="submit" class="btn btn-dark ml-2">Filtrar</button>
-    </form>
     </div>
     `);
     fill_select_timelines('#filter_timeline');
@@ -97,7 +75,7 @@ $(document).ready(function(){
     $.post('../controlador/timelinesController.php', {funcion}, (response)=>{
       let timelines=JSON.parse(response);
       let template=`
-      <option selected disabled value="1">Línea temporal</option>`;
+      <option selected disabled value="">Línea temporal</option>`;
       timelines.forEach(timeline=>{
         template+=`<option value="${timeline.id}">${timeline.nombre}</option>`;
       });
@@ -113,35 +91,34 @@ $(document).ready(function(){
     let descripcion=$('#descripcion').val();
     let id_editado=$('#id_editar').val();
     let lineaTemporal=$('#select_timeline').val();
-    console.log(lineaTemporal);
     //let tipo=$('#tipo').val();
     //si edit es false, se crea una entrada, si es true, se modifica
     if(edit==false){
-        funcion='add';
+      funcion='add';
     }else{
-        funcion='editar';
+      funcion='editar';
     }
     $.post('../controlador/timelinesController.php', {nombre, dia, mes, anno, descripcion, id_editado, lineaTemporal, funcion}, (response)=>{
-        console.log(response);
-        if(response=='add'){
-            $('#add').hide('slow');
-            $('#add').show(1000);
-            buscarEventos();
-        }
-        if(response=='no-add'){
-            $('#no-add').hide('slow');
-            $('#no-add').show(1000);
-        }
-        if(response=='edit'){
-            $('#edit').hide('slow');
-            $('#edit').show(1000);
-            buscarEventos();
-        }
-        $('#form-evento').trigger('reset');
-        $('#submit-crear-button').hide();
-        $('#cancelar-crear-button').hide();
-        $('#volver-crear-button').show();
-        edit=false;
+      //console.log(response);
+      if(response=='add'){
+        $('#add').hide('slow');
+        $('#add').show(1000);
+        buscarEventos();
+      }
+      if(response=='no-add'){
+        $('#no-add').hide('slow');
+        $('#no-add').show(1000);
+      }
+      if(response=='edit'){
+        $('#edit').hide('slow');
+        $('#edit').show(1000);
+        buscarEventos();
+      }
+      $('#form-evento').trigger('reset');
+      $('#submit-crear-button').hide();
+      $('#cancelar-crear-button').hide();
+      $('#volver-crear-button').show();
+      edit=false;
     })
     e.preventDefault();
   });

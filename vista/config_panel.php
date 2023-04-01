@@ -92,7 +92,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-12">
-              <h1 class="fw-bolder text-center">Panel de configuración</h1>
+              <h1 class="fw-bolder text-center">Panel de opciones</h1>
             </div>
           </div>
         </div><!-- /.container-fluid -->

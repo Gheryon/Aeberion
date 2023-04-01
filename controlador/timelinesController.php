@@ -46,7 +46,7 @@ if($_POST['funcion']=='buscar'){
       $fecha=$fecha.$objeto->dia;
     }
     if($objeto->mes!=null){
-      $fecha=$fecha." - ".$objeto->mes." - ";
+      $fecha=$fecha." / ".$objeto->mes." / ";
     }
     $fecha=$fecha.$objeto->anno;
     $json[]=array(
