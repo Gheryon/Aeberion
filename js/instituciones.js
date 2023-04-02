@@ -16,6 +16,8 @@ $(document).ready(function(){
   }
   //si id_institucion_editar o id_religion_editar están definido, se va a editar una entrada
   if(id_institucion_editar!=undefined){
+    fill_select_tipo();
+    console.log(id_institucion_editar);
     buscar_institucion_editar(id_institucion_editar);
   }
   if(id_religion_editar!=undefined){
@@ -23,7 +25,22 @@ $(document).ready(function(){
   }
   //si ni id_institucion ni id_institucion_editar están definidos, estamos en paises.php y se cargan todos
   if(id_institucion==undefined&&id_institucion_editar==undefined&&id_religion==undefined&&id_religion_editar==undefined&&id_especie==undefined){
+    fill_select_tipo();
     buscar_instituciones();
+  }
+
+  function fill_select_tipo(){
+    funcion='get_tipos_organizacion';
+    $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+      let tipos=JSON.parse(response);
+      let template='';
+      tipos.forEach(tipo=>{
+        template+=`
+        <option value="${tipo.id}">${tipo.nombre}</option>
+        `;
+      });
+      $('#tipo_select').html(template);
+    })
   }
 
   function buscar_instituciones(consulta) {
@@ -317,7 +334,7 @@ $(document).ready(function(){
   function buscar_institucion_editar(dato) {
     funcion='ver_institucion';
     $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
-      console.log(response);
+      //console.log(response);
       editar=true;
       const institucion= JSON.parse(response);
       $('#institucion-create-title').html("Editar "+institucion.nombre);
@@ -332,7 +349,7 @@ $(document).ready(function(){
       $('#descripcion_breve').summernote('code', institucion.descripcion);
       $('#historia').summernote('code', institucion.historia);
       $('#politica_interior_exterior').summernote('code', institucion.politicaexteriorinterior);
-      $('#tipo').val(institucion.tipo);
+      $('#tipo_select').val(institucion.tipo);
       $('#militar').summernote('code', institucion.militar);
       $('#estructura_organizativa').summernote('code', institucion.estructura);
       $('#territorio').summernote('code', institucion.territorio);
@@ -657,7 +674,6 @@ function buscar_religion_editar(dato) {
     $('#otros').summernote('code', institucion.otros);
     
     $('#id_editado').val(institucion.id);
-    //$('#id_institucion_cambiar_escudo').val(institucion.id);
     //$('#nombre_institucion_borrar').val(institucion.nombre);
   });
 }

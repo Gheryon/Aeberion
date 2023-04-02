@@ -54,20 +54,8 @@
 							</div>
 							<div class="col-md-3">
 								<label for="tipo" class="form-label">Tipo</label>
-								<select class="form-select" name="tipo" id="tipo">
+								<select class="form-select" name="tipo_select" id="tipo_select">
 									<option selected disabled value="">Elegir</option>
-									<option>Continente</option>
-									<option>Región</option>
-									<option>Bosque</option>
-									<option>Llanura</option>
-									<option>Cordillera</option>
-									<option>Montaña</option>
-									<option>Volcán</option>
-									<option>Valle</option>
-									<option>Cuenca</option>
-									<option>Río</option>
-									<option>Lago</option>
-									<option>Mar/océano</option>
 								</select>
 							</div>
 						</div>

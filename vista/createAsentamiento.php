@@ -72,18 +72,8 @@
 							</div>
 							<div class="col-md-2">
 								<label for="tipo" class="form-label">Tipo</label>
-								<select class="form-select" name="tipo" id="tipo">
+								<select class="form-select" name="tipo_select" id="tipo_select">
 									<option selected disabled value="">Elegir</option>
-									<option>Aldea</option>
-									<option>Ciudad</option>
-									<option>Ciudadela</option>
-									<option>Fortaleza</option>
-									<option>Lugar sagrado</option>
-									<option>Pueblo</option>
-									<option>Ruinas</option>
-									<option>Templo</option>
-									<option>Torre mágica</option>
-									<option>Villa</option>
 								</select>
 							</div>
 						</div>

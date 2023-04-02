@@ -7,8 +7,8 @@ if($_POST['funcion']=='crear_nuevo_asentamiento'){
 
   if(isset($_POST['nombre'])) {
     $nombre=$_POST['nombre'];}
-  if(isset($_POST['tipo'])) {
-    $tipo=$_POST['tipo'];}
+  if(isset($_POST['tipo_select'])) {
+    $tipo=$_POST['tipo_select'];}
   if(isset($_POST['gentilicio'])) {
     $gentilicio=$_POST['gentilicio'];}
   if(isset($_POST['fundacion'])) {
@@ -68,6 +68,7 @@ if($_POST['funcion']=='ver_asentamiento'){
 			'id'=>$objeto->id_asentamiento,
 			'nombre'=>$objeto->nombre,
 			'tipo'=>$objeto->tipo,
+			'id_tipo'=>$objeto->id_tipo,
 			'gentilicio'=>$objeto->gentilicio,
 			'fundacion'=>$objeto->fundacion,
 			'disolucion'=>$objeto->disolucion,
@@ -100,8 +101,8 @@ if($_POST['funcion']=='editar_asentamiento'){
 
   if(isset($_POST['nombre'])) {
     $nombre=$_POST['nombre'];}
-  if(isset($_POST['tipo'])) {
-    $tipo=$_POST['tipo'];}
+  if(isset($_POST['tipo_select'])) {
+    $tipo=$_POST['tipo_select'];}
   if(isset($_POST['gentilicio'])) {
     $gentilicio=$_POST['gentilicio'];}
   if(isset($_POST['fundacion'])) {
@@ -129,11 +130,11 @@ if($_POST['funcion']=='editar_asentamiento'){
   if(isset($_POST['geografia'])) {
     $geografia=$_POST['geografia'];}
   if(isset($_POST['clima'])) {
-      $clima=$_POST['clima'];}
+    $clima=$_POST['clima'];}
   if(isset($_POST['recursos'])) {
-      $recursos=$_POST['recursos'];}
+    $recursos=$_POST['recursos'];}
   if(isset($_POST['otros'])) {
-      $otros=$_POST['otros'];}
+    $otros=$_POST['otros'];}
     
   $id=$_POST['id_editado'];
   $asentamiento->editarAsentamiento($id, $nombre, $tipo, $gentilicio, $fundacion, $disolucion, $descripcion, $poblacion, $demografia, $gobierno, $infraestructura, $historia, $defensas, $economia, $cultura, $geografia, $clima, $recursos, $otros);

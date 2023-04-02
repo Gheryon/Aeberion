@@ -76,7 +76,7 @@ if(isset($_POST['id_institucion'])){?>
 						<div class="row mt-2 mb-2">
 							<div class="col-md">
 								<label for="tipo" class="form-label">Tipo</label>
-								<select class="form-select" name="tipo" id="tipo">
+								<select class="form-select" name="tipo_select" id="tipo_select">
 									<option selected disabled value="">Elegir</option>
 									<option>Cantón</option>
 									<option>Ducado</option>

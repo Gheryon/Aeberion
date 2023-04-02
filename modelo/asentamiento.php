@@ -18,7 +18,7 @@ class Asentamiento{
     if(!empty($this->objetos)){
       echo "noadd";
     }else{
-      $sql="INSERT INTO asentamientos(nombre, tipo, gentilicio, fundacion, disolucion, descripcion, poblacion, demografia, gobierno, infraestructura, historia, defensas, economia, cultura, geografia, clima, recursos, otros) VALUES (:nombre, :tipo, :gentilicio, :fundacion, :disolucion, :descripcion, :poblacion, :demografia, :gobierno, :infraestructura, :historia, :defensas, :economia, :cultura, :geografia, :clima, :recursos, :otros);";
+      $sql="INSERT INTO asentamientos(nombre, id_tipo_asentamiento, gentilicio, fundacion, disolucion, descripcion, poblacion, demografia, gobierno, infraestructura, historia, defensas, economia, cultura, geografia, clima, recursos, otros) VALUES (:nombre, :tipo, :gentilicio, :fundacion, :disolucion, :descripcion, :poblacion, :demografia, :gobierno, :infraestructura, :historia, :defensas, :economia, :cultura, :geografia, :clima, :recursos, :otros);";
       $query=$this->acceso->prepare($sql);
       $query->execute(array(':nombre'=>$nombre, ':tipo'=>$tipo, ':gentilicio'=>$gentilicio, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':descripcion'=>$descripcion, ':poblacion'=>$poblacion, ':demografia'=>$demografia, ':gobierno'=>$gobierno, ':infraestructura'=>$infraestructura, ':historia'=>$historia, ':defensas'=>$defensas, ':economia'=>$economia, ':cultura'=>$cultura, ':geografia'=>$geografia, ':clima'=>$clima, ':recursos'=>$recursos, ':otros'=>$otros));
       echo "add";
@@ -26,17 +26,17 @@ class Asentamiento{
   }
 
   function buscar(){
-    //se ha introducido algún caracter a buscar, se devuelven los usuarios que encagen con la consulta
+    //se ha introducido algún caracter a buscar, se devuelven las entradas que encagen con la consulta
     if(!empty($_POST['consulta'])){
       $consulta=$_POST['consulta'];
-      $sql="SELECT * FROM asentamientos WHERE nombre LIKE :consulta";
+      $sql="SELECT *, asentamientos.nombre as nombre, tipo_asentamiento.nombre as tipo FROM asentamientos JOIN tipo_asentamiento ON id_tipo_asentamiento=tipo_asentamiento.id WHERE asentamientos.nombre LIKE :consulta";
       $query=$this->acceso->prepare($sql);
       $query->execute(array(':consulta'=>"%$consulta%"));
       $this->objetos=$query->fetchAll();
       return $this->objetos;
     }else{
-        //se devuelven todos los usuarios
-      $sql="SELECT * FROM asentamientos WHERE nombre NOT LIKE '' ORDER BY nombre LIMIT 25";
+      //se devuelven todos los asentamientos
+      $sql="SELECT *, asentamientos.nombre as nombre, tipo_asentamiento.nombre as tipo FROM asentamientos JOIN tipo_asentamiento ON id_tipo_asentamiento=tipo_asentamiento.id WHERE asentamientos.nombre NOT LIKE '' ORDER BY asentamientos.nombre";
       $query=$this->acceso->prepare($sql);
       $query->execute();
       $this->objetos=$query->fetchAll();
@@ -56,15 +56,15 @@ class Asentamiento{
   }
 
   function buscarAsentamiento($id){
-      $sql="SELECT * FROM asentamientos WHERE id_asentamiento=:id";
-      $query=$this->acceso->prepare($sql);
-      $query->execute(array(':id'=>$id));
-      $this->objetos=$query->fetchAll();
-      return $this->objetos;
+    $sql="SELECT *,asentamientos.nombre as nombre, tipo_asentamiento.nombre as tipo, tipo_asentamiento.id as id_tipo FROM asentamientos JOIN tipo_asentamiento ON id_tipo_asentamiento=tipo_asentamiento.id WHERE id_asentamiento=:id";
+    $query=$this->acceso->prepare($sql);
+    $query->execute(array(':id'=>$id));
+    $this->objetos=$query->fetchAll();
+    return $this->objetos;
   }
 
   function editarAsentamiento($id_asentamiento, $nombre, $tipo, $gentilicio, $fundacion, $disolucion, $descripcion, $poblacion, $demografia, $gobierno, $infraestructura, $historia, $defensas, $economia, $cultura, $geografia, $clima, $recursos, $otros){
-    $sql="UPDATE asentamientos SET nombre=:nombre, tipo=:tipo, gentilicio=:gentilicio, fundacion=:fundacion, disolucion=:disolucion, descripcion=:descripcion, poblacion=:poblacion, demografia=:demografia, tipo=:tipo, gobierno=:gobierno, infraestructura=:infraestructura, historia=:historia, defensas=:defensas, economia=:economia, cultura=:cultura, geografia=:geografia, clima=:clima, recursos=:recursos, otros=:otros WHERE id_asentamiento=:id";
+    $sql="UPDATE asentamientos SET nombre=:nombre, id_tipo_asentamiento=:tipo, gentilicio=:gentilicio, fundacion=:fundacion, disolucion=:disolucion, descripcion=:descripcion, poblacion=:poblacion, demografia=:demografia, gobierno=:gobierno, infraestructura=:infraestructura, historia=:historia, defensas=:defensas, economia=:economia, cultura=:cultura, geografia=:geografia, clima=:clima, recursos=:recursos, otros=:otros WHERE id_asentamiento=:id";
     $query=$this->acceso->prepare($sql);
     $query->execute(array(':nombre'=>$nombre, ':tipo'=>$tipo, ':gentilicio'=>$gentilicio, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':descripcion'=>$descripcion, ':poblacion'=>$poblacion, ':demografia'=>$demografia, ':gobierno'=>$gobierno, ':infraestructura'=>$infraestructura, ':historia'=>$historia, ':defensas'=>$defensas, ':economia'=>$economia, ':cultura'=>$cultura, ':geografia'=>$geografia, ':clima'=>$clima, ':recursos'=>$recursos, ':otros'=>$otros, ':id'=>$id_asentamiento));
   }

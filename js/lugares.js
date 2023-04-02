@@ -1,70 +1,80 @@
-$(document).ready(function(){
-  var funcion='';
+$(document).ready(function () {
+  var funcion = '';
   var id_lugar = $('#id_geografia').val();
   var id_lugar_editar = $('#id_geografia_editar').val();
-  
+
   //si id_lugar está definido, se va a consultar una entrada
-  if(id_lugar!=undefined){
+  if (id_lugar != undefined) {
     //console.log(id_lugar);
     buscar_lugar(id_lugar);
-  }else{
-    //console.log("no id-lugar");
   }
-  //si id_ludar_editar está definido, se va a editar una entrada
-  if(id_lugar_editar!=undefined){
-    //console.log(id_lugar_editar);
+  //si id_lugar_editar está definido, se va a editar una entrada
+  if (id_lugar_editar != undefined) {
+    fill_select_tipo();
     buscar_lugar_editar(id_lugar_editar);
-  }else{
-    //console.log("no id-lugar editar");
   }
-  //si ni id_lugar ni id_lugar_editar están definido, estamos en lugares.php y se cargan todos
-  if(id_lugar==undefined&&id_lugar_editar==undefined){
+  if (id_lugar == undefined && id_lugar_editar == undefined) {
+    fill_select_tipo();
     buscar_lugares();
   }
 
-  $('#form-create-lugar').submit(e=>{
-      let nombre= $('#nombre_lugar').val();
-      let tipo= $('#tipo').val();
-      let descripcion= $('#descripcion_breve').val();
-      let otros_nombres= $('#otros_nombres').val();
-      let geografia= $('#geografia').val();
-      let ecosistema= $('#ecosistema').val();
-      let clima= $('#clima').val();
-      let flora_fauna= $('#flora_fauna').val();
-      let recursos= $('#recursos').val();
-      let historia= $('#historia').val();
-      let otros= $('#otros').val();
-      funcion='crear_nuevo_lugar';
-      $.post('../controlador/lugaresController.php',{nombre, tipo, descripcion, otros_nombres, geografia, ecosistema, clima, flora_fauna, recursos, historia, otros, funcion},(response)=>{
-        if(response=='add'){
-          $('#add').hide('slow');
-          $('#add').show(1000);
-          $('#add').hide(3000);
-          $('#form-create-lugar').trigger('reset');
-          $('#submit-crear-button').hide();
-          $('#cancelar-crear-button').hide();
-          $('#volver-crear-button').show();
-        }else{
-          $('#no-add').hide('slow');
-          $('#no-add').show(1000);
-          $('#no-add').hide(3000);
-          $('#form-create-lugar').trigger('reset');
-        }
+  function fill_select_tipo(){
+    funcion='get_tipos_lugar';
+    $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+      let tipos=JSON.parse(response);
+      let template='';
+      tipos.forEach(tipo=>{
+        template+=`
+        <option value="${tipo.id}">${tipo.nombre}</option>
+        `;
       });
-      //para prevenir la actualización por defecto de la página
-      e.preventDefault();
+      $('#tipo_select').html(template);
+    })
+  }
+
+  $('#form-create-lugar').submit(e => {
+    let nombre = $('#nombre_lugar').val();
+    let tipo = $('#tipo_select').val();
+    let descripcion = $('#descripcion_breve').val();
+    let otros_nombres = $('#otros_nombres').val();
+    let geografia = $('#geografia').val();
+    let ecosistema = $('#ecosistema').val();
+    let clima = $('#clima').val();
+    let flora_fauna = $('#flora_fauna').val();
+    let recursos = $('#recursos').val();
+    let historia = $('#historia').val();
+    let otros = $('#otros').val();
+    funcion = 'crear_nuevo_lugar';
+    $.post('../controlador/lugaresController.php', { nombre, tipo, descripcion, otros_nombres, geografia, ecosistema, clima, flora_fauna, recursos, historia, otros, funcion }, (response) => {
+      if (response == 'add') {
+        $('#add').hide('slow');
+        $('#add').show(1000);
+        $('#add').hide(3000);
+        $('#form-create-lugar').trigger('reset');
+        $('#submit-crear-button').hide();
+        $('#cancelar-crear-button').hide();
+        $('#volver-crear-button').show();
+      } else {
+        $('#no-add').hide('slow');
+        $('#no-add').show(1000);
+        $('#no-add').hide(3000);
+        $('#form-create-lugar').trigger('reset');
+      }
     });
+    //para prevenir la actualización por defecto de la página
+    e.preventDefault();
+  });
 
   function buscar_lugares(consulta) {
-    funcion='buscar_lugares';
-		$('#busqueda-nav').show();
+    funcion = 'buscar_lugares';
+    $('#busqueda-nav').show();
     $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
     <a href="createLugar.php" class="btn btn-dark">Nuevo</a>`);
-    $.post('../controlador/lugaresController.php', {consulta, funcion},(response)=>{
-      const lugares= JSON.parse(response);
-      let template='';
+    $.post('../controlador/lugaresController.php', { consulta, funcion }, (response) => {
+      const lugares = JSON.parse(response);
+      let template = '';
       lugares.forEach(lugar => {
-        template+=`
+        template += `
         <div lugarId="${lugar.id}" lugarNombre="${lugar.nombre}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
           <div class="card bg-light d-flex flex-fill">
           <div class="card-header text-muted border-bottom-0">
@@ -108,92 +118,92 @@ $(document).ready(function(){
     });
   }
 
-  $(document).on('keyup','#buscar',function(){
-      let valor = $(this).val();
-      if(valor!=""){
-          buscar_lugares(valor);
-      }else{
-          buscar_lugares();
-      }
+  $(document).on('keyup', '#buscar', function () {
+    let valor = $(this).val();
+    if (valor != "") {
+      buscar_lugares(valor);
+    } else {
+      buscar_lugares();
+    }
   });
 
   function buscar_lugar(dato) {
-    funcion='buscar_lugar';
-    $.post('../controlador/lugaresController.php', {dato, funcion},(response)=>{
+    funcion = 'buscar_lugar';
+    $.post('../controlador/lugaresController.php', { dato, funcion }, (response) => {
       //console.log(response);
-      const lugar= JSON.parse(response);
+      const lugar = JSON.parse(response);
       $('#nombre').html(lugar.nombre);
       $('#lugar-title').html(lugar.nombre);
       $('#lugar-title-h1').html(lugar.nombre);
-      if(lugar.descripcion==undefined){
+      if (lugar.descripcion == undefined) {
         $('#descripcion-row').hide();
-      }else{
+      } else {
         $('#descripcion_breve').html(lugar.descripcion);
       }
-      if(lugar.otros_nombres==undefined){
+      if (lugar.otros_nombres == undefined) {
         $('#otros_nombres-row').hide();
-      }else{
+      } else {
         $('#otros_nombres').html(lugar.otros_nombres);
       }
-      if(lugar.tipo==undefined){
+      if (lugar.tipo == undefined) {
         $('#tipo-row').hide();
-      }else{
+      } else {
         $('#tipo').html(lugar.tipo);
       }
-      if(lugar.geografia==undefined){
+      if (lugar.geografia == undefined) {
         $('#geografia-row').hide();
-      }else{
+      } else {
         $('#geografia').html(lugar.geografia);
       }
-      if(lugar.ecosistema==undefined){
+      if (lugar.ecosistema == undefined) {
         $('#ecosistema-row').hide();
-      }else{
+      } else {
         $('#ecosistema').html(lugar.ecosistema);
       }
-      if(lugar.clima==undefined){
+      if (lugar.clima == undefined) {
         $('#clima-row').hide();
-      }else{
+      } else {
         $('#clima').html(lugar.clima);
       }
-      if(lugar.flora_fauna==undefined){
+      if (lugar.flora_fauna == undefined) {
         $('#flora_fauna-row').hide();
-      }else{
+      } else {
         $('#flora_fauna').html(lugar.flora_fauna);
       }
-      if(lugar.recursos==undefined){
+      if (lugar.recursos == undefined) {
         $('#recursos-row').hide();
-      }else{
+      } else {
         $('#recursos').html(lugar.recursos);
       }
-      if(lugar.historia==undefined){
+      if (lugar.historia == undefined) {
         $('#historia-row').hide();
-      }else{
+      } else {
         $('#historia').html(lugar.historia);
       }
-      if(lugar.otros==undefined){
+      if (lugar.otros == undefined) {
         $('#otros-div').hide();
-      }else{
+      } else {
         $('#otros').html(lugar.otros);
       }
     });
   }
 
   function buscar_lugar_editar(dato) {
-    funcion='buscar_lugar';
-    $.post('../controlador/lugaresController.php', {dato, funcion},(response)=>{
-      console.log(response);
-      const lugar= JSON.parse(response);
+    funcion = 'buscar_lugar';
+    $.post('../controlador/lugaresController.php', { dato, funcion }, (response) => {
+      //console.log(response);
+      const lugar = JSON.parse(response);
       $('#nombre_lugar').val(lugar.nombre);
       $('#descripcion_breve').summernote('code', lugar.descripcion);
-        $('#otros_nombres').summernote('code', lugar.otros_nombres);
-        $('#tipo').val(lugar.tipo);
-        $('#geografia').summernote('code', lugar.geografia);
-        $('#ecosistema').summernote('code', lugar.ecosistema);
-        $('#clima').summernote('code', lugar.clima);
-        $('#flora_fauna').summernote('code', lugar.flora_fauna);
-        $('#recursos').summernote('code', lugar.recursos);
-        $('#historia').summernote('code', lugar.historia);
-        $('#otros').summernote('code', lugar.otros);
+      $('#otros_nombres').summernote('code', lugar.otros_nombres);
+      $('#tipo_select').val(lugar.id_tipo);
+      $('#geografia').summernote('code', lugar.geografia);
+      $('#ecosistema').summernote('code', lugar.ecosistema);
+      $('#clima').summernote('code', lugar.clima);
+      $('#flora_fauna').summernote('code', lugar.flora_fauna);
+      $('#recursos').summernote('code', lugar.recursos);
+      $('#historia').summernote('code', lugar.historia);
+      $('#otros').summernote('code', lugar.otros);
 
       $('#id_lugar_editar').val(lugar.id);
       $('#id_lugar_borrar').val(lugar.id);
@@ -201,22 +211,22 @@ $(document).ready(function(){
     });
   }
 
-  $('#form-editar-lugar').submit(e=>{
-    funcion='editar_lugar';
-    let nombre= $('#nombre_lugar').val();
-    let tipo= $('#tipo').val();
-    let descripcion= $('#descripcion_breve').val();
-    let otros_nombres= $('#otros_nombres').val();
-    let geografia= $('#geografia').val();
-    let ecosistema= $('#ecosistema').val();
-    let clima= $('#clima').val();
-    let flora_fauna= $('#flora_fauna').val();
-    let recursos= $('#recursos').val();
-    let historia= $('#historia').val();
-    let otros= $('#otros').val();
-    let id_lugar= $('#id_geografia_editar').val();
-    $.post('../controlador/lugaresController.php', {id_lugar, nombre, tipo, descripcion, otros_nombres, geografia, ecosistema, clima, flora_fauna, recursos, historia, otros, funcion},(response)=>{
-      if(response=='editado'){
+  $('#form-editar-lugar').submit(e => {
+    funcion = 'editar_lugar';
+    let nombre = $('#nombre_lugar').val();
+    let tipo = $('#tipo_select').val();
+    let descripcion = $('#descripcion_breve').val();
+    let otros_nombres = $('#otros_nombres').val();
+    let geografia = $('#geografia').val();
+    let ecosistema = $('#ecosistema').val();
+    let clima = $('#clima').val();
+    let flora_fauna = $('#flora_fauna').val();
+    let recursos = $('#recursos').val();
+    let historia = $('#historia').val();
+    let otros = $('#otros').val();
+    let id_lugar = $('#id_geografia_editar').val();
+    $.post('../controlador/lugaresController.php', { id_lugar, nombre, tipo, descripcion, otros_nombres, geografia, ecosistema, clima, flora_fauna, recursos, historia, otros, funcion }, (response) => {
+      if (response == 'editado') {
         $('#editado').hide('slow');
         $('#editado').show(1000);
         $('#editado').hide(3000);
@@ -224,7 +234,7 @@ $(document).ready(function(){
         $('#submit-editar-button').hide();
         $('#cancelar-editar-button').hide();
         $('#volver-editar-button').show();
-      }else{
+      } else {
         $('#no-editado').hide('slow');
         $('#no-editado').show(1000);
         $('#no-editado').hide(3000);
@@ -234,23 +244,22 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  $(document).on('click', '.borrar-lugar',(e)=>{
-    funcion='borrar_lugar';
+  $(document).on('click', '.borrar-lugar', (e) => {
+    funcion = 'borrar_lugar';
     //se quiere acceder al elemento lugarId de la card y guardarlo en elemento, para ello hay que subir 4 veces desde donde está el boton ascender
-    const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
-    const id=$(elemento).attr('lugarId');
-    const nombre=$(elemento).attr('lugarNombre');
+    const elemento = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
+    const id = $(elemento).attr('lugarId');
+    const nombre = $(elemento).attr('lugarNombre');
     $('#id_lugar_borrar').val(id);
     $('#nombre_lugar_borrar').val(nombre);
     $('#funcion').val(funcion);
   });
 
-  $('#form-borrar-lugar').submit(e=>{
-    let id_lugar=$('#id_lugar_borrar').val();
-    funcion=$('#funcion').val();
-    $.post('../controlador/lugaresController.php', {id_lugar, funcion}, (response)=>{
-      if(response=='borrado')
-      {
+  $('#form-borrar-lugar').submit(e => {
+    let id_lugar = $('#id_lugar_borrar').val();
+    funcion = $('#funcion').val();
+    $.post('../controlador/lugaresController.php', { id_lugar, funcion }, (response) => {
+      if (response == 'borrado') {
         $('#borrado').hide('slow');
         $('#borrado').show(1000);
         $('#borrado').hide(3000);
@@ -260,7 +269,7 @@ $(document).ready(function(){
         //$('#cancelar-editar-button').hide();
         $('#texto-borrar').hide('slow');
         buscar_lugares();
-      }else{
+      } else {
         $('#no-borrado').hide('slow');
         $('#no-borrado').show(1000);
         $('#no-borrado').hide(3000);
