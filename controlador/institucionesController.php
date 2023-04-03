@@ -84,7 +84,8 @@ if ($_POST['funcion'] == 'crear_nueva_institucion') {
 
 if ($_POST['funcion'] == 'buscar_instituciones') {
 	$json = array();
-	$institucion->buscar($_POST['tipo_institucion']);
+	$institucion->buscar($_POST['tipo']);
+	//$institucion->buscar();
 	foreach ($institucion->objetos as $objeto) {
 		$json[] = array(
 			'id' => $objeto->id_organizacion,
@@ -366,7 +367,6 @@ if ($_POST['funcion'] == 'ver_religion') {
 			'nombre' => $objeto->nombre,
 			'escudo' => '../imagenes/Escudos/' . $objeto->escudo,
 			'descripcion' => $objeto->descripcionbreve,
-			'tipo' => $objeto->tipo,
 			'lema' => $objeto->lema,
 			'elementos_sagrados' => $objeto->demografia,
 			'fundacion' => $objeto->fundacion,

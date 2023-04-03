@@ -26,39 +26,20 @@ class Institucion{
 	}
 
 	function buscar($tipo){
+		if($tipo==0){
+			$filtro="AND id_tipo_organizacion!=4";
+		}else{
+			$filtro="AND id_tipo_organizacion=$tipo";
+		}
 		//se ha introducido algún caracter a buscar, se devuelven las entradas que encagen con la consulta
 		if(!empty($_POST['consulta'])){
 			$consulta=$_POST['consulta'];
 			$sql="SELECT organizaciones.nombre as nombre, organizaciones.escudo, organizaciones.id_organizacion, organizaciones.descripcionBreve, tipo_organizacion.nombre as tipo FROM organizaciones JOIN tipo_organizacion ON id_tipo_organizacion=tipo_organizacion.id AND id_tipo_organizacion!=4 WHERE organizaciones.nombre LIKE :consulta ORDER BY organizaciones.nombre";
-			/*if($tipo=="paises"){
-					$sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND (tipo='reino' OR tipo='republica' OR tipo='confederacion' OR tipo='imperio' OR tipo='señorio' OR tipo='ducado' OR tipo='tribu' OR tipo='condado' OR tipo='marquesado') ORDER BY nombre";
-			}
-			if($tipo=="cantones"){
-					$sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND tipo='canton' ORDER BY nombre";
-			}
-			if($tipo=="orden_militar"){
-					$sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND tipo='orden militar' ORDER BY nombre";
-			}
-			if($tipo=="orden_magica"){
-					$sql="SELECT * FROM organizaciones WHERE nombre LIKE :consulta AND (tipo='torre magica' OR tipo='orden magica' OR tipo='dinastia') ORDER BY nombre";
-			}*/
 			$query=$this->acceso->prepare($sql);
 			$query->execute(array(':consulta'=>"%$consulta%"));
 		}else{
 			//se devuelven todas las entradas
-			$sql="SELECT organizaciones.nombre as nombre, organizaciones.escudo, organizaciones.id_organizacion, organizaciones.descripcionBreve, tipo_organizacion.nombre as tipo FROM organizaciones JOIN tipo_organizacion ON id_tipo_organizacion=tipo_organizacion.id AND id_tipo_organizacion!=4 WHERE organizaciones.nombre NOT LIKE '' ORDER BY organizaciones.nombre";
-			/*if($tipo=="paises"){
-					$sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND (tipo='reino' OR tipo='republica' OR tipo='confederacion' OR tipo='imperio' OR tipo='señorio' OR tipo='ducado' OR tipo='tribu' OR tipo='condado' OR tipo='marquesado') ORDER BY nombre LIMIT 25";
-			}
-			if($tipo=="cantones"){
-					$sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND tipo='canton' ORDER BY nombre";
-			}
-			if($tipo=="orden_militar"){
-					$sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND tipo='Orden militar' ORDER BY nombre";
-			}
-			if($tipo=="orden_magica"){
-					$sql="SELECT * FROM organizaciones WHERE nombre NOT LIKE '' AND (tipo='torre magica' OR tipo='orden magica' OR tipo='dinastia') ORDER BY nombre";
-			}*/
+			$sql="SELECT organizaciones.nombre as nombre, organizaciones.escudo, organizaciones.id_organizacion, organizaciones.descripcionBreve, tipo_organizacion.nombre as tipo FROM organizaciones JOIN tipo_organizacion ON id_tipo_organizacion=tipo_organizacion.id ".$filtro." WHERE organizaciones.nombre NOT LIKE '' ORDER BY organizaciones.nombre";
 			$query=$this->acceso->prepare($sql);
 			$query->execute();
 		}
@@ -88,14 +69,6 @@ class Institucion{
 				echo 'noborrado';
 		}
 	}
-
-	function buscarAsentamiento($id){
-    $sql="SELECT *,asentamientos.nombre as nombre, tipo_asentamiento.nombre as tipo, tipo_asentamiento.id as id_tipo FROM asentamientos JOIN tipo_asentamiento ON id_tipo_asentamiento=tipo_asentamiento.id WHERE id_asentamiento=:id";
-    $query=$this->acceso->prepare($sql);
-    $query->execute(array(':id'=>$id));
-    $this->objetos=$query->fetchAll();
-    return $this->objetos;
-  }
 
 	function buscarInstitucion($id){
 		$sql="SELECT *, organizaciones.nombre as nombre, tipo_organizacion.nombre as tipo_org FROM organizaciones JOIN tipo_organizacion ON id_tipo_organizacion=tipo_organizacion.id WHERE id_organizacion=:id";

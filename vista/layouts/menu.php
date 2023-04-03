@@ -8,47 +8,15 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <!-- Sidebar Menu -->
-    <nav class="mt-2">
+    <nav class="mt-3">
       <ul class="nav nav-pills nav-sidebar flex-column mt-3" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
               with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="paises.php" class="nav-link">
             <i class="nav-icon fa-solid fa-building-columns"></i>
-            <p>Instituciones<i class="right fas fa-angle-left"></i></p>
+            <p>Instituciones</p>
           </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="paises.php?tipo_institucion=paises" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Países</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="paises.php?tipo_institucion=cantones" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Cantones</p>
-              </a>
-            </li>
-            <li class="nav-item">
-                <a href="paises.php?tipo_institucion=orden_militar" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Órdenes militares</p>
-                </a>
-            </li>
-            <li class="nav-item">
-              <a href="paises.php?tipo_institucion=orden_magica" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Órdenes mágicas</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="createInstitucion.php" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Nuevo</p>
-              </a>
-            </li>
-          </ul>
         </li>
         <li class="nav-item">
           <a href="#" class="nav-link">

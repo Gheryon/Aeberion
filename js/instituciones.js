@@ -6,6 +6,7 @@ $(document).ready(function(){
   var id_religion = $('#id_religion').val();
   var id_religion_editar = $('#id_religion_editar').val();
   var id_especie = $('#id_especie').val();
+  var tipo=0;
   
   //si id_institucion o id_religion están definidos, se va a consultar una entrada
   if(id_institucion!=undefined){
@@ -16,40 +17,46 @@ $(document).ready(function(){
   }
   //si id_institucion_editar o id_religion_editar están definido, se va a editar una entrada
   if(id_institucion_editar!=undefined){
-    fill_select_tipo();
-    console.log(id_institucion_editar);
+    fill_select_tipo('#tipo_select');
+    //console.log(id_institucion_editar);
     buscar_institucion_editar(id_institucion_editar);
   }
   if(id_religion_editar!=undefined){
+    fill_select_tipo('#filter_tipo');
     buscar_religion_editar(id_religion_editar);
   }
   //si ni id_institucion ni id_institucion_editar están definidos, estamos en paises.php y se cargan todos
   if(id_institucion==undefined&&id_institucion_editar==undefined&&id_religion==undefined&&id_religion_editar==undefined&&id_especie==undefined){
-    fill_select_tipo();
-    buscar_instituciones();
+    buscar_instituciones(tipo);
   }
 
-  function fill_select_tipo(){
+  $(document).on('change', '#filter_tipo', function(){
+    tipo=this.value;
+    buscar_instituciones();
+  });
+
+  function fill_select_tipo(id){
     funcion='get_tipos_organizacion';
     $.post('../controlador/configuracionController.php', {funcion},(response)=>{
       let tipos=JSON.parse(response);
-      let template='';
+      let template=`
+      <option selected disabled value="">Filtrar tipo</option>`;
       tipos.forEach(tipo=>{
         template+=`
-        <option value="${tipo.id}">${tipo.nombre}</option>
-        `;
+        <option value="${tipo.id}">${tipo.nombre}</option>`;
       });
-      $('#tipo_select').html(template);
+      $(id).html(template);
     })
   }
 
   function buscar_instituciones(consulta) {
+    fill_select_tipo('#filter_tipo');
     funcion='buscar_instituciones';
     $('#busqueda-nav').show();
     $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
-    <a href="createInstitucion.php" class="btn btn-dark">Nuevo</a>`);
-    tipo_institucion=$('#tipo').val();
-    $.post('../controlador/institucionesController.php', {consulta, funcion, tipo_institucion},(response)=>{
+    <a href="createInstitucion.php" class="btn btn-dark">Nuevo</a>
+    <select id="filter_tipo" class="form-select ml-2" name="tipo_select"></select>`);
+    $.post('../controlador/institucionesController.php', {consulta, funcion, tipo},(response)=>{
       //console.log(response);
       const paises= JSON.parse(response);
       let template='';
@@ -504,8 +511,8 @@ function ver_religion(dato) {
       <input type="hidden" name="id_religion" value="${religion.id}">
     </form>`);
     $('#nombre').html(religion.nombre);
-    $('#religion-title').html(religion.nombre);
-    $('#religion-title-h1').html(religion.nombre);
+    $('#content-title').html(religion.nombre);
+    $('#content-title-h1').html(religion.nombre);
     template='';
     if(religion.descripcion!=undefined){
       template+=`

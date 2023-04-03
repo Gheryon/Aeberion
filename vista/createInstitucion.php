@@ -78,20 +78,6 @@ if(isset($_POST['id_institucion'])){?>
 								<label for="tipo" class="form-label">Tipo</label>
 								<select class="form-select" name="tipo_select" id="tipo_select">
 									<option selected disabled value="">Elegir</option>
-									<option>Cantón</option>
-									<option>Ducado</option>
-									<option>Marquesado</option>
-									<option>Condado</option>
-									<option>Señorío</option>
-									<option>Imperio</option>
-									<option>Reino</option>
-									<option>República</option>
-									<option>Tribu</option>
-									<option>Confederación</option>
-									<option>Orden militar</option>
-									<option>Orden mágica</option>
-									<option>Torre mágica</option>
-									<option>Dinastía</option>
 								</select>
 							</div>
 							<div class="col-md">
