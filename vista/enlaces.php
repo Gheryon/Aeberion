@@ -72,6 +72,7 @@
           <p><a href=https://es.wikipedia.org/wiki/Templo_de_Kail%C4%81san%C4%81tha>Templo Kailasanata</a></p>
           <p><a href=http://modadossiglosatras.blogspot.com/2012/09/moda-goyescael-majismo.html>Moda Goyesca - El majismo</a></p>
           <p><a href=https://opusincertumhispanicus.blogspot.com>Indumentaria española medieval</a></p>
+          <p><a href=https://perufolklorico.blogspot.com/2021/11/el-tawantinsuyu-en-tiempo-y-espacio.html>Tawantisuyu antes de Colón</a></p>
       </div>
       <div class="col">
           <h3>Otras referencias</h3>

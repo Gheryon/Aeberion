@@ -110,7 +110,7 @@ if ($_POST['funcion'] == 'ver_institucion') {
 			'capital' => $objeto->capital,
 			'escudo' => '../imagenes/Escudos/' . $objeto->escudo,
 			'descripcion' => $objeto->descripcionbreve,
-			'tipo' => $objeto->id_tipo_organizacion,
+			'tipo' => $objeto->tipo_org,
 			'lema' => $objeto->lema,
 			'demografia' => $objeto->demografia,
 			'fundacion' => $objeto->fundacion,

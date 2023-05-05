@@ -3,7 +3,7 @@
   <title>Países e instituciones</title>
 
 </head>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_instituciones(0)">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -62,17 +62,6 @@
     <section class="content">
       <div class="container-fluid">
         <div class="card card-dark">
-            <!--<div class="card-header">
-              <h3 class="card-title">Búsqueda</h3>
-              <div class="input-group">
-                <input type="text" id="buscar" placeholder="Nombre"class="form-control float-left">
-                <div class="input-group-append">
-                  <button class="btn btn-default">
-                    <i class="fas fa-search"></i>
-                  </button>
-                </div>
-              </div>
-            </div>-->
           <div class="card-body">
             <div class="row">
               <div id="instituciones" class="row d-flex align-items-stretch">

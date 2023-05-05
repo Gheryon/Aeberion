@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="fill_select_especies()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -31,17 +31,11 @@
     <section class="content">
 			<div class="container">
 				<div class="span10 offset1">
-					<div class="alert alert-success text-center" id='add' style='display:none'>
-							<span><i class="fas fa-check m-1"></i>Personaje añadido</span>
-					</div>
-					<div class="alert alert-danger text-center" id='no-add' style='display:none'>
-							<span><i class="fas fa-times m-1"></i>No se pudo añadir el personaje</span>
-					</div>
 					<form id="form-create-personaje" class="row g-3 mt-3 position-relative needs-validation" action="createPersonaje.php" method="post" enctype="multipart/form-data">
 					<div class="row justify-content-md-center">
 						<div class="col-md-auto form-actions">
 							<button type="submit" id="submit-crear-button" class="btn btn-success">Guardar</button>
-							<a class="btn btn-danger" id="cancelar-crear-button" href="paises.php">Cancelar</a>
+							<a class="btn btn-danger" id="cancelar-crear-button" href="personajes.php">Cancelar</a>
 							<a class="btn btn-primary" type="button" id="volver-crear-button" href="personajes.php" style="display:none">Volver</a>
 						</div>
 					</div>
@@ -155,20 +149,8 @@
 	<!-- /.content-wrapper -->
 <?php include_once 'layouts/footer.php';?>
 
-<script src="../js/personaje.js">
-	//fill_select_especies();
-	funcion='menu_especies';
-	$.post('../controlador/especiesController.php', {funcion}, (response)=>{
-			let especies=JSON.parse(response);
-			let template='';
-			especies.forEach(especie=>{
-					template+=`
-					<option value="${especie.id}">${especie.nombre}</option>
-					`;
-			});
-			$('#especies_select').html(template);
-	})
-</script>
+<script src="../js/personaje.js"></script>
+
 <!-- Summernote -->
 <script src="../js/summernote-bs4.min.js"></script>
 <script>

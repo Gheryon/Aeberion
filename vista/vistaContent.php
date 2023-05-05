@@ -1,5 +1,4 @@
 <?php include_once 'layouts/header.php';
-
 if(isset($_GET['id_institucion'])){
     ?>
     <input id="id_institucion" type="hidden" value="<?php echo $_GET['id_institucion']?>">
@@ -20,7 +19,13 @@ if(isset($_GET['id_especie'])){
   <input id="id_especie" type="hidden" value="<?php echo $_GET['id_especie']?>">
 <?php
 }
+if(isset($_GET['id_personaje'])){
+  ?>
+  <input id="id_personaje" type="hidden" value="<?php echo $_GET['id_personaje']?>">
+<?php
+}
 ?>
+<input id="vista_content" type="hidden" value="true">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="../css/style.css"/>
@@ -38,9 +43,9 @@ if(isset($_GET['id_especie'])){
     <!-- Content Header (Page header) -->
 		<section class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row mb-1">
           <div class="col-sm-12">
-            <h1 id="content-title-h1" class="fw-bolder text-center">  </h1>
+            <h1 id="content-title-h1" class="fw-bolder text-center contentApp"></h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -50,20 +55,13 @@ if(isset($_GET['id_especie'])){
       <div class="container margin-top-20 mt-5 page">
         <div class="row article-content">
           <div class="col-md">
-            <div class="row article-title">
-              <h1 class="margin-botton-0"></h1>
-              <div class="col personaje">
-                <h3>Nombre</h3>
-                <div class="div" id="nombre"></div>
-              </div>
-            </div>
-            <div class="row personaje" id="content-left">
+            <div class="row contentApp" id="content-left">
               
             </div>
           </div>
           <div class="col-md-4">
             <div class="card">
-              <div class="card-body personaje" id="content-right">
+              <div class="card-body contentApp" id="content-right">
                 
               </div>
             </div>
@@ -80,3 +78,4 @@ if(isset($_GET['id_especie'])){
 <script src="../js/instituciones.js"></script>
 <script src="../js/asentamientos.js"></script>
 <script src="../js/especie.js"></script>
+<script src="../js/personaje.js"></script>

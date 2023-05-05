@@ -13,72 +13,6 @@ $(document).ready(function () {
     fill_select_tipo();
     buscar_asentamiento_editar(id_asentamiento_editar);
   }
-  if (id_asentamiento == undefined && id_asentamiento_editar == undefined) {
-    fill_select_tipo();
-    buscar_asentamientos();
-  }
-
-  function fill_select_tipo() {
-    funcion = 'get_tipos_asentamiento';
-    $.post('../controlador/configuracionController.php', { funcion }, (response) => {
-      let tipos = JSON.parse(response);
-      let template = '';
-      tipos.forEach(tipo => {
-        template += `
-        <option value="${tipo.id}">${tipo.nombre}</option>
-        `;
-      });
-      $('#tipo_select').html(template);
-    })
-  }
-
-  function buscar_asentamientos(consulta) {
-    funcion = 'buscar_asentamientos';
-    $('#busqueda-nav').show();
-    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
-    <a href="createAsentamiento.php" class="btn btn-dark">Nuevo</a>`);
-    $.post('../controlador/asentamientosController.php', { consulta, funcion }, (response) => {
-      const asentamientos = JSON.parse(response);
-      let template = '';
-      asentamientos.forEach(asentamiento => {
-        template += `
-        <div asentamientoId="${asentamiento.id}" asentamientoNombre="${asentamiento.nombre}" class="col-12 col-sm6 col-md-3 d-flex align-items-stretch flex-column">
-          <div class="card bg-light d-flex flex-fill">
-          <div class="card-header text-muted border-bottom-0">
-        </div>
-        <div class="card-body pt-0">
-          <div class="row">
-            <div class="col">
-              <h2 class="lead"><b>${asentamiento.nombre}</b></h2>
-              <p class="text-muted text-sm"><b>Descripción breve: </b> ${asentamiento.descripcion} </p>
-              <ul class="ml-4 mb-0 fa-ul text-muted">
-              <li class="small"><span class="fa-li"><i class="fa-solid fa-mountain-sun"></i></span> Tipo: ${asentamiento.tipo}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="text-center">
-            <button class="btn btn-info btn-sm" type="button" title="Ver">
-            <a href=vistaContent.php?id_asentamiento=${asentamiento.id} class="text-reset"><i class="fas fa-id-card"></i></a>
-            </button>
-            <form class="btn" action="createAsentamiento.php" method="post">
-              <button class="btn btn-success btn-sm" title="Editar">
-              <i class="fas fa-pencil-alt"></i></button>
-              <input type="hidden" name="id_asentamiento" value="${asentamiento.id}">
-            </form>
-            <button class="borrar-asentamiento btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarAsentamiento" title="Borrar">
-                <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      </div>
-          `;
-      });
-      $('#asentamientos').html(template);
-    });
-  }
 
   $('#form-create-asentamiento').submit(e => {
     let formData = new FormData($('#form-create-asentamiento')[0]);
@@ -131,9 +65,9 @@ $(document).ready(function () {
         <button class="btn btn-dark mr-1">Editar</button>
         <input type="hidden" name="id_asentamiento" value="${asentamiento.id}">
       </form>`);
-      $('#nombre').html(asentamiento.nombre);
       $('#content-title').html(asentamiento.nombre);
-      $('#content-title-h1').html(asentamiento.nombre);
+      let template=`<h1>${asentamiento.nombre}</h1>`;
+      $('#content-title-h1').html(template);
       template = '';
       if (asentamiento.descripcion != undefined) {
         template += `
@@ -361,3 +295,65 @@ $(document).ready(function () {
     e.preventDefault();
   });
 });
+
+function fill_select_tipo() {
+  funcion = 'get_tipos_asentamiento';
+  $.post('../controlador/configuracionController.php', { funcion }, (response) => {
+    let tipos = JSON.parse(response);
+    let template = '';
+    tipos.forEach(tipo => {
+      template += `
+      <option value="${tipo.id}">${tipo.nombre}</option>
+      `;
+    });
+    $('#tipo_select').html(template);
+  })
+}
+
+function buscar_asentamientos(consulta) {
+  funcion = 'buscar_asentamientos';
+  $('#busqueda-nav').show();
+  $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
+  <a href="createAsentamiento.php" class="btn btn-dark">Nuevo</a>`);
+  $.post('../controlador/asentamientosController.php', { consulta, funcion }, (response) => {
+    const asentamientos = JSON.parse(response);
+    let template = '';
+    asentamientos.forEach(asentamiento => {
+      template += `
+      <div asentamientoId="${asentamiento.id}" asentamientoNombre="${asentamiento.nombre}" class="col-12 col-sm6 col-md-3 d-flex align-items-stretch flex-column">
+        <div class="card bg-light d-flex flex-fill">
+        <div class="card-header text-muted border-bottom-0">
+      </div>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col">
+            <h2 class="lead"><b>${asentamiento.nombre}</b></h2>
+            <p class="text-muted text-sm"><b>Descripción breve: </b> ${asentamiento.descripcion} </p>
+            <ul class="ml-4 mb-0 fa-ul text-muted">
+            <li class="small"><span class="fa-li"><i class="fa-solid fa-mountain-sun"></i></span> Tipo: ${asentamiento.tipo}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="text-center">
+          <button class="btn btn-info btn-sm" type="button" title="Ver">
+          <a href=vistaContent.php?id_asentamiento=${asentamiento.id} class="text-reset"><i class="fas fa-id-card"></i></a>
+          </button>
+          <form class="btn" action="createAsentamiento.php" method="post">
+            <button class="btn btn-success btn-sm" title="Editar">
+            <i class="fas fa-pencil-alt"></i></button>
+            <input type="hidden" name="id_asentamiento" value="${asentamiento.id}">
+          </form>
+          <button class="borrar-asentamiento btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarAsentamiento" title="Borrar">
+              <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+        `;
+    });
+    $('#asentamientos').html(template);
+  });
+}

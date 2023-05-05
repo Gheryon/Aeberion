@@ -5,7 +5,6 @@ $(document).ready(function(){
   var id_institucion_editar = $('#id_institucion_editar').val();
   var id_religion = $('#id_religion').val();
   var id_religion_editar = $('#id_religion_editar').val();
-  var id_especie = $('#id_especie').val();
   var tipo=0;
   
   //si id_institucion o id_religion están definidos, se va a consultar una entrada
@@ -18,95 +17,24 @@ $(document).ready(function(){
   //si id_institucion_editar o id_religion_editar están definido, se va a editar una entrada
   if(id_institucion_editar!=undefined){
     fill_select_tipo('#tipo_select');
-    //console.log(id_institucion_editar);
     buscar_institucion_editar(id_institucion_editar);
   }
   if(id_religion_editar!=undefined){
     fill_select_tipo('#filter_tipo');
     buscar_religion_editar(id_religion_editar);
   }
-  //si ni id_institucion ni id_institucion_editar están definidos, estamos en paises.php y se cargan todos
-  if(id_institucion==undefined&&id_institucion_editar==undefined&&id_religion==undefined&&id_religion_editar==undefined&&id_especie==undefined){
-    buscar_instituciones(tipo);
-  }
 
   $(document).on('change', '#filter_tipo', function(){
     tipo=this.value;
-    buscar_instituciones();
+    buscar_instituciones(tipo);
   });
-
-  function fill_select_tipo(id){
-    funcion='get_tipos_organizacion';
-    $.post('../controlador/configuracionController.php', {funcion},(response)=>{
-      let tipos=JSON.parse(response);
-      let template=`
-      <option selected disabled value="">Filtrar tipo</option>`;
-      tipos.forEach(tipo=>{
-        template+=`
-        <option value="${tipo.id}">${tipo.nombre}</option>`;
-      });
-      $(id).html(template);
-    })
-  }
-
-  function buscar_instituciones(consulta) {
-    fill_select_tipo('#filter_tipo');
-    funcion='buscar_instituciones';
-    $('#busqueda-nav').show();
-    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
-    <a href="createInstitucion.php" class="btn btn-dark">Nuevo</a>
-    <select id="filter_tipo" class="form-select ml-2" name="tipo_select"></select>`);
-    $.post('../controlador/institucionesController.php', {consulta, funcion, tipo},(response)=>{
-      //console.log(response);
-      const paises= JSON.parse(response);
-      let template='';
-      paises.forEach(pais => {
-        template+=`
-        <div institucionId="${pais.id}" institucionNombre="${pais.nombre}" class="col-12 col-sm6 col-md-3 d-flex align-items-stretch flex-column">
-          <div class="card bg-light d-flex flex-fill">
-          <div class="card-header text-muted border-bottom-0">
-        </div>
-        <div class="card-body pt-0">
-          <div class="row">
-            <div class="col">
-              <h2 class="lead"><b>${pais.nombre}</b></h2>
-              <img src="${pais.escudo}" alt="escudo" class="img-fluid">
-              <p class="text-muted text-sm"><b>Descripción breve: </b> ${pais.descripcion} </p>
-              <ul class="ml-4 mb-0 fa-ul text-muted">
-              <li class="small"><span class="fa-li"><i class="fa-solid fa-mountain-sun"></i></span> Tipo: ${pais.tipo}</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="text-center">
-            <button class="detalles-institucion btn btn-info btn-sm" type="button" title="Ver">
-            <a href=vistaContent.php?id_institucion=${pais.id} class="text-reset"><i class="fas fa-id-card"></i></a>
-            </button>
-            <form class="btn" action="createInstitucion.php" method="post">
-              <button class="editar-institucion btn btn-success btn-sm" title="Editar">
-              <i class="fas fa-pencil-alt"></i></button>
-              <input type="hidden" name="id_institucion" value="${pais.id}">
-            </form>
-            <button class="borrar-institucion btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarInstitucion" title="Borrar">
-                <i class="fas fa-trash"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      </div>
-          `;
-      });
-      $('#instituciones').html(template);
-    });
-  }
 
   $(document).on('keyup','#buscar',function(){
       let valor = $(this).val();
       if(valor!=""){
-          buscar_instituciones(valor);
+          buscar_instituciones(tipo, valor);
       }else{
-          buscar_instituciones();
+          buscar_instituciones(tipo, );
       }
   });
 
@@ -115,15 +43,15 @@ $(document).ready(function(){
     $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
       console.log(response);
       const institucion= JSON.parse(response);
-      $('#nav-buttons').html(`<a href="paises.php" class="btn btn-dark ml-2">Volver</a>
+      $('#nav-buttons').html(`<a href="paises.php" class="btn btn-dark">Volver</a>
       <form class="btn" action="createInstitucion.php" method="post">
         <button class="btn btn-dark mr-1">Editar</button>
         <input type="hidden" name="id_institucion" value="${institucion.id}">
       </form>`);
-      $('#nombre').html(institucion.nombre);
       $('#content-title').html(institucion.nombre);
-      $('#content-title-h1').html(institucion.nombre);
-      template='';      
+      let template=`<h1>${institucion.nombre}</h1>`;
+      $('#content-title-h1').html(template);
+      template='';
       if(institucion.descripcion!=undefined){
         template+=`
         <div class="row">
@@ -386,36 +314,30 @@ $('#form-create-institucion').submit(e=>{
   }
   console.log(formData);
   $.ajax({
-      url:'../controlador/institucionesController.php',
-      type:'POST',
-      data:formData,
-      cache:false,
-      processData:false,
-      contentType:false
+    url:'../controlador/institucionesController.php',
+    type:'POST',
+    data:formData,
+    cache:false,
+    processData:false,
+    contentType:false
   }).done(function(response){
-      //const json=JSON.parse(response);
-      //console.log(json);
-      if(response=='no-add'){
-        $('#no-add').hide('slow');
-        $('#no-add').show(1000);
-        $('#form-create-institucion').trigger('reset');
-      }else{
-        if(response=='add'){
-          $('#add').hide('slow');
-          $('#add').show(1000);
-        }
-        if(response=='editado'){
-          $('#editado').hide('slow');
-          $('#editado').show(1000);
-        }
-        //if(json.ruta)
-          //$('#escudo-img').attr('src',json.ruta);
-        $('#form-create-institucion').trigger('reset');
-        $('#submit-crear-button').hide();
-        $('#cancelar-crear-button').hide();
-        $('#volver-crear-button').show();
+    //const json=JSON.parse(response);
+    //console.log(json);
+    if(response=='no-add'){
+      toastr.error('No se pudo añadir la institución.', 'Error');
+    }else{
+      if(response=='add'){
+        toastr.success('Institución añadida.', 'Éxito');
       }
-      editar=false;
+      if(response=='editado'){
+        toastr.success('Institución editada.', 'Éxito');
+      }
+      $('#form-create-institucion').trigger('reset');
+      $('#submit-crear-button').hide();
+      $('#cancelar-crear-button').hide();
+      $('#volver-crear-button').show();
+    }
+    editar=false;
   });
   e.preventDefault();
 });
@@ -445,7 +367,7 @@ $('#form-borrar-institucion').submit(e=>{
       $('#borrar-button').hide();
       $('#cancelar-editar-button').hide();
       $('#texto-borrar').hide('slow');
-      buscar_instituciones();
+      buscar_instituciones(tipo);
     }else{
       $('#no-borrado').hide('slow');
       $('#no-borrado').show(1000);
@@ -467,35 +389,29 @@ $('#form-create-religion').submit(e=>{
   }
   console.log(formData);
   $.ajax({
-      url:'../controlador/institucionesController.php',
-      type:'POST',
-      data:formData,
-      cache:false,
-      processData:false,
-      contentType:false
+    url:'../controlador/institucionesController.php',
+    type:'POST',
+    data:formData,
+    cache:false,
+    processData:false,
+    contentType:false
   }).done(function(response){
     console.log(response);
-      if(response=='no-add'){
-        $('#no-add').hide('slow');
-        $('#no-add').show(1000);
-        $('#form-create-religioin').trigger('reset');
-      }else{
-        if(response=='add'){
-          $('#add').hide('slow');
-          $('#add').show(1000);
-        }
-        if(response=='editado'){
-          $('#editado').hide('slow');
-          $('#editado').show(1000);
-        }
-        //if(json.ruta)
-          //$('#escudo-img').attr('src',json.ruta);
-        $('#form-create-religion').trigger('reset');
-        $('#submit-crear-button').hide();
-        $('#cancelar-crear-button').hide();
-        $('#volver-crear-button').show();
+    if(response=='no-add'){
+      toastr.error('No se pudo añadir la religión.', 'Error');
+    }else{
+      if(response=='add'){
+        toastr.success('Religión añadida.', 'Éxito');
       }
-      editar=false;
+      if(response=='editado'){
+        toastr.success('Religión editada.', 'Éxito');
+      }
+      $('#form-create-religion').trigger('reset');
+      $('#submit-crear-button').hide();
+      $('#cancelar-crear-button').hide();
+      $('#volver-crear-button').show();
+    }
+    editar=false;
   });
   e.preventDefault();
 });
@@ -510,9 +426,11 @@ function ver_religion(dato) {
       <button class="btn btn-dark mr-1">Editar</button>
       <input type="hidden" name="id_religion" value="${religion.id}">
     </form>`);
-    $('#nombre').html(religion.nombre);
+    let template='';
+    template+=`<h1>${religion.nombre}</h1>`;
+
     $('#content-title').html(religion.nombre);
-    $('#content-title-h1').html(religion.nombre);
+    $('#content-title-h1').html(template);
     template='';
     if(religion.descripcion!=undefined){
       template+=`
@@ -685,3 +603,69 @@ function buscar_religion_editar(dato) {
   });
 }
 })
+
+function fill_select_tipo(id){
+  funcion='get_tipos_organizacion';
+  $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+    let tipos=JSON.parse(response);
+    let template=`
+    <option selected disabled value="">Filtrar tipo</option>`;
+    tipos.forEach(tipo=>{
+      template+=`
+      <option value="${tipo.id}">${tipo.nombre}</option>`;
+    });
+    $(id).html(template);
+  })
+}
+
+function buscar_instituciones(tipo, consulta) {
+  fill_select_tipo('#filter_tipo');
+  funcion='buscar_instituciones';
+  $('#busqueda-nav').show();
+  $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
+  <a href="createInstitucion.php" class="btn btn-dark">Nuevo</a>
+  <select id="filter_tipo" class="form-select ml-2" name="tipo_select"></select>`);
+  $.post('../controlador/institucionesController.php', {consulta, funcion, tipo},(response)=>{
+    console.log(response);
+    const paises= JSON.parse(response);
+    let template='';
+    paises.forEach(pais => {
+      template+=`
+      <div institucionId="${pais.id}" institucionNombre="${pais.nombre}" class="col-12 col-sm6 col-md-3 d-flex align-items-stretch flex-column">
+        <div class="card bg-light d-flex flex-fill">
+        <div class="card-header text-muted border-bottom-0">
+      </div>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col">
+            <h2 class="lead"><b>${pais.nombre}</b></h2>
+            <img src="${pais.escudo}" alt="escudo" class="img-fluid">
+            <p class="text-muted text-sm"><b>Descripción breve: </b> ${pais.descripcion} </p>
+            <ul class="ml-4 mb-0 fa-ul text-muted">
+            <li class="small"><span class="fa-li"><i class="fa-solid fa-mountain-sun"></i></span> Tipo: ${pais.tipo}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="text-center">
+          <button class="detalles-institucion btn btn-info btn-sm" type="button" title="Ver">
+          <a href=vistaContent.php?id_institucion=${pais.id} class="text-reset"><i class="fas fa-id-card"></i></a>
+          </button>
+          <form class="btn" action="createInstitucion.php" method="post">
+            <button class="editar-institucion btn btn-success btn-sm" title="Editar">
+            <i class="fas fa-pencil-alt"></i></button>
+            <input type="hidden" name="id_institucion" value="${pais.id}">
+          </form>
+          <button class="borrar-institucion btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarInstitucion" title="Borrar">
+              <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+        `;
+    });
+    $('#instituciones').html(template);
+  });
+}

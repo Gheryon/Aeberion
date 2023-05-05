@@ -141,10 +141,20 @@ aside{
 	padding-bottom:2rem;
 	margin-bottom:3rem
    }
-.personaje h2{
+
+.contentApp h1{
 	font-family:alegreya,serif;
 	font-weight:700;
 	font-size:32px;
+	color:#900b0b;
+	padding-top:15px;
+	padding-bottom:0;
+}
+
+.contentApp h2{
+	font-family:alegreya,serif;
+	font-weight:700;
+	font-size:30px;
 	color:#900b0b;
 	padding-top:15px;
 	padding-bottom:0;
@@ -154,7 +164,7 @@ aside{
 	text-transform:uppercase
 }
 
-.personaje h3 {
+.contentApp h3 {
 	color:#591717;
 	font-family:cinzel,serif;
 	font-size:22px;

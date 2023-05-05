@@ -109,18 +109,10 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="timelines.php" class="nav-link">
-            <i class="nav-icon fas fa-columns"></i>
-            <p>
-              Cronologías
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="timeline.php" class="nav-link">
             <i class="nav-icon fas fa-columns"></i>
             <p>
-              Cronologías updated
+              Cronologías
             </p>
           </a>
         </li>

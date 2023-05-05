@@ -1,11 +1,11 @@
 <?php include_once 'layouts/header.php'; ?>
+<input id="vista_buscar_personajes" type="hidden" value="true">
   <!--<link href="css/bootstrap.min.css" rel="stylesheet">-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <!--<link rel="stylesheet" href="css/style.css"/>-->
+  <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
   <title>Personajes</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_personajes()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -34,7 +34,7 @@
                 <div class="input-grup-prepend">
                     <span class="input-group-text" id="nombre-personaje"> ¿Borrar?</span>
                 </div>
-                <input type="hidden" id="id_personaje">
+                <input type="hidden" id="id_personaje_borrar">
                 <input type="hidden" id="funcion">
             </div>
       </div>
@@ -64,17 +64,6 @@
   <section class="content">
     <div class="container-fluid">
       <div class="card card-dark">
-          <!--<div class="card-header">
-            <h3 class="card-title">Búsqueda de personajes</h3>
-            <div class="input-group">
-              <input type="text" id="buscar" placeholder="Nombre del personaje"class="form-control float-left">
-              <div class="input-group-append">
-                <button class="btn btn-default">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
-          </div>-->
           <div class="card-body">
             <div class="row">
               <div id="personajes" class="row d-flex align-items-stretch">

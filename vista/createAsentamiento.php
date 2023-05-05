@@ -13,7 +13,7 @@
 <?php
 }
 ?>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="fill_select_tipo()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 

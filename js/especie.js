@@ -54,10 +54,10 @@ $(document).ready(function(){
         <button class="btn btn-dark mr-1">Editar</button>
         <input type="hidden" name="id_especie" value="${especie.id_especie}">
       </form>`);
-      $('#nombre').html(especie.nombre);
       $('#content-title').html(especie.nombre);
-      $('#content-title-h1').html(especie.nombre);
-      let template='';
+      let template=`<h1>${especie.nombre}</h1>`;
+      $('#content-title-h1').html(template);
+      template='';
       template+=`
       <h2>Anatomía y morfología</h2>`;
       if(especie.anatomia!=undefined){

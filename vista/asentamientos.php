@@ -2,7 +2,7 @@
   <title>Asentamientos</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_asentamientos()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 

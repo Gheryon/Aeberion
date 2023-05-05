@@ -1,17 +1,13 @@
 $(document).ready(function(){
   var funcion='';
-  var id_personaje_ver = $('#id_personaje_ver').val();
+  var id_personaje_ver = $('#id_personaje').val();
+  var vista_content = $('#vista_content').val();
   var id_personaje_editar = $('#id_personaje_editar').val();
-  if(id_personaje_ver!=undefined){
-    buscar_personaje(id_personaje_ver);
+  if(id_personaje_ver!=undefined&&vista_content=="true"){
+    ver_personaje(id_personaje_ver)
   }
   if(id_personaje_editar!=undefined){
-    fill_select_especies();
     buscar_personaje_editar(id_personaje_editar);
-  }
-  if(id_personaje_editar==undefined&&id_personaje_ver==undefined){
-    buscar_personajes();
-    fill_select_especies();
   }
 
   $('#form-create-personaje').submit(e=>{
@@ -27,13 +23,10 @@ $(document).ready(function(){
       contentType:false
     }).done(function(response){
       if(response=='no-add'){
-        $('#no-add').hide('slow');
-        $('#no-add').show(1000);
-        $('#form-create-institucion').trigger('reset');
+        toastr.error('No se pudo añadir.', 'Error');
       }else{
         if(response=='add'){
-          $('#add').hide('slow');
-          $('#add').show(1000);
+          toastr.success('Personaje añadido.', 'Éxito');
         }
         if(response=='editado'){
           $('#editado').hide('slow');
@@ -49,139 +42,180 @@ $(document).ready(function(){
     e.preventDefault();
   });
 
-  function buscar_personajes(consulta) {
-    funcion='buscar_personajes';
-    $('#busqueda-nav').show();
-    $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
-    <a href="createPersonaje.php" class="btn btn-dark">Nuevo</a>`);
-    $.post('../controlador/personajeController.php', {consulta, funcion},(response)=>{
-      //console.log(response);
-      const personajes= JSON.parse(response);
-      let template='';
-      personajes.forEach(personaje => {
-        template+=`
-        <div personajeId="${personaje.id}" personajeNombre="${personaje.nombre}" class="col-12 col-sm6 col-md-4 d-flex align-items-stretch flex-column">
-          <div class="card bg-light d-flex flex-fill">
-          <div class="card-header text-muted border-bottom-0">
-        </div>
-        <div class="card-body pt-0">
-          <div class="row">
-            <div class="col-7">
-              <h2 class="lead"><b>${personaje.nombre} ${personaje.apellidos}</b></h2>
-              <p class="text-muted text-sm"><b>Descripción breve: </b> ${personaje.descripcionshort} </p>
-              <ul class="ml-4 mb-0 fa-ul text-muted">
-              <li class="small"><span class="fa-li"><i class="fa-solid fa-dna"></i></span> Especie: ${personaje.especie}</li>
-              <li class="small"><span class="fa-li"><i class="fas fa-lg fa-smile-wink"></i></span> Sexo: ${personaje.sexo}</li>
-              </ul>
-            </div>
-            <div class="col-5 text-center">
-              <img src="${personaje.retrato}" alt="user-avatar" class="img-circle img-fluid">
-            </div>
-          </div>
-        </div>
-        <div class="card-footer">
-          <div class="text-right">
-            <button class="detalles-personaje btn btn-info btn-sm" type="button">
-            <a href=personaje.php?id=${personaje.id} class="text-reset"><i class="fas fa-id-card mr-1"></i>Detalles</a>
-            </button>
-            <form class="btn" action="editarPersonaje.php" method="post">
-              <button class="editar-personaje btn btn-success btn-sm">
-              <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
-              <input type="hidden" name="id" value="${personaje.id}">
-            </form>
-            <button class="borrar-personaje btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#confirmar">
-                <i class="fas fa-trash mr-1"></i>Eliminar
-            </button>
-          </div>
-        </div>
-      </div>
-      </div>
-          `;
-      });
-      $('#personajes').html(template);
-    });
-  }
-
-  function buscar_personaje(dato) {
+  function ver_personaje(dato) {
     funcion='buscar_personaje';
     $.post('../controlador/personajeController.php', {dato, funcion},(response)=>{
       console.log(response);
       const personaje= JSON.parse(response);
-      $('#nombre').html(personaje.nombre);
-      //console.log(personaje.nombre+personaje.apellidos);
-      $('#nombre_personaje').html(personaje.nombre+' '+personaje.apellidos);
-      $('#nombre-title').html(personaje.nombre);
-      $('#nombre-title-h1').html(personaje.nombre);
-      if(personaje.descripcionShort==undefined){
-        $('#descripcion_short-row').hide();
-      }else{
-        $('#descripcion_short').html(personaje.descripcionShort);
+      $('#nav-buttons').html(`<a href="../vista/personajes.php" class="btn btn-dark ml-2">Volver</a>
+      <form class="btn" action="editarPersonaje.php" method="post">
+        <button class="btn btn-dark mr-1">Editar</button>
+        <input type="hidden" name="id" value="${personaje.id}">
+      </form>`);
+      $('#content-title').html(personaje.nombre);
+      let template='';
+      template+=`<h1>${personaje.nombre}`;
+      if(personaje.nombreFamilia!=null){
+        template+=` ${personaje.nombreFamilia}`;
       }
-      if(personaje.historia==undefined){
-        $('#historia-row').hide();
-      }else{
-        $('#historia').html(personaje.historia);
+      if(personaje.apellidos!=null){
+        template+=` ${personaje.apellidos}`;
       }
-      if(personaje.descripcion==undefined){
-        $('#descripcion-row').hide();
-      }else{
-        $('#descripcion').html(personaje.descripcion);
+      template+=`</h1>`;
+      $('#content-title-h1').html(template);
+      template='';
+      if(personaje.descripcionShort!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Descripción breve</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.descripcionShort}
+          </div>
+        </div>`;
       }
-      if(personaje.personalidad==undefined){
-        $('#personalidad-row').hide();
-      }else{
-        $('#personalidad').html(personaje.personalidad);
+      template+=`<h2>Descripción</h2>`;
+      if(personaje.descripcion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Descripción física</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.descripcion}
+          </div>
+        </div>`;
       }
-      if(personaje.deseos==undefined){
-        $('#deseos-row').hide();
-      }else{
-        $('#deseos').html(personaje.deseos);
+      if(personaje.personalidad!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Personalidad</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.personalidad}
+          </div>
+        </div>`;
       }
-      if(personaje.miedos==undefined){
-        $('#miedos-row').hide();
-      }else{
-        $('#miedos').html(personaje.miedos);
+      if(personaje.deseos!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Deseos</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.deseos}
+          </div>
+        </div>`;
       }
-      if(personaje.magia==undefined){
-        $('#magia-row').hide();
-      }else{
-        $('#magia').html(personaje.magia);
+      if(personaje.miedos!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Miedos</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.miedos}
+          </div>
+        </div>`;
       }
-      if(personaje.educacion==undefined){
-        $('#educacion-row').hide();
-      }else{
-        $('#educacion').html(personaje.educacion);
+      if(personaje.magia!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Habilidades mágicas</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.magia}
+          </div>
+        </div>`;
       }
-      if(personaje.religion==undefined){
-        $('#religion-row').hide();
-      }else{
-        $('#religion').html(personaje.religion);
+      if(personaje.educacion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Educación</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.educacion}
+          </div>
+        </div>`;
       }
-      if(personaje.familia==undefined){
-        $('#familia-row').hide();
-      }else{
-        $('#familia').html(personaje.familia);
+      if(personaje.historia!=undefined){
+        template+=`
+        <h2>Historia</h2>
+        <div class="row">
+          <div class="row ml-2 mr-2">
+          ${personaje.historia}
+          </div>
+        </div>`;
       }
-      if(personaje.politica==undefined){
-        $('#politica-row').hide();
-      }else{
-        $('#politica').html(personaje.politica);
+      template+=`
+      <h2>Aspectos sociales</h2>`;
+      if(personaje.religion!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Religión</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.religion}
+          </div>
+        </div>`;
       }
-      if(personaje.otros==undefined){
-        $('#otros-row').hide();
-      }else{
-        $('#otros').html(personaje.otros);
+      if(personaje.familia!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Familia</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.familia}
+          </div>
+        </div>`;
       }
-      //datos en el margen derecho
-      $('#retrato').attr('src',personaje.retrato);
-      let enlace_especie='';
-      enlace_especie+=`<a href="../vista/especies.php?id_especie=${personaje.id_especie}" class="text-reset">${personaje.nombreEspecie}</a>`;
-      $('#especie').html(enlace_especie);
-      if(personaje.sexo==undefined){
-        $('#sexo-row').hide();
-      }else{
-        $('#sexo').html(personaje.sexo);
+      if(personaje.politica!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Política</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.politica}
+          </div>
+        </div>`;
       }
+      if(personaje.otros!=undefined){
+        template+=`
+        <h2>Otros</h2>
+        <div class="row">
+          <h3>Otros</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.otros}
+          </div>
+        </div>`;
+      }
+      $('#content-left').html(template);
+      
+      //datos de la card
+      template='';
+      template+=`
+      <div class="row">
+        <h3>Retrato</h3>
+        <div class="row">
+          <img alt="retrato" id="retrato" class="img-fluid" src="${personaje.retrato}" width="300" height="300">
+        </div>
+      </div>`;
+      if(personaje.nombreEspecie!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Especie</h3>
+          <div class="row ml-2 mr-2">
+          <a href="../vista/vistaContent.php?id_especie=${personaje.id_especie}">${personaje.nombreEspecie}</a>
+          
+          </div>
+        </div>`;
+      }
+      if(personaje.sexo!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Sexo</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.sexo}
+          </div>
+        </div>`;
+      }
+      if(personaje.lugarNacimiento!=undefined){
+        template+=`
+        <div class="row">
+          <h3>Lugar de nacimiento</h3>
+          <div class="row ml-2 mr-2">
+          ${personaje.lugarNacimiento}
+          </div>
+        </div>`;
+      }
+      $('#content-right').html(template);
     });
   }
   
@@ -207,7 +241,7 @@ $(document).ready(function(){
 
   $('#form-confirmar-borrado').submit(e=>{
     funcion='borrar_personaje';
-    let id_personaje=$('#id_personaje').val();
+    let id_personaje=$('#id_personaje_borrar').val();
     funcion=$('#funcion').val();
     $.post('../controlador/personajeController.php', {id_personaje, funcion}, (response)=>{
       if(response=='borrado')
@@ -243,24 +277,15 @@ $(document).ready(function(){
       processData:false,
       contentType:false
     }).done(function(response){
-      if(response=='no-add'){
-        $('#no-add').hide('slow');
-        $('#no-add').show(1000);
-        $('#form-create-institucion').trigger('reset');
+      if(response=='editado'){
+        toastr.success('Personaje editado.', 'Éxito');
       }else{
-        if(response=='add'){
-          $('#add').hide('slow');
-          $('#add').show(1000);
-        }
-        if(response=='editado'){
-          $('#editado').hide('slow');
-          $('#editado').show(1000);
-        }
-        $('#form-create-institucion').trigger('reset');
-        $('#submit-editar-button').hide();
-        $('#cancelar-editar-button').hide();
-        $('#volver-editar-button').show();
+        toastr.error('No se pudo editar.', 'Error');
       }
+      $('#form-create-institucion').trigger('reset');
+      $('#submit-editar-button').hide();
+      $('#cancelar-editar-button').hide();
+      $('#volver-editar-button').show();
       editar=false;
     });
     e.preventDefault();
@@ -319,23 +344,76 @@ $(document).ready(function(){
       $('#otros').summernote('code', personaje.otros);
       $('#modal-retrato').attr('src', personaje.retrato);
       $('#retrato-content').attr('src',personaje.retrato);
-      $('#especies_select').val(personaje.especie);
+      $('#especies_select').val(personaje.id_especie);
       $('#sexo').val(personaje.sexo);
       $('#id_personaje').val(personaje.id_personaje);
     });
   }
-
-  function fill_select_especies(){
-    funcion='menu_especies';
-    $.post('../controlador/especiesController.php', {funcion}, (response)=>{
-        let especies=JSON.parse(response);
-        let template='';
-        especies.forEach(especie=>{
-            template+=`
-            <option value="${especie.id}">${especie.nombre}</option>
-            `;
-        });
-        $('#especies_select').html(template);
-    })
-  }
 })
+
+function fill_select_especies(){
+  funcion='menu_especies';
+  $.post('../controlador/especiesController.php', {funcion}, (response)=>{
+      let especies=JSON.parse(response);
+      let template='';
+      especies.forEach(especie=>{
+          template+=`
+          <option value="${especie.id}">${especie.nombre}</option>
+          `;
+      });
+      $('#especies_select').html(template);
+  })
+}
+
+function buscar_personajes(consulta) {
+  funcion='buscar_personajes';
+  $('#busqueda-nav').show();
+  $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
+  <a href="createPersonaje.php" class="btn btn-dark">Nuevo</a>`);
+  $.post('../controlador/personajeController.php', {consulta, funcion},(response)=>{
+    console.log(response);
+    const personajes= JSON.parse(response);
+    let template='';
+    personajes.forEach(personaje => {
+      template+=`
+      <div personajeId="${personaje.id}" personajeNombre="${personaje.nombre}" class="col-12 col-sm6 col-md-4 d-flex align-items-stretch flex-column">
+        <div class="card bg-light d-flex flex-fill">
+        <div class="card-header text-muted border-bottom-0">
+      </div>
+      <div class="card-body pt-0">
+        <div class="row">
+          <div class="col-7">
+            <h2 class="lead"><b>${personaje.nombre} ${personaje.apellidos}</b></h2>
+            <p class="text-muted text-sm"><b>Descripción breve: </b> ${personaje.descripcionshort} </p>
+            <ul class="ml-4 mb-0 fa-ul text-muted">
+            <li class="small"><span class="fa-li"><i class="fa-solid fa-dna"></i></span> Especie: ${personaje.especie}</li>
+            <li class="small"><span class="fa-li"><i class="fas fa-lg fa-smile-wink"></i></span> Sexo: ${personaje.sexo}</li>
+            </ul>
+          </div>
+          <div class="col-5 text-center">
+            <img src="${personaje.retrato}" alt="user-avatar" class="img-circle img-fluid">
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="text-right">
+          <button class="detalles-personaje btn btn-info btn-sm" type="button">
+          <a href=vistaContent.php?id_personaje=${personaje.id} class="text-reset"><i class="fas fa-id-card mr-1"></i>Detalles</a>
+          </button>
+          <form class="btn" action="editarPersonaje.php" method="post">
+            <button class="editar-personaje btn btn-success btn-sm">
+            <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
+            <input type="hidden" name="id" value="${personaje.id}">
+          </form>
+          <button class="borrar-personaje btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#confirmar">
+              <i class="fas fa-trash mr-1"></i>Eliminar
+          </button>
+        </div>
+      </div>
+    </div>
+    </div>
+        `;
+    });
+    $('#personajes').html(template);
+  });
+}

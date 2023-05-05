@@ -2,13 +2,13 @@
 <input id="id_personaje_editar" name="id_personaje_editar" type="hidden" value="<?php echo $_POST['id']?>">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-<link rel="stylesheet" href="../css/style.css"/>
+<!--<link rel="stylesheet" href="../css/style.css"/>-->
 <title>Editar personaje</title>
 <!-- summernote -->
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="fill_select_especies()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -18,27 +18,21 @@
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-12">
-            <h1 class="fw-bolder text-center">Editar personaje</h1>
-          </div>
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-sm-12">
+          <h1 class="fw-bolder text-center">Editar personaje</h1>
         </div>
-      </div><!-- /.container-fluid -->
-    </section>
+      </div>
+    </div><!-- /.container-fluid -->
+  </section>
 
   <!-- Main content -->
   <section class="content">
     <div class="container">
       <div class="span10 offset1">
-        <div class="alert alert-success text-center" id='editado' style='display:none'>
-            <span><i class="fas fa-check m-1"></i>Personaje actualizado</span>
-        </div>
-        <div class="alert alert-danger text-center" id='no-editado' style='display:none'>
-            <span><i class="fas fa-times m-1"></i>No se pudo actualizar</span>
-        </div>
         <form id="form-editar-personaje" class="row g-3 mt-3 position-relative needs-validation" action="editarPersonaje.php" method="post" enctype="multipart/form-data">
           <div class="row justify-content-md-center">
             <div class="col-md-auto form-actions">
