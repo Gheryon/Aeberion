@@ -2,7 +2,7 @@
   <title>Guerras y batallas</title>
 
 </head>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_conflictos()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 

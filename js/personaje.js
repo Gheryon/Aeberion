@@ -1,11 +1,6 @@
 $(document).ready(function(){
   var funcion='';
-  var id_personaje_ver = $('#id_personaje').val();
-  var vista_content = $('#vista_content').val();
   var id_personaje_editar = $('#id_personaje_editar').val();
-  if(id_personaje_ver!=undefined&&vista_content=="true"){
-    ver_personaje(id_personaje_ver)
-  }
   if(id_personaje_editar!=undefined){
     buscar_personaje_editar(id_personaje_editar);
   }
@@ -41,183 +36,6 @@ $(document).ready(function(){
     });
     e.preventDefault();
   });
-
-  function ver_personaje(dato) {
-    funcion='buscar_personaje';
-    $.post('../controlador/personajeController.php', {dato, funcion},(response)=>{
-      console.log(response);
-      const personaje= JSON.parse(response);
-      $('#nav-buttons').html(`<a href="../vista/personajes.php" class="btn btn-dark ml-2">Volver</a>
-      <form class="btn" action="editarPersonaje.php" method="post">
-        <button class="btn btn-dark mr-1">Editar</button>
-        <input type="hidden" name="id" value="${personaje.id}">
-      </form>`);
-      $('#content-title').html(personaje.nombre);
-      let template='';
-      template+=`<h1>${personaje.nombre}`;
-      if(personaje.nombreFamilia!=null){
-        template+=` ${personaje.nombreFamilia}`;
-      }
-      if(personaje.apellidos!=null){
-        template+=` ${personaje.apellidos}`;
-      }
-      template+=`</h1>`;
-      $('#content-title-h1').html(template);
-      template='';
-      if(personaje.descripcionShort!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Descripción breve</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.descripcionShort}
-          </div>
-        </div>`;
-      }
-      template+=`<h2>Descripción</h2>`;
-      if(personaje.descripcion!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Descripción física</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.descripcion}
-          </div>
-        </div>`;
-      }
-      if(personaje.personalidad!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Personalidad</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.personalidad}
-          </div>
-        </div>`;
-      }
-      if(personaje.deseos!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Deseos</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.deseos}
-          </div>
-        </div>`;
-      }
-      if(personaje.miedos!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Miedos</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.miedos}
-          </div>
-        </div>`;
-      }
-      if(personaje.magia!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Habilidades mágicas</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.magia}
-          </div>
-        </div>`;
-      }
-      if(personaje.educacion!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Educación</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.educacion}
-          </div>
-        </div>`;
-      }
-      if(personaje.historia!=undefined){
-        template+=`
-        <h2>Historia</h2>
-        <div class="row">
-          <div class="row ml-2 mr-2">
-          ${personaje.historia}
-          </div>
-        </div>`;
-      }
-      template+=`
-      <h2>Aspectos sociales</h2>`;
-      if(personaje.religion!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Religión</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.religion}
-          </div>
-        </div>`;
-      }
-      if(personaje.familia!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Familia</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.familia}
-          </div>
-        </div>`;
-      }
-      if(personaje.politica!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Política</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.politica}
-          </div>
-        </div>`;
-      }
-      if(personaje.otros!=undefined){
-        template+=`
-        <h2>Otros</h2>
-        <div class="row">
-          <h3>Otros</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.otros}
-          </div>
-        </div>`;
-      }
-      $('#content-left').html(template);
-      
-      //datos de la card
-      template='';
-      template+=`
-      <div class="row">
-        <h3>Retrato</h3>
-        <div class="row">
-          <img alt="retrato" id="retrato" class="img-fluid" src="${personaje.retrato}" width="300" height="300">
-        </div>
-      </div>`;
-      if(personaje.nombreEspecie!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Especie</h3>
-          <div class="row ml-2 mr-2">
-          <a href="../vista/vistaContent.php?id_especie=${personaje.id_especie}">${personaje.nombreEspecie}</a>
-          
-          </div>
-        </div>`;
-      }
-      if(personaje.sexo!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Sexo</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.sexo}
-          </div>
-        </div>`;
-      }
-      if(personaje.lugarNacimiento!=undefined){
-        template+=`
-        <div class="row">
-          <h3>Lugar de nacimiento</h3>
-          <div class="row ml-2 mr-2">
-          ${personaje.lugarNacimiento}
-          </div>
-        </div>`;
-      }
-      $('#content-right').html(template);
-    });
-  }
   
   $(document).on('keyup','#buscar',function(){
       let valor = $(this).val();
@@ -371,7 +189,7 @@ function buscar_personajes(consulta) {
   $('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
   <a href="createPersonaje.php" class="btn btn-dark">Nuevo</a>`);
   $.post('../controlador/personajeController.php', {consulta, funcion},(response)=>{
-    console.log(response);
+    //console.log(response);
     const personajes= JSON.parse(response);
     let template='';
     personajes.forEach(personaje => {
@@ -398,7 +216,7 @@ function buscar_personajes(consulta) {
       <div class="card-footer">
         <div class="text-right">
           <button class="detalles-personaje btn btn-info btn-sm" type="button">
-          <a href=vistaContent.php?id_personaje=${personaje.id} class="text-reset"><i class="fas fa-id-card mr-1"></i>Detalles</a>
+          <a href="vistaContent.php?id=${personaje.id}&tipo=1" class="text-reset"><i class="fas fa-id-card mr-1"></i>Detalles</a>
           </button>
           <form class="btn" action="editarPersonaje.php" method="post">
             <button class="editar-personaje btn btn-success btn-sm">

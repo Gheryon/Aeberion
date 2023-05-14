@@ -2,7 +2,7 @@
 <title>Lugares</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_lugares()">
   <!-- Site wrapper -->
   <div class="wrapper">
     <?php

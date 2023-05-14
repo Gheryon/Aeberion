@@ -68,7 +68,7 @@
         <div class="row">
           <div class="col mb-2 mr-2 ml-2">
             <div class="row fondoTitulo fw-bolder">Sin decidir</div>
-            <div class="row">Acrospar, Aharion, Aldryth, Algenion, Alhofen, Alodo, Amarigesa, Andoreova, Andorin, Anglería, Antusa, Arian, Arivor, Aterlan, Aurarmel, Ayeron, Azuairo, Azura, Benanze, Cendrillion, Cleotardo, Delancia, Duada, Eluan, Esdrelón, Euderion, Eudibane, Garada, Gasada, Glairen fuyl, Idarro, Jhasarhyas, Lyjoni, Tel Hazor, Tolwell, Rihot, Meliccis, Ryanne, Jazia, Daz eltghur, Iskar, Liusaidh, Cenaísin, Anaguil, Faladhell, Lorithon, Sharania, Incanan, Notalión, Sinoel, Oramas, Penilval, Nergala, Espisas, Astarion, Nedar, Driatera, Iurifea, Itira, Sedoragania, talagurio, serila, Sabriel, Vlorien</div>
+            <div class="row">Acrospar, Aharion, Aldryth, Algenion, Alhofen, Andévalo, Alodo, Amarigesa, Andoreova, Andorin, Anglería, Antusa, Arian, Arivor, Aterlan, Aurarmel, Ayeron, Azuairo, Azura, Benanze, Cendrillion, Cleotardo, Delancia, Duada, Eluan, Esdrelón, Euderion, Eudibane, Garada, Gasada, Glairen fuyl, Idarro, Jhasarhyas, Lyjoni, Tel Hazor, Tolwell, Rihot, Meliccis, Ryanne, Jazia, Daz eltghur, Iskar, Liusaidh, Cenaísin, Anaguil, Faladhell, Lorithon, Sharania, Incanan, Notalión, Sinoel, Oramas, Penilval, Nergala, Espisas, Astarion, Nedar, Driatera, Iurifea, Itira, Sedoragania, talagurio, serila, Sabriel, Vlorien</div>
           </div>
           <div class="col mb-2 mr-2 ml-2">
             <div class="row fondoTitulo fw-bolder">Otros</div>

@@ -1,7 +1,5 @@
 <?php include_once 'layouts/header.php';?>
 
-<input id="id_especie_editar" name="id_especie" type="hidden" value="<?php echo $_POST['id_especie']?>">
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!--<link rel="stylesheet" href="../css/style.css"/>-->
 <title>Editar especie</title>
@@ -9,7 +7,7 @@
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_especie_editar(<?php echo $_POST['id_especie']?>)">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -67,13 +65,8 @@
     <section class="content">
 			<div class="container">
 				<div class="span10 offset1">
-					<div class="alert alert-success text-center" id='editado' style='display:none'>
-							<span><i class="fas fa-check m-1"></i>Especie editada</span>
-					</div>
-					<div class="alert alert-danger text-center" id='no-editado' style='display:none'>
-							<span><i class="fas fa-times m-1"></i>No se pudo editar la especie</span>
-					</div>
 					<form id="form-editar-especie" class="row g-3 mt-3 position-relative needs-validation">
+					<input id="id_especie_editar" name="id_especie_editar" type="hidden" value="<?php echo $_POST['id_especie']?>">
 					<div class="row justify-content-md-center">
 						<div class="col-md-auto form-actions">
 							<a class="btn btn-primary" type="button" id="volver-editar-button" href="../index.php" style="display:none">Volver</a>
@@ -110,15 +103,15 @@
 						<div class="row mb-2">
 							<div class="col-md-3">
 								<label for="peso" class="form-label">Peso</label>
-								<input type="text" name="pesoEspecie" class="form-control" id="peso" placeholder="Peso">
+								<input type="text" name="pesoEspecie" class="form-control" id="pesoEspecie" placeholder="Peso">
 							</div>
 							<div class="col-md-3">
 								<label for="altura" class="form-label">Altura</label>
-								<input type="text" name="alturaEspecie" class="form-control" id="altura" placeholder="Altura">
+								<input type="text" name="alturaEspecie" class="form-control" id="alturaEspecie" placeholder="Altura">
 							</div>
 							<div class="col-md-3">
 								<label for="longitud" class="form-label">Longitud</label>
-								<input type="text" name="longitudEspecie" class="form-control" id="longitud" placeholder="Longitud">
+								<input type="text" name="longitudEspecie" class="form-control" id="longitudEspecie" placeholder="Longitud">
 							</div>
 						</div>
 					</div>
@@ -134,13 +127,13 @@
 						<div class="row mt-2">
 							<div class="col">
 								<label for="alimentacion" class="form-label">Alimentación</label>
-								<textarea class="form-control summernote" id="alimentacion" rows="4" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="alimentacion" id="alimentacion" rows="4" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2 mb-2">
 							<div class="col">
 								<label for="reproduccion" class="form-label">Reproducción y crecimiento</label>
-								<textarea class="form-control summernote" id="reproduccion" rows="4" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="reproduccion" id="reproduccion" rows="4" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 					</div>
@@ -150,25 +143,25 @@
 						<div class="row mt-2">
 							<div class="col">
 								<label for="distribucion" class="form-label">Distribución y hábitats</label>
-								<textarea class="form-control summernote" id="distribucion" rows="4" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="distribucion" id="distribucion" rows="4" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2">
 							<div class="col">
 								<label for="habilidades" class="form-label">Habilidades</label>
-								<textarea class="form-control summernote" id="habilidades" rows="4" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="habilidades" id="habilidades" rows="4" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2">
 							<div class="col">
 								<label for="domesticacion" class="form-label">Domesticación</label>
-								<textarea class="form-control" id="domesticacion" rows="4" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="domesticacion" id="domesticacion" rows="4" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 						<div class="row mt-2 mb-2">
 							<div class="col">
 								<label for="explotacion" class="form-label">Explotación</label>
-								<textarea class="form-control summernote" id="explotacion" rows="4" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="explotacion" id="explotacion" rows="4" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 					</div>
@@ -178,7 +171,7 @@
 						<div class="row mt-2 mb-2">
 							<div class="col">
 								<label for="otros" class="form-label">Otros</label>
-								<textarea class="form-control summernote" id="otros" rows="8" aria-label="With textarea"></textarea>
+								<textarea class="form-control summernote" name="otros" id="otros" rows="8" aria-label="With textarea"></textarea>
 							</div>
 						</div>
 					</div>

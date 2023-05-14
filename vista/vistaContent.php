@@ -31,7 +31,7 @@ if(isset($_GET['id_personaje'])){
 <link rel="stylesheet" href="../css/style.css"/>
 <title id="content-title"></title>
 </head>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loadContent(<?php echo $_GET['tipo']?>,<?php echo $_GET['id']?>)">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -75,7 +75,4 @@ if(isset($_GET['id_personaje'])){
 
 <?php include_once 'layouts/footer.php'; ?>
 
-<script src="../js/instituciones.js"></script>
-<script src="../js/asentamientos.js"></script>
-<script src="../js/especie.js"></script>
-<script src="../js/personaje.js"></script>
+<script src="../js/vistaContent.js"></script>

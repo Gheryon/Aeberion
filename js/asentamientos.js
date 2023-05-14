@@ -1,13 +1,8 @@
 $(document).ready(function () {
   var funcion = '';
   var editar = false;
-  var id_asentamiento = $('#id_asentamiento').val();
   var id_asentamiento_editar = $('#id_asentamiento_editar').val();
 
-  //si id_asentamiento está definido, se va a consultar una entrada
-  if (id_asentamiento != undefined) {
-    buscar_asentamiento(id_asentamiento);
-  }
   //si id_asentamiento_editar está definido, se va a editar una entrada
   if (id_asentamiento_editar != undefined) {
     fill_select_tipo();
@@ -54,181 +49,6 @@ $(document).ready(function () {
     });
     e.preventDefault();
   });
-
-  function buscar_asentamiento(dato) {
-    funcion = 'ver_asentamiento';
-    $.post('../controlador/asentamientosController.php', { dato, funcion }, (response) => {
-      console.log(response);
-      const asentamiento = JSON.parse(response);
-      $('#nav-buttons').html(`<a href="asentamientos.php" class="btn btn-dark ml-2">Volver</a>
-      <form class="btn" action="createAsentamiento.php" method="post">
-        <button class="btn btn-dark mr-1">Editar</button>
-        <input type="hidden" name="id_asentamiento" value="${asentamiento.id}">
-      </form>`);
-      $('#content-title').html(asentamiento.nombre);
-      let template=`<h1>${asentamiento.nombre}</h1>`;
-      $('#content-title-h1').html(template);
-      template = '';
-      if (asentamiento.descripcion != undefined) {
-        template += `
-        <div class="row">
-          <h3>Descripción</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.descripcion}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.demografia != undefined) {
-        template += `
-        <div class="row">
-          <h3>Demografía</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.demografia}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.gobierno != undefined) {
-        template += `
-        <div class="row">
-          <h3>Gobierno</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.gobierno}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.infraestructura != undefined) {
-        template += `
-        <div class="row">
-          <h3>Infraestructura</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.infraestructura}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.historia != undefined) {
-        template += `
-        <div class="row">
-          <h3>Historia</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.historia}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.defensas != undefined) {
-        template += `
-        <div class="row">
-          <h3>Sistemas defensivos</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.defensas}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.economia != undefined) {
-        template += `
-        <div class="row">
-          <h3>Economía, industria y comercio</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.economia}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.cultura != undefined) {
-        template += `
-        <div class="row">
-          <h3>Cultura y arquitectura</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.cultura}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.geografia != undefined) {
-        template += `
-        <div class="row">
-          <h3>Geografía</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.geografia}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.clima != undefined) {
-        template += `
-        <div class="row">
-          <h3>Clima</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.clima}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.recursos != undefined) {
-        template += `
-        <div class="row">
-          <h3>Recursos</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.recursos}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.otros != undefined) {
-        template += `
-        <div class="row">
-          <h3>Otros</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.otros}
-          </div>
-        </div>`;
-      }
-      $('#content-left').html(template);
-
-      //datos de la card
-      template = '';
-      if (asentamiento.gentilicio != undefined) {
-        template += `
-        <div class="row">
-          <h3>Gentilicio</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.gentilicio}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.tipo != undefined) {
-        template += `
-        <div class="row">
-          <h3>Tipo</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.tipo}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.poblacion != undefined) {
-        template += `
-        <div class="row">
-          <h3>Población</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.poblacion}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.fundacion != undefined) {
-        template += `
-        <div class="row">
-          <h3>Fundación</h3>
-          <div class="row ml-2 mr-2">
-          ${asentamiento.fundacion}
-          </div>
-        </div>`;
-      }
-      if (asentamiento.disolucion != undefined) {
-        template += `
-        <div class="row">
-          <h3>Disolución</h3>
-          <div class="row ml-2 mr-2">
-          ${religion.disolucion}
-          </div>
-        </div>`;
-      }
-      $('#content-right').html(template);
-    });
-  }
 
   function buscar_asentamiento_editar(dato) {
     funcion = 'ver_asentamiento';
@@ -338,7 +158,7 @@ function buscar_asentamientos(consulta) {
       <div class="card-footer">
         <div class="text-center">
           <button class="btn btn-info btn-sm" type="button" title="Ver">
-          <a href=vistaContent.php?id_asentamiento=${asentamiento.id} class="text-reset"><i class="fas fa-id-card"></i></a>
+          <a href="vistaContent.php?id=${asentamiento.id}&tipo=5" class="text-reset"><i class="fas fa-id-card"></i></a>
           </button>
           <form class="btn" action="createAsentamiento.php" method="post">
             <button class="btn btn-success btn-sm" title="Editar">

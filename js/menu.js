@@ -10,7 +10,7 @@ $(document).ready(function(){
       especies.forEach(especie => {
         template+=`
         <li class="nav-item">
-          <a href="vistaContent.php?id_especie=${especie.id}" class="nav-link">
+          <a href="vistaContent.php?id=${especie.id}&tipo=2" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>${especie.nombre}</p>
           </a>
@@ -28,7 +28,7 @@ $(document).ready(function(){
       religiones.forEach(religion => {
         template+=`
         <li class="nav-item">
-          <a href="vistaContent.php?id_religion=${religion.id}" class="nav-link">
+          <a href="vistaContent.php?id=${religion.id}&tipo=4" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>${religion.nombre}</p>
           </a>

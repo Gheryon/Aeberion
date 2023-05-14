@@ -49,11 +49,6 @@ class Especie
 		$sql = "DELETE FROM especies WHERE id_especie=:id";
 		$query = $this->acceso->prepare($sql);
 		$query->execute(array(':id' => $id));
-		if (!empty($query->execute(array(':id' => $id)))) {
-			echo 'borrado';
-		} else {
-			echo 'noborrado';
-		}
 	}
 
 	function obtener_especie($id){
