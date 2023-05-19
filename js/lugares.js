@@ -165,7 +165,7 @@ function buscar_lugares(consulta) {
     let template = '';
     lugares.forEach(lugar => {
       template += `
-      <div lugarId="${lugar.id}" lugarNombre="${lugar.nombre}" class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+      <div lugarId="${lugar.id}" lugarNombre="${lugar.nombre}" class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch flex-column">
         <div class="card bg-light d-flex flex-fill">
         <div class="card-header text-muted border-bottom-0">
       </div>

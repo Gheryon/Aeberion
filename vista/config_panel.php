@@ -16,12 +16,6 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id='borrado' style='display:none'>
-            <span><i class="fas fa-check m-1"></i>Eliminado</span>
-          </div>
-          <div class="alert alert-danger text-center" id='no-borrado' style='display:none'>
-            <span><i class="fas fa-times m-1"></i>No se pudo eliminar</span>
-          </div>
           <div class="row">
             <div id="texto-borrar" class="row d-flex align-items-stretch">
 
@@ -252,6 +246,36 @@
                 </form>
               </div>
             </div>
+
+            <div class="card col ml-1">
+              <div class="card-header">
+                <h5 class="card-title">Tipos de conflicto en el sistema</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-sm table-hover table-dark">
+                  <thead class="bg-dark">
+                    <tr>
+                      <th>Nombre</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody id="tipos_conflicto_tabla">
+
+                  </tbody>
+                </table>
+              </div>
+              <div class="card-footer">
+              <label for="nuevoTipoConflicto" class="form-label">Añadir tipo</label>
+                <form id="form-add-tipo-conflicto" class="row">
+                  <div class="col">
+                    <input type="text" name="nuevoTipoConflicto" class="form-control" id="nuevoTipoConflicto" placeholder="Ej: Guerra">
+                  </div>
+                  <div class="col-3 align-bottom">
+                    <button type="submit" class="btn btn-primary">Añadir</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div> <!-- /container -->
       </section>
@@ -261,13 +285,3 @@
 
     <?php include_once 'layouts/footer.php'; ?>
     <script src="../js/configuraciones.js"></script>
-    <!-- Summernote -->
-    <script src="../js/summernote-bs4.min.js"></script>
-    <script>
-      $(function() {
-        // Summernote
-        $('.summernote').summernote({
-          height: 200
-        })
-      })
-    </script>

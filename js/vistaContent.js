@@ -1019,12 +1019,16 @@ function ver_lugar(dato) {
 function ver_conflicto(dato) {
   funcion='ver_conflicto';
   $.post('../controlador/conflictosController.php', {dato, funcion},(response)=>{
-    console.log(response);
-    const conflicto= JSON.parse(response);
-    $('#nombre').html(conflicto.nombre);
-    $('#conflicto-title').html(conflicto.nombre);
-    $('#conflicto-title-h1').html(conflicto.nombre);
-    template='';
+    const conflicto = JSON.parse(response);
+    $('#nav-buttons').html(`<a href="conflictos.php" class="btn btn-dark ml-2">Volver</a>
+    <form class="btn" action="createConflicto.php" method="post">
+      <button class="btn btn-dark mr-1">Editar</button>
+      <input type="hidden" name="id_conflicto" value="${conflicto.id}">
+    </form>`);
+    $('#content-title').html(conflicto.nombre);
+    let template=`<h1>${conflicto.nombre}</h1>`;
+    $('#content-title-h1').html(template);
+    template = '';
     if(conflicto.descripcion!=undefined){
       template+=`
       <div class="row">

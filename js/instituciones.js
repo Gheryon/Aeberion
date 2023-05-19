@@ -236,7 +236,7 @@ function buscar_instituciones(tipo, consulta) {
     let template='';
     paises.forEach(pais => {
       template+=`
-      <div institucionId="${pais.id}" institucionNombre="${pais.nombre}" class="col-12 col-sm6 col-md-3 d-flex align-items-stretch flex-column">
+      <div institucionId="${pais.id}" institucionNombre="${pais.nombre}" class="col-12 col-sm6 col-md-3 col-lg-3 d-flex align-items-stretch flex-column">
         <div class="card bg-light d-flex flex-fill">
         <div class="card-header text-muted border-bottom-0">
       </div>

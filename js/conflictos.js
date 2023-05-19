@@ -126,7 +126,7 @@ function buscar_conflictos(consulta) {
     let template='';
     conflictos.forEach(conflicto => {
       template+=`
-      <div conflictoId="${conflicto.id}" conflictoNombre="${conflicto.nombre}" class="col-12 col-sm-6 col-md-3 d-flex align-items-stretch flex-column">
+      <div conflictoId="${conflicto.id}" conflictoNombre="${conflicto.nombre}" class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex align-items-stretch flex-column">
         <div class="card bg-light d-flex flex-fill">
         <div class="card-header text-muted border-bottom-0">
       </div>
