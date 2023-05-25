@@ -1,31 +1,20 @@
 $(document).ready(function(){
   var funcion='';
-  var editar=false;
-  var id_conflicto_editar = $('#id_conflicto_editar').val();
-  //si id_institucion_editar está definido, se va a editar una entrada
-  if(id_conflicto_editar!=undefined){
-    //console.log(id_institucion_editar);
-    buscar_conflicto_editar(id_conflicto_editar);
-  }
+  //Initialize Select2 Elements
+  $('.select2').select2()
 
   $(document).on('keyup','#buscar',function(){
     let valor = $(this).val();
     if(valor!=""){
-        buscar_instituciones(valor);
+      buscar_conflictos(valor);
     }else{
-        buscar_instituciones();
+      buscar_conflictos();
     }
   });
 
 $('#form-create-conflicto').submit(e=>{
   let formData = new FormData($('#form-create-conflicto')[0]);
-  if(editar==false){
-    formData.append('funcion', 'crear_nuevo_conflicto');
-  }else{
-    formData.append('funcion', 'editar_conflicto');
-    id=$('#id_editado').val();
-  }
-  //console.log(formData);
+  console.log(formData);
   $.ajax({
     url:'../controlador/conflictosController.php',
     type:'POST',
@@ -34,26 +23,20 @@ $('#form-create-conflicto').submit(e=>{
     processData:false,
     contentType:false
   }).done(function(response){
-    //console.log(response);
     if(response=='no-add'){
-      $('#no-add').hide('slow');
-      $('#no-add').show(1000);
-      $('#form-create-institucion').trigger('reset');
+      toastr.error('No se pudo añadir el conflicto.', 'Error');
     }else{
       if(response=='add'){
-        $('#add').hide('slow');
-        $('#add').show(1000);
+        toastr.success('Conflicto añadido.', 'Éxito');
       }
       if(response=='editado'){
-        $('#editado').hide('slow');
-        $('#editado').show(1000);
+        toastr.success('Conflicto editado.', 'Éxito');
       }
-      $('#form-create-institucion').trigger('reset');
-      $('#submit-crear-button').hide();
-      $('#cancelar-crear-button').hide();
-      $('#volver-crear-button').show();
-      }
-      editar=false;
+    }
+    $('#form-create-institucion').trigger('reset');
+    $('#submit-crear-button').hide();
+    $('#cancelar-crear-button').hide();
+    $('#volver-crear-button').show();
   });
   e.preventDefault();
 });
@@ -74,33 +57,68 @@ $('#form-borrar-conflicto').submit(e=>{
   funcion=$('#funcion').val();
   $.post('../controlador/conflictosController.php', {id_conflicto, funcion}, (response)=>{
     if(response=='borrado'){
-      $('#borrado').hide('slow');
-      $('#borrado').show(1000);
-      $('#form-borrar-conflicto').trigger('reset');
-      $('#borrar-volver-button').show();
-      $('#borrar-button').hide();
-      $('#cancelar-editar-button').hide();
-      $('#texto-borrar').hide('slow');
+      toastr.success('Conflicto borrado.', 'Éxito');
       buscar_conflictos();
     }else{
-      $('#no-borrado').hide('slow');
-      $('#no-borrado').show(1000);
-      $('#form-borrar-conflicto').trigger('reset');
+      toastr.error('No se pudo borrar el conflicto.', 'Error');
     }
+    $('#form-borrar-conflicto').trigger('reset');
+    $('#borrar-volver-button').show();
+    $('#borrar-button').hide();
+    $('#cancelar-editar-button').hide();
   });
   e.preventDefault();
 });
 })
 
+function loader(){
+  fill_select_tipo();
+  get_paises();
+  var id_conflicto_editar = $('#id_conflicto_editar').val();
+  //si id_conflicto_editar está definido, se va a editar una entrada
+  if(id_conflicto_editar!=undefined){
+    buscar_conflicto_editar(id_conflicto_editar);
+  }
+}
+
+function fill_select_tipo(){
+  funcion='get_tipos_conflicto';
+  $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+    let tipos=JSON.parse(response);
+    let template='';
+    tipos.forEach(tipo=>{
+      template+=`
+      <option value="${tipo.id}">${tipo.nombre}</option>
+      `;
+    });
+    $('#tipo_conflicto').html(template);
+  })
+}
+
+function get_paises(){
+  funcion='get_paises';
+  $.post('../controlador/institucionesController.php', {funcion},(response)=>{
+    let paises=JSON.parse(response);
+    let template='';
+    paises.forEach(pais=>{
+      template+=`
+      <option value="${pais.id}">${pais.nombre}</option>
+      `;
+    });
+    $('#atacantes').html(template);
+    $('#defensores').html(template);
+  })
+}
+
 function buscar_conflicto_editar(dato) {
   funcion='ver_conflicto';
   $.post('../controlador/conflictosController.php', {dato, funcion},(response)=>{
-    editar=true;
     const conflicto= JSON.parse(response);
+    id=conflicto.id;
     $('#conflicto-create-title').html("Editar "+conflicto.nombre);
     $('#conflicto-create-title-h1').html("Editar "+conflicto.nombre);
     $('#nombre').val(conflicto.nombre);
-    $('#tipo_conflicto').val(conflicto.tipo_conflicto);
+    $('#tipo_conflicto').val(conflicto.id_tipo_conflicto);
     $('#tipo_localizacion').val(conflicto.tipo_localizacion);
     $('#fecha_inicio').val(conflicto.comienzo);
     $('#fecha_final').val(conflicto.final);
@@ -111,9 +129,41 @@ function buscar_conflicto_editar(dato) {
     $('#consecuencias').summernote('code', conflicto.consecuencias);
     $('#otros').summernote('code', conflicto.otros);
     
-    $('#id_editado').val(conflicto.id);
-    //$('#nombre_institucion_borrar').val(institucion.nombre);
+    $('#id_editado').val(id);
+    $('#funcion').val('editar_conflicto');
+    funcion='get_beligerantes';
+    $.post('../controlador/conflictosController.php', {dato, funcion, id},(response)=>{
+      let beligerantes=JSON.parse(response);
+      let atacantes=new Array();
+      let defensores=new Array();
+      beligerantes.forEach(part=>{
+        if(part.lado=='atacante'){
+          atacantes.push(part.id);
+        }else{
+          defensores.push(part.id);
+        }
+      })
+      console.log('atacantes: '+atacantes);
+      console.log('defensores: '+defensores);
+      $('#atacantes').val(atacantes);
+      $('#defensores').val(defensores);
+    });
   });
+}
+
+function get_beligerantes(){
+  funcion='get_beligerantes';
+  $.post('../controlador/conflictosController.php', {funcion},(response)=>{
+    let paises=JSON.parse(response);
+    let template='';
+    paises.forEach(pais=>{
+      template+=`
+      <option value="${pais.id}">${pais.nombre}</option>
+      `;
+    });
+    $('#atacantes').html(template);
+    $('#defensores').html(template);
+  })
 }
 
 function buscar_conflictos(consulta) {

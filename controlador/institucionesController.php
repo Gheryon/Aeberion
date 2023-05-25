@@ -226,6 +226,20 @@ if ($_POST['funcion'] == 'editar_institucion') {
 	echo 'editado';
 }
 
+if ($_POST['funcion'] == 'get_paises') {
+	//se pasa 0 para que obtenga todos los países menos las religiones
+	$institucion->buscar(0);
+	$json = array();
+	foreach ($institucion->objetos as $objeto) {
+		$json[] = array(
+			'id' => $objeto->id_organizacion,
+			'nombre' => $objeto->nombre
+		);
+	}
+	$jsonstring = json_encode($json);
+	echo $jsonstring;
+}
+
 /////////////////especifico para religiones
 if ($_POST['funcion'] == 'crear_nueva_religion') {
 	$nombre = $gentilicio = $descripcion_breve = $capital = $tipo = $fundacion = $disolucion = $lema = $historia = $politica = $militar = $estructura_organizativa = $territorio = $fronteras = $demografia = $cultura = $educacion = $religion = $recursos_naturales = $economia = $tecnologia = $escudo = $otros = null;

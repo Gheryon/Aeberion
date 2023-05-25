@@ -23,5 +23,7 @@
 <script src="../js/menu.js"></script>
 <!-- toastr -->
 <script src="../js/toastr.min.js"></script>
+<!-- select2 -->
+<script src="../js/select2.full.min.js"></script>
 </body>
 </html>

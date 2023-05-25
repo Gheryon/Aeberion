@@ -11,3 +11,5 @@
   <link rel="stylesheet" href="../css/adminlte.min.css">
   <!-- Toastr -->
   <link rel="stylesheet" href="../css/toastr.min.css">
+  <!-- select2 -->
+  <link rel="stylesheet" href="../css/select2.min.css">

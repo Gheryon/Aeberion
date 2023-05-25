@@ -13,7 +13,7 @@
 <?php
 }
 ?>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -37,15 +37,6 @@
     <section class="content">
 			<div class="container">
 				<div class="span10 offset1">
-					<div class="alert alert-success text-center" id='add' style='display:none'>
-							<span><i class="fas fa-check m-1"></i>Añadido con éxito</span>
-					</div>
-					<div class="alert alert-success text-center" id='editado' style='display:none'>
-							<span><i class="fas fa-check m-1"></i>Editado con éxito</span>
-					</div>
-					<div class="alert alert-danger text-center" id='no-add' style='display:none'>
-							<span><i class="fas fa-times m-1"></i>No se pudo añadir</span>
-					</div>
 					<form id="form-create-conflicto" class="row g-3 mt-3 position-relative needs-validation" action="createLugar.php" method="post" enctype="multipart/form-data">
 					<div class="row justify-content-md-center">
 						<div class="col-md-auto form-actions">
@@ -55,48 +46,47 @@
 						</div>
 					</div>
           <input id="id_editado" type="hidden" name="id_editado">
+					<input id="funcion" type="hidden" name="funcion" value="crear_nuevo_conflicto">
 					<div class="row mt-3 justify-content-md-center border">
-						<div class="row mt-2 mb-2">
-							<div class="col-md">
-								<label for="nombre" class="form-label">Nombre</label>
-								<input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" required>
-								<div class="invalid-feedback">Nombre necesario.</div>
-							</div>
-							<div class="col-md-3">
-								<label for="tipo_conflicto" class="form-label">Tipo de conflicto</label>
-								<select class="form-select" name="tipo_conflicto" id="tipo_conflicto">
-									<option selected disabled value="">Elegir</option>
-									<option>Asedio</option>
-									<option>Batalla</option>
-									<option>Campaña militar</option>
-									<option>Conspiración</option>
-									<option>Espionaje</option>
-									<option>Guerra</option>
-									<option>Rebelión</option>
-								</select>
-							</div>
-              <div class="col-md-3">
-								<label for="tipo_localizacion" class="form-label">Tipo de localización</label>
-								<select class="form-select" name="tipo_localizacion" id="tipo_localizacion">
-									<option selected disabled value="">Elegir</option>
-									<option>Aéreo</option>
-									<option>Marítimo</option>
-									<option>Mixto</option>
-									<option>Terrestre</option>
-									<option>Urbano</option>
-								</select>
-							</div>
+						<div class="col-md-6">
+							<label for="nombre" class="form-label mt-2">Nombre</label>
+							<input type="text" name="nombre" class="form-control" id="nombre" placeholder="Nombre" required>
+							<div class="invalid-feedback">Nombre necesario.</div>
 						</div>
-            <div class="row mt-2 mb-2">
-                <div class="form-group col">
-                  <label for="fecha_inicio">Fecha de inicio: </label>
-                  <input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control" placeholder="Ingrese fecha de compra">
-                </div>
-                <div class="form-group col">
-                  <label for="fecha_final">Fecha de finalización: </label>
-                  <input id="fecha_final" name="fecha_final" type="date" class="form-control" placeholder="Ingrese fecha de compra">
-                </div>
-            </div>
+						<div class="col-md-3">
+							<label for="tipo_conflicto" class="form-label mt-2">Tipo de conflicto</label>
+							<select class="form-select" name="tipo_conflicto" id="tipo_conflicto">
+							</select>
+						</div>
+						<div class="col-md-3">
+							<label for="tipo_localizacion" class="form-label mt-2">Tipo de localización</label>
+							<select class="form-select" name="tipo_localizacion" id="tipo_localizacion">
+								<option selected disabled value="">Elegir</option>
+								<option>Aéreo</option>
+								<option>Marítimo</option>
+								<option>Mixto</option>
+								<option>Terrestre</option>
+								<option>Urbano</option>
+							</select>
+						</div>
+						<div class="form-group col-3">
+							<label for="fecha_inicio" class="form-label mt-2">Fecha de inicio: </label>
+							<input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control" placeholder="Ingrese fecha de inicio">
+						</div>
+						<div class="form-group col-3">
+							<label for="fecha_final" class="form-label mt-2">Fecha de finalización: </label>
+							<input id="fecha_final" name="fecha_final" type="date" class="form-control" placeholder="Ingrese fecha de final">
+						</div>
+						<div class="col-md-3">
+							<label for="atacantes" class="form-label mt-2">Atacantes</label>
+							<select class="select2" multiple="multiple" data-placeholder="Atacantes" name="atacantes[]" id="atacantes" style="width: 100%;">
+							</select>
+						</div>
+						<div class="col-md-3">
+							<label for="defensores" class="form-label mt-2">Defensores</label>
+							<select class="select2" multiple="multiple" data-placeholder="Defensores" name="defensores[]" id="defensores" style="width: 100%;">
+							</select>
+						</div>
 					</div>
 					<!----------------------------------------------->
 					<div class="row mt-2 justify-content-md-center border">

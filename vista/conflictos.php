@@ -22,13 +22,7 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id='borrado' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Lugar eliminado</span>
-          </div>
-          <div class="alert alert-danger text-center" id='no-borrado' style='display:none'>
-              <span><i class="fas fa-times m-1"></i>No se pudo eliminar</span>
-          </div>
-          <p id="texto-borrar">Confirmar eliminar lugar.</p>
+          <p id="texto-borrar">Confirma eliminar conflicto.</p>
         </div>
         <div class="card-footer">
           <form id="form-borrar-conflicto" class="col-md-auto" >
@@ -61,17 +55,6 @@
     <section class="content">
       <div class="container-fluid">
         <div class="card card-dark">
-          <!--<div class="card-header">
-            <h3 class="card-title">Búsqueda</h3>
-            <div class="input-group">
-              <input type="text" id="buscar" placeholder="Nombre del lugar"class="form-control float-left">
-              <div class="input-group-append">
-                <button class="btn btn-default">
-                  <i class="fas fa-search"></i>
-                </button>
-              </div>
-            </div>
-          </div>-->
         <div class="card-body">
           <div class="row">
             <div id="conflictos" class="row d-flex align-items-stretch">
