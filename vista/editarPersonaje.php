@@ -41,7 +41,7 @@
               <a class="btn btn-primary" type="button" id="volver-editar-button" href="personajes.php" style="display:none">Volver</a>
             </div>
           </div>
-          <div class="row mt-3 mb-2 justify-content-md-center border fondoLight">
+          <div class="row mt-3 mb-2 justify-content-md-center border">
             <div class="col-md">
               <div class="row justify-content-md-center mr-2">
                 <div class="row">
@@ -97,7 +97,7 @@
             </div>
           
           <!----------------------------------------------->
-          <div class="row mt-2 justify-content-md-center border fondoLight">
+          <div class="row mt-2 justify-content-md-center border">
             <div class="row mt-2">
               <div class="col">
                   <label for="descripcion" class="form-label">Descripción física</label>
@@ -136,7 +136,7 @@
             </div>
           </div>
           <!----------------------------------------------->
-          <div class="row mt-2 justify-content-md-center border fondoLight">
+          <div class="row mt-2 justify-content-md-center border">
             <div class="row mt-2">
               <div class="col mt-2 ">
                 <label for="religion" class="form-label">Religión</label>
@@ -157,7 +157,7 @@
             </div>
           </div>
           <!----------------------------------------------->
-          <div class="row mt-2 justify-content-md-center border fondoLight">
+          <div class="row mt-2 justify-content-md-center border">
             <div class="row mt-2 mb-3">
               <div class="col ">
                 <label for="historia" class="form-label">Historia</label>

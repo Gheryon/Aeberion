@@ -114,9 +114,9 @@ class Conflicto{
   }
 
   function editarConflicto($nombre, $tipo_conflicto, $descripcion, $tipo_localizacion, $comienzo, $finalizacion, $preludio, $desarrollo, $resultado, $consecuencias, $otros, $id_conflicto){
-      $sql="UPDATE conflicto SET nombre=:nombre, id_tipo_conflicto=:id_tipo_conflicto, tipo_localizacion=:tipo_localizacion, descripcion=:descripcion, comienzo=:comienzo, finalizacion=:finalizacion, preludio=:preludio, desarrollo=:desarrollo, resultado=:resultado, consecuencias=:consecuencias, otros=:otros WHERE id_conflicto=:id";
-      $query=$this->acceso->prepare($sql);
-      $query->execute(array(':nombre'=>$nombre, ':id_tipo_conflicto'=>$tipo_conflicto, ':tipo_localizacion'=>$tipo_localizacion, ':descripcion'=>$descripcion, ':comienzo'=>$comienzo, ':finalizacion'=>$finalizacion, ':preludio'=>$preludio, ':desarrollo'=>$desarrollo, ':resultado'=>$resultado, ':consecuencias'=>$consecuencias, ':otros'=>$otros, ':id'=>$id_conflicto));
+    $sql="UPDATE conflicto SET nombre=:nombre, id_tipo_conflicto=:id_tipo_conflicto, tipo_localizacion=:tipo_localizacion, descripcion=:descripcion, comienzo=:comienzo, finalizacion=:finalizacion, preludio=:preludio, desarrollo=:desarrollo, resultado=:resultado, consecuencias=:consecuencias, otros=:otros WHERE id_conflicto=:id";
+    $query=$this->acceso->prepare($sql);
+    $query->execute(array(':nombre'=>$nombre, ':id_tipo_conflicto'=>$tipo_conflicto, ':tipo_localizacion'=>$tipo_localizacion, ':descripcion'=>$descripcion, ':comienzo'=>$comienzo, ':finalizacion'=>$finalizacion, ':preludio'=>$preludio, ':desarrollo'=>$desarrollo, ':resultado'=>$resultado, ':consecuencias'=>$consecuencias, ':otros'=>$otros, ':id'=>$id_conflicto));
   }
 }
 ?>

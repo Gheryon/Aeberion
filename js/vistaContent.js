@@ -1033,47 +1033,43 @@ function ver_conflicto(dato) {
       template+=`
       <div class="row">
         <h3>Descripción</h3>
-        <div class="row">
-        ${conflicto.descripcion}
-        </div>
+        <p>${conflicto.descripcion}</p>
       </div>`;
     }
     if(conflicto.preludio!=undefined){
       template+=`
-      <div class="row personaje">
       <h2>El conflicto</h2>
       <div class="row">
         <h3>Preludio</h3>
-        ${conflicto.preludio}
-        </div>
+        <p>${conflicto.preludio}</p>
       </div>`;
     }
     if(conflicto.desarrollo!=undefined){
       template+=`
-      <div class="row personaje">
+      <div class="row">
         <h3>Desarrollo</h3>
-        ${conflicto.desarrollo}
+        <p>${conflicto.desarrollo}</p>
       </div>`;
     }
     if(conflicto.resultado!=undefined){
       template+=`
       <div class="row personaje">
-        <h3>Desarrollo</h3>
-        ${conflicto.resultado}
+        <h3>Resultado</h3>
+        <p>${conflicto.resultado}</p>
       </div>`;
     }
     if(conflicto.consecuencias!=undefined){
       template+=`
       <div class="row personaje">
-        <h3>Desarrollo</h3>
-        ${conflicto.consecuencias}
+        <h3>Consecuencias</h3>
+        <p>${conflicto.consecuencias}</p>
       </div>`;
     }
     if(conflicto.otros!=undefined){
       template+=`
       <div class="row personaje">
         <h3>Otros</h3>
-        ${conflicto.otros}
+        <p>${conflicto.otros}</p>
       </div>`;
     }
     $('#content-left').html(template);
@@ -1087,7 +1083,7 @@ function ver_conflicto(dato) {
           <p>${conflicto.tipo_conflicto}</p>
         </div>`;
     }
-    if(conflicto.tipo_conflicto!=undefined){
+    if(conflicto.tipo_localizacion!=undefined){
       template+=`
         <div class="col">
           <h6><b>Tipo de localización</b></h6>
@@ -1099,23 +1095,44 @@ function ver_conflicto(dato) {
     if(conflicto.comienzo!=undefined){
       template+=`
         <div class="col">
-          <h6><b>Fecha de inicio</b></h6>
+          <h6><b>Comienzo</b></h6>
           <p>${conflicto.comienzo}</p>
         </div>`;
     }
     if(conflicto.final!=undefined){
       template+=`
         <div class="col">
-          <h6><b>Fecha de finalización</b></h6>
+          <h6><b>Final</b></h6>
           <p>${conflicto.final}</p>
         </div>`;
     }
     template+=`</div>`;
-    template+=`
-      <div class="row justify-content-center">
-        <h4>Beligerantes</h4>
-      </div>`;
-    
-    $('#content-right').html(template);
+    funcion='get_beligerantes';
+    id=dato;
+    $.post('../controlador/conflictosController.php', {id, funcion},(response)=>{
+      let beligerantes=JSON.parse(response);
+      let templateb='';
+      let templatec='';
+      for(let x of beligerantes){
+        if(x.lado=='atacante'){
+          templateb+=`<a href="vistaContent.php?id=${x.id}&tipo=3" class="row text-center lado-dercho">${x.nombre}</a>`;
+        }else{
+          templatec+=`<a href="vistaContent.php?id=${x.id}&tipo=3" class="row text-center lado-izqdo">${x.nombre}</a>`;
+        }
+      }
+      template+=`
+        <div class="row beligerantes">
+          <h4 class="text-center">Participantes</h4>
+            <div class="col">`;
+            template+=templateb;
+            template+=`</div>
+            <div class="col">`
+            template+=templatec;
+            template+=`</div>
+        </div>`;
+      
+      $('#content-right').html(template);
+
+    });
   });
 }

@@ -90,7 +90,7 @@ if($_POST['funcion']=='fill_select_timelines'){
   $evento->buscar_timelines();
   foreach ($evento->objetos as $objeto) {
     $json[]=array(
-      'id'=>$objeto->id_cronologia,
+      'id'=>$objeto->id,
       'nombre'=>$objeto->nombre
     );
   }

@@ -28,14 +28,14 @@ class Evento{
   function buscar($orden, $timeline){
     //si timeline=1, se devuelven todos los eventos
     if($timeline==1){
-      $sql="SELECT timelines.id, timelines.anno, timelines.dia, timelines.mes, timelines.nombre AS nombre, timelines.descripcion, timelines.id_tipo_evento, lineas_temporales.nombre AS cronologia FROM timelines JOIN lineas_temporales ON id_cronologia=id_linea_temporal WHERE timelines.nombre NOT LIKE '' ORDER BY anno $orden";
+      $sql="SELECT timelines.id, timelines.anno, timelines.dia, timelines.mes, timelines.nombre AS nombre, timelines.descripcion, timelines.id_tipo_evento, lineas_temporales.nombre AS cronologia FROM timelines JOIN lineas_temporales ON lineas_temporales.id=id_linea_temporal WHERE timelines.nombre NOT LIKE '' ORDER BY anno $orden";
       $query=$this->acceso->prepare($sql);
       $query->execute();
       $this->objetos=$query->fetchAll();
       return $this->objetos;
     }else{
       //se devuelven todos los eventos del $timeline y los de la historia universal
-      $sql="SELECT timelines.id, timelines.anno, timelines.dia, timelines.mes, timelines.nombre AS nombre, timelines.descripcion, timelines.id_tipo_evento, lineas_temporales.nombre AS cronologia FROM timelines JOIN lineas_temporales ON id_cronologia=id_linea_temporal WHERE timelines.nombre NOT LIKE '' AND (id_linea_temporal=:timeline OR id_linea_temporal='1') ORDER BY anno $orden";
+      $sql="SELECT timelines.id, timelines.anno, timelines.dia, timelines.mes, timelines.nombre AS nombre, timelines.descripcion, timelines.id_tipo_evento, lineas_temporales.nombre AS cronologia FROM timelines JOIN lineas_temporales ON lineas_temporales.id=id_linea_temporal WHERE timelines.nombre NOT LIKE '' AND (id_linea_temporal=:timeline OR id_linea_temporal='1') ORDER BY anno $orden";
       $query=$this->acceso->prepare($sql);
       $query->execute(array(':timeline'=>$timeline));
       $this->objetos=$query->fetchAll();
@@ -55,7 +55,7 @@ class Evento{
   }
 
   function buscarEvento($id){
-    $sql="SELECT timelines.id, timelines.anno, timelines.dia, timelines.mes, timelines.nombre AS nombre, timelines.descripcion, timelines.id_tipo_evento, timelines.id_linea_temporal, lineas_temporales.nombre AS cronologia FROM timelines JOIN lineas_temporales ON id_cronologia=id_linea_temporal WHERE timelines.id=:id; ";
+    $sql="SELECT timelines.id, timelines.anno, timelines.dia, timelines.mes, timelines.nombre AS nombre, timelines.descripcion, timelines.id_tipo_evento, timelines.id_linea_temporal, lineas_temporales.nombre AS cronologia FROM timelines JOIN lineas_temporales ON lineas_temporales.id=id_linea_temporal WHERE timelines.id=:id; ";
     $query=$this->acceso->prepare($sql);
     $query->execute(array(':id'=>$id));
     $this->objetos=$query->fetchAll();
