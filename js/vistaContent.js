@@ -52,9 +52,7 @@ function ver_personaje(dato) {
       template+=`
       <div class="row">
         <h3>Descripción breve</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.descripcionShort}
-        </div>
+        <p class="ml-2 mr-2">${personaje.descripcionShort}</p>
       </div>`;
     }
     template+=`<h2>Descripción</h2>`;
@@ -62,63 +60,49 @@ function ver_personaje(dato) {
       template+=`
       <div class="row">
         <h3>Descripción física</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.descripcion}
-        </div>
+        <p class="ml-2 mr-2">${personaje.descripcion}</p>
       </div>`;
     }
     if(personaje.personalidad!=undefined){
       template+=`
       <div class="row">
         <h3>Personalidad</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.personalidad}
-        </div>
+        <p class="ml-2 mr-2">${personaje.personalidad}</p>
       </div>`;
     }
     if(personaje.deseos!=undefined){
       template+=`
       <div class="row">
         <h3>Deseos</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.deseos}
-        </div>
+        <p class="ml-2 mr-2">${personaje.deseos}</p>
       </div>`;
     }
     if(personaje.miedos!=undefined){
       template+=`
       <div class="row">
         <h3>Miedos</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.miedos}
-        </div>
+        <p class="ml-2 mr-2">${personaje.miedos}</p>
       </div>`;
     }
     if(personaje.magia!=undefined){
       template+=`
       <div class="row">
         <h3>Habilidades mágicas</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.magia}
-        </div>
+        <p class="ml-2 mr-2">${personaje.magia}</p>
       </div>`;
     }
     if(personaje.educacion!=undefined){
       template+=`
       <div class="row">
         <h3>Educación</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.educacion}
-        </div>
+        <p class="ml-2 mr-2">${personaje.educacion}</p>
       </div>`;
     }
     if(personaje.historia!=undefined){
       template+=`
       <h2>Historia</h2>
       <div class="row">
-        <div class="row ml-2 mr-2">
-        ${personaje.historia}
-        </div>
+        <p class="ml-2 mr-2">${personaje.historia}</p>
       </div>`;
     }
     template+=`
@@ -127,27 +111,21 @@ function ver_personaje(dato) {
       template+=`
       <div class="row">
         <h3>Religión</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.religion}
-        </div>
+        <p class="ml-2 mr-2">${personaje.religion}</p>
       </div>`;
     }
     if(personaje.familia!=undefined){
       template+=`
       <div class="row">
         <h3>Familia</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.familia}
-        </div>
+        <p class="ml-2 mr-2">${personaje.familia}</p>
       </div>`;
     }
     if(personaje.politica!=undefined){
       template+=`
       <div class="row">
         <h3>Política</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.politica}
-        </div>
+        <p class="ml-2 mr-2">${personaje.politica}</p>
       </div>`;
     }
     if(personaje.otros!=undefined){
@@ -155,9 +133,7 @@ function ver_personaje(dato) {
       <h2>Otros</h2>
       <div class="row">
         <h3>Otros</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.otros}
-        </div>
+        <p class="ml-2 mr-2">${personaje.otros}</p>
       </div>`;
     }
     $('#content-left').html(template);
@@ -175,28 +151,21 @@ function ver_personaje(dato) {
       template+=`
       <div class="row">
         <h3>Especie</h3>
-        <div class="row ml-2 mr-2">
-        <a href="../vista/vistaContent.php?id_especie=${personaje.id_especie}">${personaje.nombreEspecie}</a>
-        
-        </div>
+        <p class="ml-1 mr-2"><a href="vistaContent.php?id=${personaje.id_especie}&tipo=2">${personaje.nombreEspecie}</a></p>
       </div>`;
     }
     if(personaje.sexo!=undefined){
       template+=`
       <div class="row">
         <h3>Sexo</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.sexo}
-        </div>
+        <p class="ml-2 mr-2">${personaje.sexo}</p>
       </div>`;
     }
     if(personaje.lugarNacimiento!=undefined){
       template+=`
       <div class="row">
         <h3>Lugar de nacimiento</h3>
-        <div class="row ml-2 mr-2">
-        ${personaje.lugarNacimiento}
-        </div>
+        <p class="ml-2 mr-2">${personaje.lugarNacimiento}</p>
       </div>`;
     }
     $('#content-right').html(template);
@@ -222,27 +191,21 @@ function ver_especie(dato) {
       template+=`
       <div class="row">
         <h3>Descripción anatómica</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.anatomia}
-        </div>
+        <p class="ml-2 mr-2">${especie.anatomia}</p>
       </div>`;
     }
     if(especie.alimentacion!=undefined){
       template+=`
       <div class="row">
         <h3>Alimentación</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.alimentacion}
-        </div>
+        <p class="ml-2 mr-2">${especie.alimentacion}</p>
       </div>`;
     }
     if(especie.reproduccion!=undefined){
       template+=`
       <div class="row">
         <h3>Reproducción y crecimiento</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.reproduccion}
-        </div>
+        <p class="row ml-2 mr-2">${especie.reproduccion}</p>
       </div>`;
     }
     template+=`
@@ -251,36 +214,28 @@ function ver_especie(dato) {
       template+=`
       <div class="row">
         <h3>Distribución y hábitats</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.distribucion}
-        </div>
+        <p class="ml-2 mr-2">${especie.distribucion}</p>
       </div>`;
     }
     if(especie.habilidades!=undefined){
       template+=`
       <div class="row">
         <h3>Habilidades</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.habilidades}
-        </div>
+        <p class="row ml-2 mr-2">${especie.habilidades}</p>
       </div>`;
     }
     if(especie.domesticacion!=undefined){
       template+=`
       <div class="row">
         <h3>Domesticación</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.domesticacion}
-        </div>
+        <p class="ml-2 mr-2">${especie.domesticacion}</p>
       </div>`;
     }
     if(especie.explotacion!=undefined){
       template+=`
       <div class="row">
         <h3>Explotación</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.explotacion}
-        </div>
+        <p class="ml-2 mr-2">${especie.explotacion}</p>
       </div>`;
     }
     template+=`
@@ -289,9 +244,7 @@ function ver_especie(dato) {
       template+=`
       <div class="row">
         <h3>Otros</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.otros}
-        </div>
+        <p class="ml-2 mr-2">${especie.otros}</p>
       </div>`;
     }
     $('#content-left').html(template);
@@ -302,45 +255,35 @@ function ver_especie(dato) {
       template+=`
       <div class="row">
         <h3>Vida media</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.vida}
-        </div>
+        <p class="ml-2 mr-2">${especie.vida}</p>
       </div>`;
     }
     if(especie.altura!=undefined){
       template+=`
       <div class="row">
         <h3>Altura</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.altura}
-        </div>
+        <p class="ml-2 mr-2">${especie.altura}</p>
       </div>`;
     }
     if(especie.peso!=undefined){
       template+=`
       <div class="row">
         <h3>Peso</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.peso}
-        </div>
+        <p class="ml-2 mr-2">${especie.peso}</p>
       </div>`;
     }
     if(especie.longitud!=undefined){
       template+=`
       <div class="row">
         <h3>Longitud</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.longitud}
-        </div>
+        <p class="ml-2 mr-2">${especie.longitud}</p>
       </div>`;
     }
     if(especie.estatus!=undefined){
       template+=`
       <div class="row">
         <h3>Estatus</h3>
-        <div class="row ml-2 mr-2">
-        ${especie.estatus}
-        </div>
+        <p class="ml-2 mr-2">${especie.estatus}</p>
       </div>`;
     }
     $('#content-right').html(template);
@@ -355,7 +298,7 @@ function ver_institucion(dato) {
     $('#nav-buttons').html(`<a href="paises.php" class="btn btn-dark">Volver</a>
     <form class="btn" action="createInstitucion.php" method="post">
       <button class="btn btn-dark mr-1">Editar</button>
-      <input type="hidden" name="id_institucion" value="${institucion.id}">
+      <input type="hidden" name="id" value="${institucion.id}">
     </form>`);
     $('#content-title').html(institucion.nombre);
     let template=`<h1>${institucion.nombre}</h1>`;
@@ -365,150 +308,121 @@ function ver_institucion(dato) {
       template+=`
       <div class="row">
         <h3>Descripción</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.descripcion}
-        </div>
+        <p class="ml-2 mr-2">${institucion.descripcion}</p>
       </div>`;
     }
     if(institucion.historia!=undefined){
       template+=`
+      <h2>Historia</h2>
       <div class="row">
         <h3>Historia</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.historia}
-        </div>
+        <p class="ml-2 mr-2">${institucion.historia}</p>
       </div>`;
     }
-    if(institucion.demografia!=undefined){
-      template+=`
-      <div class="row">
-        <h3>Demografía</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.demografia}
-        </div>
-      </div>`;
-    }
-    if(institucion.estructura!=undefined){
-      template+=`
-      <div class="row">
-        <h3>Estructura organizativa</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.estructura}
-        </div>
-      </div>`;
-    }
+    template+=`<h2>Geopolítica</h2>`;
     if(institucion.politica!=undefined){
       template+=`
       <div class="row">
         <h3>Política exterior e interior</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.politica}
-        </div>
-      </div>`;
-    }
-    if(institucion.clima!=undefined){
-      template+=`
-      <div class="row">
-        <h3>Clima</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.clima}
-        </div>
+        <p class="ml-2 mr-2">${institucion.politica}</p>
       </div>`;
     }
     if(institucion.frontera!=undefined){
       template+=`
       <div class="row">
         <h3>Fronteras</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.frontera}
-        </div>
+        <p class="ml-2 mr-2">${institucion.frontera}</p>
       </div>`;
     }
     if(institucion.militar!=undefined){
       template+=`
       <div class="row">
         <h3>Militar</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.militar}
-        </div>
-      </div>`;
-    }
-    if(institucion.religion!=undefined){
-      template+=`
-      <div class="row">
-        <h3>Religión</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.religion}
-        </div>
-      </div>`;
-    }
-    if(institucion.cultura!=undefined){
-      template+=`
-      <div class="row">
-        <h3>Cultura</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.cultura}
-        </div>
-      </div>`;
-    }
-    if(institucion.educacion!=undefined){
-      template+=`
-      <div class="row">
-        <h3>Educación</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.educacion}
-        </div>
+        <p class="ml-2 mr-2">${institucion.militar}</p>
       </div>`;
     }
     if(institucion.territorio!=undefined){
       template+=`
       <div class="row">
         <h3>Territorio</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.territorio}
-        </div>
+        <p class="ml-2 mr-2">${institucion.territorio}</p>
+      </div>`;
+    }    
+    template+=`<h2>Cultura, economía y política interior</h2>`;
+    if(institucion.demografia!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Demografía</h3>
+        <p class="ml-2 mr-2">${institucion.demografia}</p>
+      </div>`;
+    }
+    if(institucion.estructura!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Estructura organizativa</h3>
+        <p class="ml-2 mr-2">${institucion.estructura}</p>
+      </div>`;
+    }
+    if(institucion.religion!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Religión</h3>
+        <p class="ml-2 mr-2">${institucion.religion}</p>
+      </div>`;
+    }
+    if(institucion.cultura!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Cultura</h3>
+        <p class="ml-2 mr-2">${institucion.cultura}</p>
+      </div>`;
+    }
+    if(institucion.educacion!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Educación</h3>
+        <p class="ml-2 mr-2">${institucion.educacion}</p>
       </div>`;
     }
     if(institucion.economia!=undefined){
       template+=`
       <div class="row">
         <h3>Economía</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.economia}
-        </div>
-      </div>`;
-    }
-    if(institucion.recursos!=undefined){
-      template+=`
-      <div class="row">
-        <h3>Recursos naturales</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.recursos}
-        </div>
+        <p class="ml-2 mr-2">${institucion.economia}</p>
       </div>`;
     }
     if(institucion.tecnologia!=undefined){
       template+=`
       <div class="row">
         <h3>Tecnología y ciencia</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.tecnologia}
-        </div>
+        <p class="ml-2 mr-2">${institucion.tecnologia}</p>
+      </div>`;
+    }
+    if(institucion.recursos!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Recursos naturales</h3>
+        <p class="ml-2 mr-2">${institucion.recursos}</p>
+      </div>`;
+    }
+    if(institucion.clima!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Clima</h3>
+        <p class="ml-2 mr-2">${institucion.clima}</p>
       </div>`;
     }
     if(institucion.otros!=undefined){
       template+=`
+      <h2>Otros</h2>
       <div class="row">
         <h3>Otros</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.otros}
-        </div>
+        <p class="ml-2 mr-2">${institucion.otros}</p>
       </div>`;
     }
     $('#content-left').html(template);
 
     //datos de la card
-    //$('#escudo').attr('src',institucion.escudo);
     template='';
     template+=`
     <div class="row">
@@ -521,54 +435,56 @@ function ver_institucion(dato) {
       template+=`
       <div class="row">
         <h3>Tipo</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.tipo}
-        </div>
+        <p class="ml-2 mr-2">${institucion.tipo}</p>
+      </div>`;
+    }
+    if(institucion.ruler!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Gobernante actual</h3>
+        <p class="ml-1 mr-2"><a href="vistaContent.php?id=${institucion.id_ruler}&tipo=1">${institucion.ruler}</a></p>
+      </div>`;
+    }
+    if(institucion.owner!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Bajo control de</h3>
+        <p class="ml-1 mr-2"><a href="vistaContent.php?id=${institucion.id_owner}&tipo=3">${institucion.owner}</a></p>
       </div>`;
     }
     if(institucion.gentilicio!=undefined){
       template+=`
       <div class="row">
         <h3>Gentilicio</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.gentilicio}
-        </div>
+        <p class="ml-2 mr-2">${institucion.gentilicio}</p>
       </div>`;
     }
     if(institucion.capital!=undefined){
       template+=`
       <div class="row">
         <h3>Capital</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.capital}
-        </div>
+        <p class="ml-2 mr-2">${institucion.capital}</p>
       </div>`;
     }
     if(institucion.lema!=undefined){
       template+=`
       <div class="row">
         <h3>Lema</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.lema}
-        </div>
+        <p class="ml-2 mr-2">${institucion.lema}</p>
       </div>`;
     }
     if(institucion.fundacion!=undefined){
       template+=`
       <div class="row">
         <h3>Fundación</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.fundacion}
-        </div>
+        <p class="ml-2 mr-2">${institucion.fundacion}</p>
       </div>`;
     }
     if(institucion.disolucion!=undefined){
       template+=`
       <div class="row">
         <h3>Disolución</h3>
-        <div class="row ml-2 mr-2">
-        ${institucion.disolucion}
-        </div>
+        <p class="ml-2 mr-2">${institucion.disolucion}</p>
       </div>`;
     }
     $('#content-right').html(template);
@@ -749,108 +665,84 @@ function ver_asentamiento(dato) {
       template += `
       <div class="row">
         <h3>Descripción</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.descripcion}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.descripcion}</p>
       </div>`;
     }
     if (asentamiento.demografia != undefined) {
       template += `
       <div class="row">
         <h3>Demografía</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.demografia}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.demografia}</p>
       </div>`;
     }
     if (asentamiento.gobierno != undefined) {
       template += `
       <div class="row">
         <h3>Gobierno</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.gobierno}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.gobierno}</p>
       </div>`;
     }
     if (asentamiento.infraestructura != undefined) {
       template += `
       <div class="row">
         <h3>Infraestructura</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.infraestructura}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.infraestructura}</p>
       </div>`;
     }
     if (asentamiento.historia != undefined) {
       template += `
       <div class="row">
         <h3>Historia</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.historia}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.historia}</p>
       </div>`;
     }
     if (asentamiento.defensas != undefined) {
       template += `
       <div class="row">
         <h3>Sistemas defensivos</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.defensas}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.defensas}</p>
       </div>`;
     }
     if (asentamiento.economia != undefined) {
       template += `
       <div class="row">
         <h3>Economía, industria y comercio</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.economia}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.economia}</p>
       </div>`;
     }
     if (asentamiento.cultura != undefined) {
       template += `
       <div class="row">
         <h3>Cultura y arquitectura</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.cultura}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.cultura}</p>
       </div>`;
     }
     if (asentamiento.geografia != undefined) {
       template += `
       <div class="row">
         <h3>Geografía</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.geografia}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.geografia}</p>
       </div>`;
     }
     if (asentamiento.clima != undefined) {
       template += `
       <div class="row">
         <h3>Clima</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.clima}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.clima}</p>
       </div>`;
     }
     if (asentamiento.recursos != undefined) {
       template += `
       <div class="row">
         <h3>Recursos</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.recursos}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.recursos}</p>
       </div>`;
     }
     if (asentamiento.otros != undefined) {
       template += `
       <div class="row">
         <h3>Otros</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.otros}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.otros}</p>
       </div>`;
     }
     $('#content-left').html(template);
@@ -861,45 +753,35 @@ function ver_asentamiento(dato) {
       template += `
       <div class="row">
         <h3>Gentilicio</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.gentilicio}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.gentilicio}</p>
       </div>`;
     }
     if (asentamiento.tipo != undefined) {
       template += `
       <div class="row">
         <h3>Tipo</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.tipo}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.tipo}</p>
       </div>`;
     }
     if (asentamiento.poblacion != undefined) {
       template += `
       <div class="row">
         <h3>Población</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.poblacion}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.poblacion}</p>
       </div>`;
     }
     if (asentamiento.fundacion != undefined) {
       template += `
       <div class="row">
         <h3>Fundación</h3>
-        <div class="row ml-2 mr-2">
-        ${asentamiento.fundacion}
-        </div>
+        <p class="ml-2 mr-2">${asentamiento.fundacion}</p>
       </div>`;
     }
     if (asentamiento.disolucion != undefined) {
       template += `
       <div class="row">
         <h3>Disolución</h3>
-        <div class="row ml-2 mr-2">
-        ${religion.disolucion}
-        </div>
+        <p class="ml-2 mr-2">${religion.disolucion}</p>
       </div>`;
     }
     $('#content-right').html(template);
@@ -923,81 +805,64 @@ function ver_lugar(dato) {
       template += `
       <div class="row">
         <h3>Descripción breve</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.descripcion}
-        </div>
-      </div>`;
-    }
-    if (lugar.historia != undefined) {
-      template += `
-      <div class="row">
-        <h3>Historia</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.historia}
-        </div>
+        <p class="ml-2 mr-2">${lugar.descripcion}</p>
       </div>`;
     }
     if (lugar.otros_nombres != undefined) {
       template += `
       <div class="row">
         <h3>Otros nombres</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.otros_nombres}
-        </div>
+        <p class="ml-2 mr-2">${lugar.otros_nombres}</p>
+      </div>`;
+    }
+    if (lugar.historia != undefined) {
+      template += `
+      <h2>Historia</h2>
+      <div class="row">
+        <h3>Historia</h3>
+        <p class="ml-2 mr-2">${lugar.historia}</p>
       </div>`;
     }
     if (lugar.geografia != undefined) {
       template += `
       <div class="row">
         <h3>Geografía</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.geografia}
-        </div>
+        <p class="ml-2 mr-2">${lugar.geografia}</p>
       </div>`;
     }
     if (lugar.ecosistema != undefined) {
       template += `
       <div class="row">
         <h3>Ecosistema</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.ecosistema}
-        </div>
+        <p class="ml-2 mr-2">${lugar.ecosistema}</p>
       </div>`;
     }
     if (lugar.clima != undefined) {
       template += `
       <div class="row">
         <h3>Clima</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.clima}
-        </div>
+        <p class="ml-2 mr-2">${lugar.clima}</p>
       </div>`;
     }
     if (lugar.flora_fauna != undefined) {
       template += `
       <div class="row">
         <h3>Flora y fauna</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.flora_fauna}
-        </div>
+        <p class="ml-2 mr-2">${lugar.flora_fauna}</p>
       </div>`;
     }
     if (lugar.recursos != undefined) {
       template += `
       <div class="row">
         <h3>Recursos importantes o disponibles</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.recursos}
-        </div>
+        <p class="ml-2 mr-2">${lugar.recursos}</p>
       </div>`;
     }
     if (lugar.otros != undefined) {
       template += `
       <div class="row">
         <h3>Otros</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.otros}
-        </div>
+        <p class="ml-2 mr-2">${lugar.otros}</p>
       </div>`;
     }
     $('#content-left').html(template);
@@ -1007,9 +872,7 @@ function ver_lugar(dato) {
       template += `
       <div class="row">
         <h3>Tipo</h3>
-        <div class="row ml-2 mr-2">
-        ${lugar.tipo}
-        </div>
+        <p class="ml-2 mr-2">${lugar.tipo}</p>
       </div>`;
     }
     $('#content-right').html(template);

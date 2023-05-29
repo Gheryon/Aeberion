@@ -5,59 +5,41 @@ $personaje = new Personaje();
 if ($_POST['funcion'] == 'crear_nuevo_personaje') {
 	$nombre = $nombre_familia = $gentilicio = $apellidos = $descripcion = $descripcionshort = $personalidad = $deseos = $miedos = $magia = $historia = $religion = $familia = $politica = $especie = $sexo = null;
 	if (isset($_POST['nombre'])) {
-		$nombre = $_POST['nombre'];
-	}
+		$nombre = $_POST['nombre'];}
 	if (isset($_POST['nombre_familia'])) {
-		$nombre_familia = $_POST['nombre_familia'];
-	}
+		$nombre_familia = $_POST['nombre_familia'];}
 	if (isset($_POST['lugar_nacimiento'])) {
-		$gentilicio = $_POST['lugar_nacimiento'];
-	}
+		$gentilicio = $_POST['lugar_nacimiento'];}
 	if (isset($_POST['apellidos'])) {
-		$apellidos = $_POST['apellidos'];
-	}
+		$apellidos = $_POST['apellidos'];}
 	if (isset($_POST['descripcion'])) {
-		$descripcion = $_POST['descripcion'];
-	}
-	if (isset($_POST['descripcionShort'])) {
-		$descripcionshort = $_POST['descripcionShort'];
-	}
+		$descripcion = $_POST['descripcion'];}
+	if (isset($_POST['DescripcionShort'])) {
+		$descripcionshort = $_POST['DescripcionShort'];}
 	if (isset($_POST['personalidad'])) {
-		$personalidad = $_POST['personalidad'];
-	}
+		$personalidad = $_POST['personalidad'];}
 	if (isset($_POST['deseos'])) {
-		$deseos = $_POST['deseos'];
-	}
+		$deseos = $_POST['deseos'];}
 	if (isset($_POST['miedos'])) {
-		$miedos = $_POST['miedos'];
-	}
+		$miedos = $_POST['miedos'];}
 	if (isset($_POST['magia'])) {
-		$magia = $_POST['magia'];
-	}
+		$magia = $_POST['magia'];}
 	if (isset($_POST['educacion'])) {
-		$educacion = $_POST['educacion'];
-	}
+		$educacion = $_POST['educacion'];}
 	if (isset($_POST['historia'])) {
-		$historia = $_POST['historia'];
-	}
+		$historia = $_POST['historia'];}
 	if (isset($_POST['religion'])) {
-		$religion = $_POST['religion'];
-	}
+		$religion = $_POST['religion'];}
 	if (isset($_POST['familia'])) {
-		$familia = $_POST['familia'];
-	}
+		$familia = $_POST['familia'];}
 	if (isset($_POST['politica'])) {
-		$politica = $_POST['politica'];
-	}
+		$politica = $_POST['politica'];}
 	if (isset($_POST['especie'])) {
-		$especie = $_POST['especie'];
-	}
+		$especie = $_POST['especie'];}
 	if (isset($_POST['sexo'])) {
-		$sexo = $_POST['sexo'];
-	}
+		$sexo = $_POST['sexo'];}
 	if (isset($_POST['otros'])) {
-		$otros = $_POST['otros'];
-	}
+		$otros = $_POST['otros'];}
 
 	if ($_FILES['retrato']['size']) {
 		$retrato = uniqid() . '-' . $_FILES['retrato']['name'];

@@ -7,7 +7,6 @@ $(document).ready(function(){
 
   $('#form-create-personaje').submit(e=>{
     let formData = new FormData($('#form-create-personaje')[0]);
-    formData.append('funcion', 'crear_nuevo_personaje');
     console.log(formData);
     $.ajax({
       url:'../controlador/personajeController.php',
@@ -47,36 +46,28 @@ $(document).ready(function(){
   });
 
   $(document).on('click', '.borrar-personaje',(e)=>{
-    funcion='borrar_personaje';
     //se quiere acceder al elemento personajeid de la card y guardarlo en elemento, para ello hay que subir 4 veces desde donde está el boton ascender
     const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
     const id=$(elemento).attr('personajeId');
     const nombre=$(elemento).attr('personajeNombre');
-    $('#id_personaje').val(id);
+    $('#id_borrar').val(id);
     $('#nombre_personaje').val(nombre);
-    $('#funcion').val(funcion);
   });
-
-  $('#form-confirmar-borrado').submit(e=>{
-    funcion='borrar_personaje';
-    let id_personaje=$('#id_personaje_borrar').val();
+  
+  $('#form-borrar-personaje').submit(e=>{
+    let id_personaje=$('#id_borrar').val();
     funcion=$('#funcion').val();
     $.post('../controlador/personajeController.php', {id_personaje, funcion}, (response)=>{
-      if(response=='borrado')
-      {
-        $('#confirmado').hide('slow');
-        $('#confirmado').show(1000);
-        $('#confirmado').hide(3000);
-        //resetea los campos de la card
-        $('#form-confirmar').trigger('reset');
+      if(response=='borrado'){
+        toastr.success('Personaje borrado.', 'Éxito');
         buscar_personajes();
       }else{
-        $('#rechazado').hide('slow');
-        $('#rechazado').show(1000);
-        $('#rechazado').hide(3000);
-        //resetea los campos de la card
-        $('#form-confirmar').trigger('reset');
+        toastr.error('No se pudo borrar el personaje.', 'Error');
       }
+      $('#form-borrar-personaje').trigger('reset');
+      $('#borrar-volver-button').show();
+      $('#borrar-button').hide();
+      $('#cancelar-borrar-button').hide();
     });
     e.preventDefault();
   });
@@ -223,7 +214,7 @@ function buscar_personajes(consulta) {
             <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
             <input type="hidden" name="id" value="${personaje.id}">
           </form>
-          <button class="borrar-personaje btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#confirmar">
+          <button class="borrar-personaje btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarPersonaje">
               <i class="fas fa-trash mr-1"></i>Eliminar
           </button>
         </div>

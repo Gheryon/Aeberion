@@ -43,9 +43,17 @@ header{
 	padding-right: 25px;
 	position: relative;
 }
-.row{
-	display: flex;
-	flex-wrap: wrap;
+
+a{
+	margin-left: 0;
+	padding-left: 0px;
+  text-align: left;
+	color:#900b0b;
+}
+
+a:hover{
+  color: #591717;
+  text-decoration: none;
 }
 
 .margenPersonajes{
@@ -90,7 +98,6 @@ aside{
 .margin-botton-0{
 	margin-bottom: 0!important;
 }
-
 /*====================================*/
 section{
 	flex: 70%;

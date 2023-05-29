@@ -1,15 +1,9 @@
 $(document).ready(function(){
   var funcion='';
   var editar=false;
-  var id_institucion_editar = $('#id_institucion_editar').val();
   var id_religion_editar = $('#id_religion_editar').val();
   var tipo=0;
   
-  //si id_institucion_editar o id_religion_editar están definido, se va a editar una entrada
-  if(id_institucion_editar!=undefined){
-    fill_select_tipo('#tipo_select');
-    buscar_institucion_editar(id_institucion_editar);
-  }
   if(id_religion_editar!=undefined){
     fill_select_tipo('#filter_tipo');
     buscar_religion_editar(id_religion_editar);
@@ -29,52 +23,8 @@ $(document).ready(function(){
       }
   });
 
-  function buscar_institucion_editar(dato) {
-    funcion='ver_institucion';
-    $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
-      //console.log(response);
-      editar=true;
-      const institucion= JSON.parse(response);
-      $('#institucion-create-title').html("Editar "+institucion.nombre);
-      $('#institucion-create-title-h1').html("Editar "+institucion.nombre);
-      $('#nombre_institucion').val(institucion.nombre);
-      $('#gentilicio').val(institucion.gentilicio);
-      $('#capital').val(institucion.capital);
-      $('#fundacion').val(institucion.fundacion);
-      $('#disolucion').val(institucion.disolucion);
-      $('#lema').val(institucion.lema);
-      $('#escudo-img').attr('src',institucion.escudo);
-      $('#descripcion_breve').summernote('code', institucion.descripcion);
-      $('#historia').summernote('code', institucion.historia);
-      $('#politica_interior_exterior').summernote('code', institucion.politicaexteriorinterior);
-      $('#tipo_select').val(institucion.tipo);
-      $('#militar').summernote('code', institucion.militar);
-      $('#estructura_organizativa').summernote('code', institucion.estructura);
-      $('#territorio').summernote('code', institucion.territorio);
-      $('#fronteras').summernote('code', institucion.frontera);
-      $('#demografia').summernote('code', institucion.demografia);
-      $('#cultura').summernote('code', institucion.cultura);
-      $('#religion').summernote('code', institucion.religion);
-      $('#educacion').summernote('code', institucion.educacion);
-      $('#tecnologia').summernote('code', institucion.tecnologia);
-      $('#economia').summernote('code', institucion.economia);
-      $('#recursos_naturales').summernote('code', institucion.recursos);
-      $('#otros').summernote('code', institucion.otros);
-      
-      $('#id_editado').val(institucion.id);
-      $('#id_institucion_cambiar_escudo').val(institucion.id);
-      //$('#nombre_institucion_borrar').val(institucion.nombre);
-    });
-  }
-
 $('#form-create-institucion').submit(e=>{
   let formData = new FormData($('#form-create-institucion')[0]);
-  if(editar==false){
-    formData.append('funcion', 'crear_nueva_institucion');
-  }else{
-    formData.append('funcion', 'editar_institucion');
-    id=$('#id_editado').val();
-  }
   console.log(formData);
   $.ajax({
     url:'../controlador/institucionesController.php',
@@ -210,6 +160,87 @@ function buscar_religion_editar(dato) {
 }
 })
 
+function loader(){
+  fill_select_tipo('#tipo_select');
+  fill_select_ruler();
+  fill_select_owner();
+  var id_institucion_editar = $('#id_institucion_editar').val();
+  //si id_institucion_editar o id_religion_editar están definido, se va a editar una entrada
+  if(id_institucion_editar!=undefined){
+    buscar_institucion_editar(id_institucion_editar);
+  }
+}
+
+function buscar_institucion_editar(dato) {
+  funcion='ver_institucion';
+  $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
+    //console.log(response);
+    const institucion= JSON.parse(response);
+    $('#institucion-create-title').html("Editar "+institucion.nombre);
+    $('#institucion-create-title-h1').html("Editar "+institucion.nombre);
+    $('#nombre_institucion').val(institucion.nombre);
+    $('#gentilicio').val(institucion.gentilicio);
+    $('#capital').val(institucion.capital);
+    $('#tipo_select').val(institucion.id_tipo);
+    $('#ruler').val(institucion.id_ruler);
+    $('#owner').val(institucion.id_owner);
+    $('#fundacion').val(institucion.fundacion);
+    $('#disolucion').val(institucion.disolucion);
+    $('#lema').val(institucion.lema);
+    $('#escudo-img').attr('src',institucion.escudo);
+    $('#descripcion_breve').summernote('code', institucion.descripcion);
+    $('#historia').summernote('code', institucion.historia);
+    $('#politica_interior_exterior').summernote('code', institucion.politicaexteriorinterior);
+    $('#militar').summernote('code', institucion.militar);
+    $('#estructura_organizativa').summernote('code', institucion.estructura);
+    $('#territorio').summernote('code', institucion.territorio);
+    $('#fronteras').summernote('code', institucion.frontera);
+    $('#demografia').summernote('code', institucion.demografia);
+    $('#cultura').summernote('code', institucion.cultura);
+    $('#religion').summernote('code', institucion.religion);
+    $('#educacion').summernote('code', institucion.educacion);
+    $('#tecnologia').summernote('code', institucion.tecnologia);
+    $('#economia').summernote('code', institucion.economia);
+    $('#recursos_naturales').summernote('code', institucion.recursos);
+    $('#otros').summernote('code', institucion.otros);
+    
+    $('#id_editado').val(institucion.id);
+    $('#funcion').val('editar_institucion');
+    $('#id_institucion_cambiar_escudo').val(institucion.id);
+    //$('#nombre_institucion_borrar').val(institucion.nombre);
+  });
+}
+
+function fill_select_owner(){
+  funcion='get_paises';
+  $.post('../controlador/institucionesController.php', {funcion},(response)=>{
+    let paises=JSON.parse(response);
+    let template=`
+    <option selected disabled value="">Elegir</option>`;
+    paises.forEach(pais=>{
+      template+=`
+      <option value="${pais.id}">${pais.nombre}</option>
+      `;
+    });
+    $('#owner').html(template);
+  })
+}
+
+function fill_select_ruler(){
+  funcion='buscar_personajes';
+  $.post('../controlador/personajeController.php', {funcion},(response)=>{
+    let paises=JSON.parse(response);
+    let template=`
+    <option selected disabled value="">Elegir</option>`;
+    paises.forEach(pais=>{
+      template+=`
+      <option value="${pais.id}">${pais.nombre}</option>
+      `;
+    });
+    $('#ruler').html(template);
+  })
+}
+
 function fill_select_tipo(id){
   funcion='get_tipos_organizacion';
   $.post('../controlador/configuracionController.php', {funcion},(response)=>{
@@ -260,7 +291,7 @@ function buscar_instituciones(tipo, consulta) {
           <form class="btn" action="createInstitucion.php" method="post">
             <button class="editar-institucion btn btn-success btn-sm" title="Editar">
             <i class="fas fa-pencil-alt"></i></button>
-            <input type="hidden" name="id_institucion" value="${pais.id}">
+            <input type="hidden" name="id" value="${pais.id}">
           </form>
           <button class="borrar-institucion btn btn-danger btn-sm" type="button" data-toggle="modal" data-target="#eliminarInstitucion" title="Borrar">
               <i class="fas fa-trash"></i>

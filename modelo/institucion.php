@@ -8,7 +8,7 @@ class Institucion{
 		$this->acceso = $db->pdo;
 	}
 
-	function createInstitucion($nombre_institucion, $escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $frontera, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros){
+	function createInstitucion($nombre_institucion, $escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $frontera, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id_ruler, $id_owner){
 		//se busca si ya existe la entrada
 		$sql="SELECT id_organizacion FROM organizaciones WHERE nombre=:nombre";
 		$query=$this->acceso->prepare($sql);
@@ -18,9 +18,9 @@ class Institucion{
 		if(!empty($this->objetos)){
 				echo "noadd";
 		}else{
-			$sql="INSERT INTO organizaciones(nombre, gentilicio, capital, escudo, descripcionBreve, id_tipo_organizacion, lema, demografia, fundacion, disolucion, historia, estructura, politicaExteriorInterior, frontera, militar, religion, cultura, educacion, tecnologia, territorio, economia, recursosNaturales, otros) VALUES (:nombre, :gentilicio, :capital, :escudo, :descripcionBreve, :tipo, :lema, :demografia, :fundacion, :disolucion, :historia, :estructura, :politicaExteriorInterior, :frontera, :militar, :religion, :cultura, :educacion, :tecnologia, :territorio, :economia, :recursosNaturales, :otros);";
+			$sql="INSERT INTO organizaciones(nombre, gentilicio, capital, escudo, id_ruler, descripcionBreve, id_tipo_organizacion, lema, demografia, fundacion, disolucion, historia, estructura, politicaExteriorInterior, frontera, militar, religion, cultura, educacion, tecnologia, territorio, economia, recursosNaturales, otros) VALUES (:nombre, :gentilicio, :capital, :escudo, :id_ruler, :descripcionBreve, :tipo, :lema, :demografia, :fundacion, :disolucion, :historia, :estructura, :politicaExteriorInterior, :frontera, :militar, :religion, :cultura, :educacion, :tecnologia, :territorio, :economia, :recursosNaturales, :otros);";
 			$query=$this->acceso->prepare($sql);
-			$query->execute(array(':nombre'=>$nombre_institucion, ':gentilicio'=>$gentilicio, ':capital'=>$capital, ':escudo'=>$escudo, ':descripcionBreve'=>$descripcion_breve, ':tipo'=>$tipo, ':lema'=>$lema, ':demografia'=>$demografia, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':historia'=>$historia, ':estructura'=>$estructura_organizativa, ':politicaExteriorInterior'=>$politica_interior_exterior, ':frontera'=>$frontera, ':militar'=>$militar, ':religion'=>$religion, ':cultura'=>$cultura, ':educacion'=>$educacion, ':tecnologia'=>$tecnologia, ':territorio'=>$territorio, ':economia'=>$economia, ':recursosNaturales'=>$recursos_naturales, ':otros'=>$otros));
+			$query->execute(array(':nombre'=>$nombre_institucion, ':gentilicio'=>$gentilicio, ':capital'=>$capital, ':escudo'=>$escudo, ':id_ruler'=>$id_ruler, ':descripcionBreve'=>$descripcion_breve, ':tipo'=>$tipo, ':lema'=>$lema, ':demografia'=>$demografia, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':historia'=>$historia, ':estructura'=>$estructura_organizativa, ':politicaExteriorInterior'=>$politica_interior_exterior, ':frontera'=>$frontera, ':militar'=>$militar, ':religion'=>$religion, ':cultura'=>$cultura, ':educacion'=>$educacion, ':tecnologia'=>$tecnologia, ':territorio'=>$territorio, ':economia'=>$economia, ':recursosNaturales'=>$recursos_naturales, ':otros'=>$otros));
 			echo "add";
 		}
 	}
@@ -71,17 +71,22 @@ class Institucion{
 	}
 
 	function buscarInstitucion($id){
-		$sql="SELECT *, organizaciones.nombre as nombre, tipo_organizacion.nombre as tipo_org FROM organizaciones JOIN tipo_organizacion ON id_tipo_organizacion=tipo_organizacion.id WHERE id_organizacion=:id";
+		$sql="SELECT consulta.id_organizacion, consulta.escudo, consulta.gentilicio, consulta.capital, consulta.fundacion, consulta.disolucion, consulta.lema, consulta.descripcionBreve, consulta.estructura, consulta.politicaExteriorInterior, consulta.frontera, consulta.militar, consulta.cultura, consulta.educacion, consulta.tecnologia, consulta.territorio, consulta.economia, consulta.recursosNaturales, consulta.demografia, consulta.id_ruler, consulta.id_owner, consulta.id_tipo_organizacion, consulta.otros as otros, consulta.historia as historia, consulta.religion as religion, consulta.nombre as nombre, tipo_organizacion.nombre as tipo_org, personaje.nombre as ruler, padre.nombre as padre
+		FROM organizaciones consulta
+		JOIN tipo_organizacion ON id_tipo_organizacion=tipo_organizacion.id 
+		LEFT JOIN personaje ON personaje.id=id_ruler 
+		LEFT JOIN organizaciones padre ON consulta.id_owner=padre.id_organizacion
+		WHERE consulta.id_organizacion=:id";
 		$query=$this->acceso->prepare($sql);
 		$query->execute(array(':id'=>$id));
 		$this->objetos=$query->fetchAll();
 		return $this->objetos;
 	}
 
-	function editarInstitucion($nombre_institucion, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id_institucion){
-		$sql="UPDATE organizaciones SET nombre=:nombre, gentilicio=:gentilicio, capital=:capital, id_tipo_organizacion=:tipo, lema=:lema, demografia=:demografia, fundacion=:fundacion, disolucion=:disolucion, descripcionBreve=:descripcionBreve, historia=:historia, estructura=:estructura, politicaExteriorInterior=:politicaExteriorInterior, frontera=:frontera, militar=:militar, religion=:religion, cultura=:cultura, educacion=:educacion, tecnologia=:tecnologia, territorio=:territorio, economia=:economia, recursosNaturales=:recursosNaturales, otros=:otros WHERE id_organizacion=:id";
+	function editarInstitucion($nombre_institucion, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id_institucion, $id_ruler, $id_owner){
+		$sql="UPDATE organizaciones SET nombre=:nombre, gentilicio=:gentilicio, capital=:capital, id_tipo_organizacion=:tipo, id_ruler=:ruler, id_owner=:id_owner, lema=:lema, demografia=:demografia, fundacion=:fundacion, disolucion=:disolucion, descripcionBreve=:descripcionBreve, historia=:historia, estructura=:estructura, politicaExteriorInterior=:politicaExteriorInterior, frontera=:frontera, militar=:militar, religion=:religion, cultura=:cultura, educacion=:educacion, tecnologia=:tecnologia, territorio=:territorio, economia=:economia, recursosNaturales=:recursosNaturales, otros=:otros WHERE id_organizacion=:id";
 		$query=$this->acceso->prepare($sql);
-		$query->execute(array(':nombre'=>$nombre_institucion, ':gentilicio'=>$gentilicio, ':capital'=>$capital, ':descripcionBreve'=>$descripcion_breve, ':tipo'=>$tipo, ':lema'=>$lema, ':demografia'=>$demografia, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':historia'=>$historia, ':estructura'=>$estructura_organizativa, ':politicaExteriorInterior'=>$politica_interior_exterior, ':frontera'=>$fronteras, ':militar'=>$militar, ':religion'=>$religion, ':cultura'=>$cultura, ':educacion'=>$educacion, ':tecnologia'=>$tecnologia, ':territorio'=>$territorio, ':economia'=>$economia, ':recursosNaturales'=>$recursos_naturales, ':otros'=>$otros, ':id'=>$id_institucion));
+		$query->execute(array(':nombre'=>$nombre_institucion, ':gentilicio'=>$gentilicio, ':capital'=>$capital, ':descripcionBreve'=>$descripcion_breve, ':tipo'=>$tipo, ':ruler'=>$id_ruler, ':id_owner'=>$id_owner, ':lema'=>$lema, ':demografia'=>$demografia, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':historia'=>$historia, ':estructura'=>$estructura_organizativa, ':politicaExteriorInterior'=>$politica_interior_exterior, ':frontera'=>$fronteras, ':militar'=>$militar, ':religion'=>$religion, ':cultura'=>$cultura, ':educacion'=>$educacion, ':tecnologia'=>$tecnologia, ':territorio'=>$territorio, ':economia'=>$economia, ':recursosNaturales'=>$recursos_naturales, ':otros'=>$otros, ':id'=>$id_institucion));
 	}
 
 	function cambiar_escudo($id_institucion, $nombre){			

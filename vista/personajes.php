@@ -13,38 +13,32 @@
   include_once 'layouts/menu.php';
 ?>
 
-<div class="modal fade" id="confirmar" tabindex="-1" role="dialog" aria-labelledby="confirmar-eliminacion" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="confirmar-eliminacion">Confirmar eliminación</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">        
-        <div class="alert alert-success text-center" id='confirmado' style='display:none'>
-            <span><i class="fas fa-check m-1"></i>Personaje eliminado</span>
+<!-- Modal -->
+<div class="modal fade" id="eliminarPersonaje" tabindex="-1" role="dialog" aria-labelledby="Eliminar personaje" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+      <div class="card card-danger">
+        <div class="card-header">
+          <h5 class="card-title" id="eliminarConclictoLabel">Eliminar personaje</h5>
+          <button data-dismiss="modal" aria-label="close" class="close">
+              <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="alert alert-danger text-center" id='rechazado' style='display:none'>
-            <span><i class="fas fa-times m-1"></i>Eliminación rechazada</span>
+        <div class="card-body">
+          <p id="texto-borrar">Confirma eliminar personaje.</p>
         </div>
-        <form id="form-confirmar-borrado">
-            <div class="input-group mb-3">
-                <div class="input-grup-prepend">
-                    <span class="input-group-text" id="nombre-personaje"> ¿Borrar?</span>
-                </div>
-                <input type="hidden" id="id_personaje_borrar">
-                <input type="hidden" id="funcion">
-            </div>
+        <div class="card-footer">
+          <form id="form-borrar-personaje" class="col-md-auto" >
+            <input type="hidden" name="id_borrar" id="id_borrar">
+            <input type="hidden" name="funcion" id="funcion" value="borrar_personaje">
+            <button type="button" id="cancelar-borrar-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
+            <button type="submit" id="borrar-button" class="btn btn-danger">Eliminar</button>
+            <a class="btn btn-primary" type="button" id="borrar-volver-button" data-dismiss="modal" style="display:none">Aceptar</a>
+          </form>
+        </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="submit" class="btn bg-gradient-primary">Eliminar</button>
-        </form>
-      </div>
-    </div>
-  </div>
+		</div>
+	</div>
 </div>
 
 <!-- Content Wrapper. Contains page content -->

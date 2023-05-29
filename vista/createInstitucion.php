@@ -1,7 +1,7 @@
 <?php include_once 'layouts/header.php';
 
-if(isset($_POST['id_institucion'])){?>
-    <input id="id_institucion_editar" type="hidden" value="<?php echo $_POST['id_institucion']?>">
+if(isset($_POST['id'])){?>
+    <input id="id_institucion_editar" type="hidden" value="<?php echo $_POST['id']?>">
 <?php
 }
 ?>
@@ -12,7 +12,7 @@ if(isset($_POST['id_institucion'])){?>
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="fill_select_tipo('#tipo_select')">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -36,15 +36,6 @@ if(isset($_POST['id_institucion'])){?>
 	<section class="content">
 		<div class="container">
 			<div class="span10 offset1">
-				<div class="alert alert-success text-center" id='add' style='display:none'>
-						<span><i class="fas fa-check m-1"></i>Añadido</span>
-				</div>
-				<div class="alert alert-danger text-center" id='no-add' style='display:none'>
-						<span><i class="fas fa-times m-1"></i>No se pudo guardar</span>
-				</div>
-				<div class="alert alert-success text-center" id='editado' style='display:none'>
-						<span><i class="fas fa-times m-1"></i>Editado con éxito</span>
-				</div>
 				<form id="form-create-institucion" class="row g-3 mt-3 position-relative needs-validation" action="createInstitucion.php" method="post" enctype="multipart/form-data">
 				<div class="row justify-content-md-center">
 					<div class="col-md-auto form-actions">
@@ -54,49 +45,62 @@ if(isset($_POST['id_institucion'])){?>
 					</div>
 				</div>
 				<input id="id_editado" type="hidden" name="id_editado">
+					<input id="funcion" type="hidden" name="funcion" value="crear_nueva_institucion">
 				<div class="row mt-3 justify-content-md-center border">
 					<div class="col-md">
 						<div class="row mt-2 mb-2">
-							<div class="col-md">
+							<div class="col-md col-sm-12 mt-2">
 								<label for="nombre_institucion" class="form-label">Nombre</label>
 								<input type="text" name="nombre_institucion" class="form-control" id="nombre_institucion" placeholder="Nombre" required>
 								<div class="invalid-feedback">
 										Nombre necesario.
 								</div>
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4 col-sm-6 mt-2">
 								<label for="gentilicio" class="form-label">Gentilicio</label>
 								<input type="text" name="gentilicio" class="form-control" id="gentilicio" placeholder="Gentilicio">
 							</div>
-							<div class="col-md-4">
+							<div class="col-md-4 col-sm-6 mt-2">
 								<label for="capital" class="form-label">Capital</label>
 								<input type="text" name="capital" class="form-control" id="capital" placeholder="Capital">
 							</div>
 						</div>
 						<div class="row mt-2 mb-2">
-							<div class="col-md">
+							<div class="col col-sm-6 mt-2">
 								<label for="tipo" class="form-label">Tipo</label>
 								<select class="form-select" name="tipo_select" id="tipo_select">
 									<option selected disabled value="">Elegir</option>
 								</select>
 							</div>
-							<div class="col-md">
+							<div class="col col-sm-6 mt-2">
+								<label for="ruler" class="form-label">Actual soberano</label>
+								<select class="form-select" name="ruler" id="ruler">
+									<option selected disabled value="">Elegir</option>
+								</select>
+							</div>
+							<div class="col col-sm-6 mt-2">
+								<label for="owner" class="form-label">Controlado por:</label>
+								<select class="form-select" name="owner" id="owner">
+									<option selected disabled value="">Elegir</option>
+								</select>
+							</div>
+							<div class="col col-sm-6 mt-2">
 								<label for="fundacion" class="form-label">Fundación</label>
 								<input type="text" name="fundacion" class="form-control" id="fundacion" placeholder="Fundación">
 							</div>
-							<div class="col-md">
+							<div class="col col-sm-6 mt-2">
 								<label for="disolucion" class="form-label">Disolución</label>
 								<input type="text" name="disolucion" class="form-control" id="disolucion" placeholder="Disolución">
 							</div>
 						</div>
 						<div class="row mt-2 mb-2">
-							<div class="col-md">
+							<div class="col-12 mt-2">
 								<label for="lema" class="form-label">Lema</label>
 								<input type="text" name="lema" class="form-control" id="lema" placeholder="Lema">
 							</div>
 						</div>
 					</div>
-					<div class="col-md-3 mt-2 mb-2">
+					<div class="col-3 col-md-3 col-sm-12 mt-2 mb-2">
 						<div class="row">
 							<label for="escudo-img" class="form-label text-center">Escudo</label>
 							<img alt="escudo" id="escudo-img" src="../imagenes/Escudos/default.png" class="img-fluid" width="185" height="180">

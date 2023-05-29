@@ -38,7 +38,7 @@ class Personaje
 			return $this->objetos;
 		} else {
 			//se devuelven todos los usuarios
-			$sql = "SELECT personaje.id, personaje.Nombre, personaje.Apellidos, personaje.DescripcionShort, personaje.Sexo, personaje.Retrato, especies.nombre AS nombreEspecie FROM personaje JOIN especies ON id_foranea_especie=id_especie WHERE personaje.Nombre NOT LIKE '' ORDER BY id LIMIT 25";
+			$sql = "SELECT personaje.id, personaje.Nombre, personaje.Apellidos, personaje.DescripcionShort, personaje.Sexo, personaje.Retrato, especies.nombre AS nombreEspecie FROM personaje JOIN especies ON id_foranea_especie=id_especie WHERE personaje.Nombre NOT LIKE '' ORDER BY personaje.Nombre LIMIT 25";
 			$query = $this->acceso->prepare($sql);
 			$query->execute();
 			$this->objetos = $query->fetchAll();

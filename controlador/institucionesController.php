@@ -17,6 +17,12 @@ if ($_POST['funcion'] == 'crear_nueva_institucion') {
 	if (isset($_POST['tipo_select'])) {
 		$tipo = $_POST['tipo_select'];
 	}
+	if (isset($_POST['owner'])) {
+		$id_owner = $_POST['owner'];
+	}
+	if (isset($_POST['ruler'])) {
+		$id_ruler = $_POST['ruler'];
+	}
 	if (isset($_POST['fundacion'])) {
 		$fundacion = $_POST['fundacion'];
 	}
@@ -79,13 +85,12 @@ if ($_POST['funcion'] == 'crear_nueva_institucion') {
 		$nombre_escudo = "default.png";
 	}
 
-	$institucion->createInstitucion($nombre_institucion, $nombre_escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros);
+	$institucion->createInstitucion($nombre_institucion, $nombre_escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id_ruler, $id_owner);
 }
 
 if ($_POST['funcion'] == 'buscar_instituciones') {
 	$json = array();
 	$institucion->buscar($_POST['tipo']);
-	//$institucion->buscar();
 	foreach ($institucion->objetos as $objeto) {
 		$json[] = array(
 			'id' => $objeto->id_organizacion,
@@ -111,7 +116,12 @@ if ($_POST['funcion'] == 'ver_institucion') {
 			'escudo' => '../imagenes/Escudos/' . $objeto->escudo,
 			'descripcion' => $objeto->descripcionbreve,
 			'tipo' => $objeto->tipo_org,
+			'id_tipo' => $objeto->id_tipo_organizacion,
 			'lema' => $objeto->lema,
+			'id_ruler' => $objeto->id_ruler,
+			'ruler' => $objeto->ruler,
+			'id_owner' => $objeto->id_owner,
+			'owner' => $objeto->padre,
 			'demografia' => $objeto->demografia,
 			'fundacion' => $objeto->fundacion,
 			'disolucion' => $objeto->disolucion,
@@ -143,71 +153,53 @@ if ($_POST['funcion'] == 'editar_institucion') {
 	$nombre_institucion = $gentilicio = $descripcion_breve = $capital = $tipo = $fundacion = $disolucion = $lema = $historia = $politica_interior_exterior = $militar = $estructura_organizativa = $territorio = $fronteras = $demografia = $cultura = $educacion = $religion = $recursos_naturales = $economia = $tecnologia = $escudo = $otros = null;
 
 	if (isset($_POST['nombre_institucion'])) {
-		$nombre_institucion = $_POST['nombre_institucion'];
-	}
+		$nombre_institucion = $_POST['nombre_institucion'];}
 	if (isset($_POST['gentilicio'])) {
-		$gentilicio = $_POST['gentilicio'];
-	}
+		$gentilicio = $_POST['gentilicio'];}
 	if (isset($_POST['capital'])) {
-		$capital = $_POST['capital'];
-	}
+		$capital = $_POST['capital'];}
 	if (isset($_POST['tipo_select'])) {
-		$tipo = $_POST['tipo_select'];
-	}
+		$tipo = $_POST['tipo_select'];}
+	if (isset($_POST['owner'])) {
+		$id_owner = $_POST['owner'];}
+	if (isset($_POST['ruler'])) {
+		$id_ruler = $_POST['ruler'];}
 	if (isset($_POST['fundacion'])) {
-		$fundacion = $_POST['fundacion'];
-	}
+		$fundacion = $_POST['fundacion'];}
 	if (isset($_POST['disolucion'])) {
-		$disolucion = $_POST['disolucion'];
-	}
+		$disolucion = $_POST['disolucion'];}
 	if (isset($_POST['lema'])) {
-		$lema = $_POST['lema'];
-	}
+		$lema = $_POST['lema'];}
 	if (isset($_POST['descripcion_breve'])) {
-		$descripcion_breve = $_POST['descripcion_breve'];
-	}
+		$descripcion_breve = $_POST['descripcion_breve'];}
 	if (isset($_POST['historia'])) {
-		$historia = $_POST['historia'];
-	}
+		$historia = $_POST['historia'];}
 	if (isset($_POST['politica_interior_exterior'])) {
-		$politica_interior_exterior = $_POST['politica_interior_exterior'];
-	}
+		$politica_interior_exterior = $_POST['politica_interior_exterior'];}
 	if (isset($_POST['militar'])) {
-		$militar = $_POST['militar'];
-	}
+		$militar = $_POST['militar'];}
 	if (isset($_POST['estructura_organizativa'])) {
-		$estructura_organizativa = $_POST['estructura_organizativa'];
-	}
+		$estructura_organizativa = $_POST['estructura_organizativa'];}
 	if (isset($_POST['territorio'])) {
-		$territorio = $_POST['territorio'];
-	}
+		$territorio = $_POST['territorio'];}
 	if (isset($_POST['fronteras'])) {
-		$fronteras = $_POST['fronteras'];
-	}
+		$fronteras = $_POST['fronteras'];}
 	if (isset($_POST['demografia'])) {
-		$demografia = $_POST['demografia'];
-	}
+		$demografia = $_POST['demografia'];}
 	if (isset($_POST['cultura'])) {
-		$cultura = $_POST['cultura'];
-	}
+		$cultura = $_POST['cultura'];}
 	if (isset($_POST['religion'])) {
-		$religion = $_POST['religion'];
-	}
+		$religion = $_POST['religion'];}
 	if (isset($_POST['educacion'])) {
-		$educacion = $_POST['educacion'];
-	}
+		$educacion = $_POST['educacion'];}
 	if (isset($_POST['tecnologia'])) {
-		$tecnologia = $_POST['tecnologia'];
-	}
+		$tecnologia = $_POST['tecnologia'];}
 	if (isset($_POST['economia'])) {
-		$economia = $_POST['economia'];
-	}
+		$economia = $_POST['economia'];}
 	if (isset($_POST['recursos_naturales'])) {
-		$recursos_naturales = $_POST['recursos_naturales'];
-	}
+		$recursos_naturales = $_POST['recursos_naturales'];}
 	if (isset($_POST['otros'])) {
-		$otros = $_POST['otros'];
-	}
+		$otros = $_POST['otros'];}
 	$id = $_POST['id_editado'];
 
 	if ($_FILES['escudo']['size']) {
@@ -222,7 +214,7 @@ if ($_POST['funcion'] == 'editar_institucion') {
 		}
 	}
 
-	$institucion->editarInstitucion($nombre_institucion, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id);
+	$institucion->editarInstitucion($nombre_institucion, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id, $id_ruler, $id_owner);
 	echo 'editado';
 }
 
@@ -300,7 +292,7 @@ if ($_POST['funcion'] == 'crear_nueva_religion') {
 		$nombre_escudo = "default.png";
 	}
 
-	$institucion->createInstitucion($nombre, $nombre_escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros);
+	$institucion->createInstitucion($nombre, $nombre_escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id_ruler, $id_owner);
 }
 
 if ($_POST['funcion'] == 'editar_religion') {
@@ -368,7 +360,7 @@ if ($_POST['funcion'] == 'editar_religion') {
 		}
 	}
 
-	$institucion->editarInstitucion($nombre, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id);
+	$institucion->editarInstitucion($nombre, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id, $id_ruler, $id_owner);
 	echo 'editado';
 }
 

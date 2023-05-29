@@ -39,7 +39,9 @@
 							<a class="btn btn-primary" type="button" id="volver-crear-button" href="personajes.php" style="display:none">Volver</a>
 						</div>
 					</div>
-					<div class="row mt-3 mb-3 justify-content-md-center border fondoNombre">
+					<input id="id_editado" type="hidden" name="id_editado">
+					<input id="funcion" type="hidden" name="funcion" value="crear_nuevo_personaje">
+					<div class="row mt-3 mb-3 justify-content-md-center border">
 						<div class="col">
 							<div class="row mt-2">
 								<div class="col-md">
@@ -88,7 +90,7 @@
 						</div>
 					</div>
 					<!----------------------------------------------->
-					<div class="row mt-2 justify-content-md-center border fondoMente">
+					<div class="row mt-2 justify-content-md-center border">
 						<div class="row mt-2">
 							<label for="descripcion" class="form-label">Descripción física</label>
 							<textarea name="descripcion" class="form-control summernote-lite" id="descripcion" rows="4" aria-label="With textarea"></textarea>
