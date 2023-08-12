@@ -3,7 +3,7 @@ $(document).ready(function(){
 })
 
 function loadContent(tipo, id){
-  console.log(tipo+' '+id);
+  //console.log(tipo+' '+id);
   if(tipo==1){
     ver_personaje(id);
   }
@@ -30,9 +30,10 @@ function loadContent(tipo, id){
 function ver_personaje(dato) {
   funcion='buscar_personaje';
   $.post('../controlador/personajeController.php', {dato, funcion},(response)=>{
+    console.log(response);
     const personaje= JSON.parse(response);
     $('#nav-buttons').html(`<a href="../vista/personajes.php" class="btn btn-dark ml-2">Volver</a>
-    <form class="btn" action="editarPersonaje.php" method="post">
+    <form class="btn" action="createPersonaje.php" method="post">
       <button class="btn btn-dark mr-1">Editar</button>
       <input type="hidden" name="id" value="${personaje.id}">
     </form>`);
@@ -168,6 +169,20 @@ function ver_personaje(dato) {
         <p class="ml-2 mr-2">${personaje.lugarNacimiento}</p>
       </div>`;
     }
+    if(personaje.nacimiento!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Fecha de nacimiento</h3>
+        <p class="ml-2 mr-2">${personaje.nacimiento}</p>
+      </div>`;
+    }
+    if(personaje.fallecimiento!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Fecha de fallecimiento</h3>
+        <p class="ml-2 mr-2">${personaje.fallecimiento}</p>
+      </div>`;
+    }
     $('#content-right').html(template);
   });
 }
@@ -238,10 +253,9 @@ function ver_especie(dato) {
         <p class="ml-2 mr-2">${especie.explotacion}</p>
       </div>`;
     }
-    template+=`
-    <h2>Otros</h2>`;
     if(especie.otros!=undefined){
       template+=`
+      <h2>Otros</h2>
       <div class="row">
         <h3>Otros</h3>
         <p class="ml-2 mr-2">${especie.otros}</p>
@@ -473,14 +487,14 @@ function ver_institucion(dato) {
         <p class="ml-2 mr-2">${institucion.lema}</p>
       </div>`;
     }
-    if(institucion.fundacion!=undefined){
+    if(institucion.fundacion!=undefined&&(institucion.dia_fundacion!=0)&&(institucion.mes_fundacion!=0)){
       template+=`
       <div class="row">
         <h3>Fundación</h3>
         <p class="ml-2 mr-2">${institucion.fundacion}</p>
       </div>`;
     }
-    if(institucion.disolucion!=undefined){
+    if(institucion.disolucion!=undefined&&(institucion.dia_disolucion!=0)&&(institucion.mes_disolucion!=0)){
       template+=`
       <div class="row">
         <h3>Disolución</h3>
@@ -651,6 +665,7 @@ function ver_religion(dato) {
 function ver_asentamiento(dato) {
   funcion = 'ver_asentamiento';
   $.post('../controlador/asentamientosController.php', { dato, funcion }, (response) => {
+    console.log(response);
     const asentamiento = JSON.parse(response);
     $('#nav-buttons').html(`<a href="asentamientos.php" class="btn btn-dark ml-2">Volver</a>
     <form class="btn" action="createAsentamiento.php" method="post">
@@ -763,6 +778,13 @@ function ver_asentamiento(dato) {
         <p class="ml-2 mr-2">${asentamiento.tipo}</p>
       </div>`;
     }
+    if(asentamiento.id_owner!=undefined){
+      template+=`
+      <div class="row">
+        <h3>Bajo control de</h3>
+        <p class="ml-1 mr-2"><a href="vistaContent.php?id=${asentamiento.id_owner}&tipo=3">${asentamiento.nombre_owner}</a></p>
+      </div>`;
+    }
     if (asentamiento.poblacion != undefined) {
       template += `
       <div class="row">
@@ -781,7 +803,7 @@ function ver_asentamiento(dato) {
       template += `
       <div class="row">
         <h3>Disolución</h3>
-        <p class="ml-2 mr-2">${religion.disolucion}</p>
+        <p class="ml-2 mr-2">${asentamiento.disolucion}</p>
       </div>`;
     }
     $('#content-right').html(template);
@@ -882,6 +904,7 @@ function ver_lugar(dato) {
 function ver_conflicto(dato) {
   funcion='ver_conflicto';
   $.post('../controlador/conflictosController.php', {dato, funcion},(response)=>{
+    console.log(response);
     const conflicto = JSON.parse(response);
     $('#nav-buttons').html(`<a href="conflictos.php" class="btn btn-dark ml-2">Volver</a>
     <form class="btn" action="createConflicto.php" method="post">
@@ -955,18 +978,18 @@ function ver_conflicto(dato) {
     }
     template+=`</div>`;
     template+='<div class="row">';
-    if(conflicto.comienzo!=undefined){
+    if(conflicto.inicio!=undefined){
       template+=`
         <div class="col">
           <h6><b>Comienzo</b></h6>
-          <p>${conflicto.comienzo}</p>
+          <p>${conflicto.inicio}</p>
         </div>`;
     }
-    if(conflicto.final!=undefined){
+    if(conflicto.fin!=undefined){
       template+=`
         <div class="col">
           <h6><b>Final</b></h6>
-          <p>${conflicto.final}</p>
+          <p>${conflicto.fin}</p>
         </div>`;
     }
     template+=`</div>`;

@@ -18,7 +18,7 @@
 		<div class="modal-content">
       <div class="card card-danger">
         <div class="card-header">
-          <h5 class="card-title" id="eliminarEventoLabel">Eliminar asentamiento</h5>
+          <h5 class="card-title" id="eliminarEventoLabel">Eliminar evento</h5>
           <button data-dismiss="modal" aria-label="close" class="close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -103,7 +103,7 @@
         <div class="card-footer">
           <button type="button" id="cancelar-crear-button" class="btn btn-primary" data-dismiss="modal">Cancelar</button>
           <button type="submit" id="submit-crear-button" class="btn btn-success">Guardar</button>
-          <a class="btn btn-primary" type="button" id="volver-crear-button" href="../index.php" style="display:none">Volver</a>
+          <button type="button" id="volver-crear-button" class="btn btn-primary" data-dismiss="modal" style="display:none">Volver</button>
         </div>
         </form>
       </div>

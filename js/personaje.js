@@ -1,48 +1,63 @@
 $(document).ready(function(){
   var funcion='';
-  var id_personaje_editar = $('#id_personaje_editar').val();
-  if(id_personaje_editar!=undefined){
-    buscar_personaje_editar(id_personaje_editar);
-  }
 
   $('#form-create-personaje').submit(e=>{
-    let formData = new FormData($('#form-create-personaje')[0]);
-    console.log(formData);
-    $.ajax({
-      url:'../controlador/personajeController.php',
-      type:'POST',
-      data:formData,
-      cache:false,
-      processData:false,
-      contentType:false
-    }).done(function(response){
-      if(response=='no-add'){
-        toastr.error('No se pudo añadir.', 'Error');
-      }else{
-        if(response=='add'){
-          toastr.success('Personaje añadido.', 'Éxito');
-        }
-        if(response=='editado'){
-          $('#editado').hide('slow');
-          $('#editado').show(1000);
-        }
-        $('#form-create-institucion').trigger('reset');
-        $('#submit-crear-button').hide();
-        $('#cancelar-crear-button').hide();
-        $('#volver-crear-button').show();
-      }
-      editar=false;
-    });
+    let datos=new FormData($('#form-create-personaje')[0]);
+    console.log(datos);
+
+    crear_personaje(datos);
     e.preventDefault();
   });
+  async function crear_personaje(datos) {
+		let data = await fetch('../controlador/personajeController.php', {
+			method: 'POST',
+			body: datos
+		})
+		if (data.ok) {
+			//mejor usar data.text que data.json, pues si hay error, este se añade como cadena de texto a los datos
+			let response = await data.text();
+			try {
+				//se descodifica el json
+				let respuesta = JSON.parse(response);
+				if(respuesta.mensaje=='success_create'){
+					toastr.success('Personaje añadido.', 'Éxito');
+          $('#form-create-personaje').trigger('reset');
+          $('#especies_select').val('').trigger('change');
+          $('#submit-crear-button').hide();
+          $('#cancelar-crear-button').hide();
+          $('#volver-crear-button').show();
+				}else{
+          if(respuesta.mensaje=='success_edit'){
+            toastr.success('Personaje editado.', 'Éxito');
+            $('#form-create-personaje').trigger('reset');
+            $('#especies_select').val('').trigger('change');
+            $('#submit-crear-button').hide();
+            $('#cancelar-crear-button').hide();
+            $('#volver-crear-button').show();
+          }else{
+            if(respuesta.mensaje=='error'){
+              toastr.error('No se pudo añadir.', 'Error');
+              $('#especies_select').val('').trigger('change');
+            }
+          }
+				}
+			} catch (error) {
+				console.error(error);
+				console.log(response);
+        toastr.error('Hubo conflicto en el sistema.', 'Error');
+			}
+		} else {
+      toastr.error('Se ha producido un error: '+data.status, 'Error');
+		}
+	}
   
   $(document).on('keyup','#buscar',function(){
-      let valor = $(this).val();
-      if(valor!=""){
-          buscar_personajes(valor);
-      }else{
-          buscar_personajes();
-      }
+    let valor = $(this).val();
+    if(valor!=""){
+      buscar_personajes(valor);
+    }else{
+      buscar_personajes();
+    }
   });
 
   $(document).on('click', '.borrar-personaje',(e)=>{
@@ -58,7 +73,9 @@ $(document).ready(function(){
     let id_personaje=$('#id_borrar').val();
     funcion=$('#funcion').val();
     $.post('../controlador/personajeController.php', {id_personaje, funcion}, (response)=>{
-      if(response=='borrado'){
+      console.log(response);
+      let respuesta = JSON.parse(response);
+      if(respuesta.mensaje=='borrado'){
         toastr.success('Personaje borrado.', 'Éxito');
         buscar_personajes();
       }else{
@@ -71,94 +88,16 @@ $(document).ready(function(){
     });
     e.preventDefault();
   });
-
-  $('#form-editar-personaje').submit(e=>{
-    let formData = new FormData($('#form-editar-personaje')[0]);
-    let id_personaje= $('#id_personaje_editar').val();
-    formData.append('id_personaje', id_personaje);
-    formData.append('funcion', 'editar_personaje');
-    console.log(formData);
-    $.ajax({
-      url:'../controlador/personajeController.php',
-      type:'POST',
-      data:formData,
-      cache:false,
-      processData:false,
-      contentType:false
-    }).done(function(response){
-      if(response=='editado'){
-        toastr.success('Personaje editado.', 'Éxito');
-      }else{
-        toastr.error('No se pudo editar.', 'Error');
-      }
-      $('#form-create-institucion').trigger('reset');
-      $('#submit-editar-button').hide();
-      $('#cancelar-editar-button').hide();
-      $('#volver-editar-button').show();
-      editar=false;
-    });
-    e.preventDefault();
-  });
-
-  $('#form-retrato').submit(e=>{
-    let formData = new FormData($('#form-retrato')[0]);
-    $.ajax({
-      url:'../controlador/personajeController.php',
-      type:'POST',
-      data:formData,
-      cache:false,
-      processData:false,
-      contentType:false
-    }).done(function(response){
-      console.log(response);
-      //se reemplazan los avatares del modal y del content
-      const json=JSON.parse(response);
-      if(json.alert=='edit'){
-        $('#retrato-content').attr('src',json.ruta);
-        $('#cambiado').hide('slow');
-        $('#cambiado').show(1000);
-        $('#cambiado').hide(3000);
-        $('#modal-retrato').attr('src',json.ruta);
-        //buscar_personaje(id_personaje);
-      }else{
-        $('#noedit').hide('slow');
-        $('#noedit').show(1000);
-        $('#noedit').hide(3000);
-      }
-      $('#form-retrato').trigger('reset');
-    });
-    e.preventDefault();
-  });
-
-  function buscar_personaje_editar(dato) {
-    funcion='buscar_personaje';
-    $.post('../controlador/personajeController.php', {dato, funcion},(response)=>{
-      console.log(response);
-      const personaje= JSON.parse(response);
-      $('#nombre').val(personaje.nombre);
-      $('#nombre_familia').val(personaje.nombreFamilia);
-      //$('#lugar_nacimiento').val(personaje.lugar_nacimiento);
-      $('#apellidos').val(personaje.apellidos);
-      $('#descripcion').summernote('code', personaje.descripcion);
-      $('#descripcionShort').summernote('code', personaje.descripcionshort);
-      $('#personalidad').summernote('code', personaje.personalidad);
-      $('#miedos').summernote('code', personaje.miedos);
-      $('#deseos').summernote('code', personaje.deseos);
-      $('#magia').summernote('code', personaje.magia);
-      $('#educacion').summernote('code', personaje.educacion);
-      $('#religion').summernote('code', personaje.religion);
-      $('#familia').summernote('code', personaje.familia);
-      $('#politica').summernote('code', personaje.politica);
-      $('#historia').summernote('code', personaje.historia);
-      $('#otros').summernote('code', personaje.otros);
-      $('#modal-retrato').attr('src', personaje.retrato);
-      $('#retrato-content').attr('src',personaje.retrato);
-      $('#especies_select').val(personaje.id_especie);
-      $('#sexo').val(personaje.sexo);
-      $('#id_personaje').val(personaje.id_personaje);
-    });
-  }
 })
+
+function loader(){
+  fill_select_especies();
+  var id_personaje_editar = $('#id_personaje_editar').val();
+  //si id_conflicto_editar está definido, se va a editar una entrada
+  if(id_personaje_editar!=undefined){
+    buscar_personaje_editar(id_personaje_editar);
+  }
+}
 
 function fill_select_especies(){
   funcion='menu_especies';
@@ -170,8 +109,48 @@ function fill_select_especies(){
           <option value="${especie.id}">${especie.nombre}</option>
           `;
       });
-      $('#especies_select').html(template);
+      $('#especie').html(template);
   })
+}
+
+function buscar_personaje_editar(dato) {
+  funcion='buscar_personaje';
+  $.post('../controlador/personajeController.php', {dato, funcion},(response)=>{
+    console.log(response);
+    const personaje= JSON.parse(response);
+    $('#personaje-create-title').html("Editar "+personaje.nombre);
+    $('#personaje-create-title-h1').html("Editar "+personaje.nombre);
+    $('#nombre').val(personaje.nombre);
+    $('#nombre_familia').val(personaje.nombreFamilia);
+    //$('#lugar_nacimiento').val(personaje.lugar_nacimiento);
+    $('#apellidos').val(personaje.apellidos);
+    $('#causa_fallecimiento').val(personaje.causa_fallecimiento);
+    $('#descripcion').summernote('code', personaje.descripcion);
+    $('#descripcionShort').summernote('code', personaje.descripcionshort);
+    $('#personalidad').summernote('code', personaje.personalidad);
+    $('#miedos').summernote('code', personaje.miedos);
+    $('#deseos').summernote('code', personaje.deseos);
+    $('#magia').summernote('code', personaje.magia);
+    $('#educacion').summernote('code', personaje.educacion);
+    $('#religion').summernote('code', personaje.religion);
+    $('#familia').summernote('code', personaje.familia);
+    $('#politica').summernote('code', personaje.politica);
+    $('#historia').summernote('code', personaje.historia);
+    $('#otros').summernote('code', personaje.otros);
+    $('#retrato-img').attr('src', personaje.retrato);
+    $('#especie').val(personaje.id_especie);
+    $('#sexo').val(personaje.sexo);
+    //fechas
+    $('#dnacimiento').val(personaje.dnacimiento);
+    $('#id_nacimiento').val(personaje.id_nacimiento);
+    $('#mnacimiento').val(personaje.mnacimiento);
+    $('#anacimiento').val(personaje.anacimiento);
+    $('#id_fallecimiento').val(personaje.id_fallecimiento);
+    $('#dfallecimiento').val(personaje.dfallecimiento);
+    $('#mfallecimiento').val(personaje.mfallecimiento);
+    $('#afallecimiento').val(personaje.afallecimiento);
+    $('#id_editado').val(personaje.id);
+  });
 }
 
 function buscar_personajes(consulta) {
@@ -209,7 +188,7 @@ function buscar_personajes(consulta) {
           <button class="detalles-personaje btn btn-info btn-sm" type="button">
           <a href="vistaContent.php?id=${personaje.id}&tipo=1" class="text-reset"><i class="fas fa-id-card mr-1"></i>Detalles</a>
           </button>
-          <form class="btn" action="editarPersonaje.php" method="post">
+          <form class="btn" action="createPersonaje.php" method="post">
             <button class="editar-personaje btn btn-success btn-sm">
             <i class="fas fa-pencil-alt mr-1"></i>Editar</button>
             <input type="hidden" name="id" value="${personaje.id}">

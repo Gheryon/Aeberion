@@ -2,12 +2,18 @@
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 	<!--<link rel="stylesheet" href="../css/style.css"/>-->
-	<title>Nuevo personaje</title>
+	<title id="personaje-create-title">Nuevo personaje</title>
   <!-- summernote -->
   <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="fill_select_especies()">
+<?php
+  if(isset($_POST['id'])){?>
+    <input id="id_personaje_editar" type="hidden" value="<?php echo $_POST['id']?>">
+<?php
+}
+?>
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -22,7 +28,7 @@
 			<div class="container-fluid">
 				<div class="row mb-2">
 					<div class="col-sm-12">
-						<h1 class="fw-bolder text-center"> Nuevo personaje </h1>
+						<h1 class="fw-bolder text-center" id="personaje-create-title-h1"> Nuevo personaje </h1>
 					</div>
 				</div>
 			</div><!-- /.container-fluid -->
@@ -39,7 +45,7 @@
 							<a class="btn btn-primary" type="button" id="volver-crear-button" href="personajes.php" style="display:none">Volver</a>
 						</div>
 					</div>
-					<input id="id_editado" type="hidden" name="id_editado">
+					<input id="id_editado" type="hidden" name="id_editado" value="0">
 					<input id="funcion" type="hidden" name="funcion" value="crear_nuevo_personaje">
 					<div class="row mt-3 mb-3 justify-content-md-center border">
 						<div class="col">
@@ -59,10 +65,6 @@
 								</div>
 							</div>
 							<div class="row mt-2">
-								<div class="col-md">
-									<label for="lugar_nacimiento" class="form-label">Lugar de nacimiento</label>
-									<input type="text" name="lugar_nacimiento" class="form-control" id="lugar_nacimiento" placeholder="Lugar de nacimiento">
-								</div>
 								<div class="col-md-3">
 									<label for="sexo" class="form-label">Sexo</label>
 									<select class="form-select" name="sexo" id="sexo" required>
@@ -73,9 +75,67 @@
 								</div>
 								<div class="col-md-3">
 									<label for="especies_select" class="form-label">Especie</label>
-									<select class="form-select" name="especie" id="especies_select" required>
+									<select class="form-select" name="especie" id="especie" required>
 										<option selected disabled value="">Elegir</option>
 									</select>
+								</div>
+								<div class="col-md">
+									<label for="lugar_nacimiento" class="form-label">Lugar de nacimiento</label>
+									<input type="text" name="lugar_nacimiento" class="form-control" id="lugar_nacimiento" placeholder="Lugar de nacimiento">
+								</div>
+							</div>
+							<div class="row mt-2">
+								<div class="col-md-4">
+									<label for="nacimiento" class="form-label">Fecha de nacimiento</label>
+									<div class="input-group">
+										<input id="id_nacimiento" type="hidden" name="id_nacimiento" value="0">
+										<input type="number" id="dnacimiento" name="dnacimiento" class="form-control" placeholder="Día">
+										<select id="mnacimiento" name="mnacimiento" class="form-select">
+											<option selected disabled value="">Mes</option>
+											<option value="0">Semana de año nuevo</option>
+											<option value="1">Enero</option>
+											<option value="2">Febrero</option>
+											<option value="3">Marzo</option>
+											<option value="4">Abril</option>
+											<option value="5">Mayo</option>
+											<option value="6">Junio</option>
+											<option value="7">Julio</option>
+											<option value="8">Agosto</option>
+											<option value="9">Septiembre</option>
+											<option value="10">Octubre</option>
+											<option value="11">Noviembre</option>
+											<option value="12">Diciembre</option>
+										</select>
+										<input type="number" id="anacimiento" name="anacimiento" class="form-control" placeholder="Año">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<label for="fallecimiento" class="form-label">Fecha de fallecimiento</label>
+									<div class="input-group">
+									<input id="id_fallecimiento" type="hidden" name="id_fallecimiento" value="0">
+									<input type="number" id="dfallecimiento" name="dfallecimiento" class="form-control" placeholder="Día">
+									<select id="mfallecimiento" name="mfallecimiento" class="form-select" placeholder="Mes">
+										<option selected disabled value="">Mes</option>
+										<option value="0">Semana de año nuevo</option>
+										<option value="1">Enero</option>
+										<option value="2">Febrero</option>
+										<option value="3">Marzo</option>
+										<option value="4">Abril</option>
+										<option value="5">Mayo</option>
+										<option value="6">Junio</option>
+										<option value="7">Julio</option>
+										<option value="8">Agosto</option>
+										<option value="9">Septiembre</option>
+										<option value="10">Octubre</option>
+										<option value="11">Noviembre</option>
+										<option value="12">Diciembre</option>
+									</select>
+									<input type="number" id="afallecimiento" name="afallecimiento" class="form-control" placeholder="Año">
+									</div>
+								</div>
+								<div class="col-md">
+									<label for="causa_fallecimiento" class="form-label">Causa de fallecimiento</label>
+									<input type="text" name="causa_fallecimiento" class="form-control" id="causa_fallecimiento" placeholder="Causa de fallecimiento">
 								</div>
 							</div>
 						</div>

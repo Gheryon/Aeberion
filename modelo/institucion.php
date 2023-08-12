@@ -9,21 +9,18 @@ class Institucion{
 	}
 
 	function createInstitucion($nombre_institucion, $escudo, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $frontera, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id_ruler, $id_owner){
-		//se busca si ya existe la entrada
-		$sql="SELECT id_organizacion FROM organizaciones WHERE nombre=:nombre";
+		$sql="INSERT INTO organizaciones(nombre, gentilicio, capital, escudo, id_ruler, id_owner, descripcionBreve, id_tipo_organizacion, lema, demografia, fundacion, disolucion, historia, estructura, politicaExteriorInterior, frontera, militar, religion, cultura, educacion, tecnologia, territorio, economia, recursosNaturales, otros) VALUES (:nombre, :gentilicio, :capital, :escudo, :id_ruler, :id_owner, :descripcionBreve, :tipo, :lema, :demografia, :fundacion, :disolucion, :historia, :estructura, :politicaExteriorInterior, :frontera, :militar, :religion, :cultura, :educacion, :tecnologia, :territorio, :economia, :recursosNaturales, :otros);";
 		$query=$this->acceso->prepare($sql);
-		$query->execute(array(':nombre'=>$nombre_institucion));
-		$this->objetos=$query->fetchAll();
-		//si ya existe la entrada, no se añade
-		if(!empty($this->objetos)){
-				echo "noadd";
-		}else{
-			$sql="INSERT INTO organizaciones(nombre, gentilicio, capital, escudo, id_ruler, descripcionBreve, id_tipo_organizacion, lema, demografia, fundacion, disolucion, historia, estructura, politicaExteriorInterior, frontera, militar, religion, cultura, educacion, tecnologia, territorio, economia, recursosNaturales, otros) VALUES (:nombre, :gentilicio, :capital, :escudo, :id_ruler, :descripcionBreve, :tipo, :lema, :demografia, :fundacion, :disolucion, :historia, :estructura, :politicaExteriorInterior, :frontera, :militar, :religion, :cultura, :educacion, :tecnologia, :territorio, :economia, :recursosNaturales, :otros);";
-			$query=$this->acceso->prepare($sql);
-			$query->execute(array(':nombre'=>$nombre_institucion, ':gentilicio'=>$gentilicio, ':capital'=>$capital, ':escudo'=>$escudo, ':id_ruler'=>$id_ruler, ':descripcionBreve'=>$descripcion_breve, ':tipo'=>$tipo, ':lema'=>$lema, ':demografia'=>$demografia, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':historia'=>$historia, ':estructura'=>$estructura_organizativa, ':politicaExteriorInterior'=>$politica_interior_exterior, ':frontera'=>$frontera, ':militar'=>$militar, ':religion'=>$religion, ':cultura'=>$cultura, ':educacion'=>$educacion, ':tecnologia'=>$tecnologia, ':territorio'=>$territorio, ':economia'=>$economia, ':recursosNaturales'=>$recursos_naturales, ':otros'=>$otros));
-			echo "add";
-		}
+		$query->execute(array(':nombre'=>$nombre_institucion, ':gentilicio'=>$gentilicio, ':capital'=>$capital, ':escudo'=>$escudo, ':id_ruler'=>$id_ruler, ':id_owner'=>$id_owner, ':descripcionBreve'=>$descripcion_breve, ':tipo'=>$tipo, ':lema'=>$lema, ':demografia'=>$demografia, ':fundacion'=>$fundacion, ':disolucion'=>$disolucion, ':historia'=>$historia, ':estructura'=>$estructura_organizativa, ':politicaExteriorInterior'=>$politica_interior_exterior, ':frontera'=>$frontera, ':militar'=>$militar, ':religion'=>$religion, ':cultura'=>$cultura, ':educacion'=>$educacion, ':tecnologia'=>$tecnologia, ':territorio'=>$territorio, ':economia'=>$economia, ':recursosNaturales'=>$recursos_naturales, ':otros'=>$otros));
 	}
+
+	function lastId(){
+    $sql="SELECT MAX(id_organizacion) as id FROM organizaciones";
+    $query=$this->acceso->prepare($sql);
+    $query->execute();
+    $this->objetos=$query->fetchAll();
+    return $this->objetos;
+  }
 
 	function buscar($tipo){
 		if($tipo==0){
@@ -63,11 +60,6 @@ class Institucion{
 		$sql="DELETE FROM organizaciones WHERE id_organizacion=:id";
 		$query=$this->acceso->prepare($sql);
 		$query->execute(array(':id'=>$id));
-		if(!empty($query->execute(array(':id'=>$id)))){
-				echo 'borrado';
-		}else{
-				echo 'noborrado';
-		}
 	}
 
 	function buscarInstitucion($id){
@@ -81,6 +73,18 @@ class Institucion{
 		$query->execute(array(':id'=>$id));
 		$this->objetos=$query->fetchAll();
 		return $this->objetos;
+	}
+
+	function existeInstitucion($nombre){
+		$sql="SELECT id_organizacion FROM organizaciones WHERE nombre=:nombre";
+		$query=$this->acceso->prepare($sql);
+		$query->execute(array(':nombre'=>$nombre));
+		$this->objetos=$query->fetchAll();
+		if(!empty($this->objetos)){
+			return true;
+		}else{
+			return false;
+		}
 	}
 
 	function editarInstitucion($nombre_institucion, $gentilicio, $capital, $tipo, $fundacion, $disolucion, $lema, $descripcion_breve, $historia, $politica_interior_exterior, $militar, $estructura_organizativa, $territorio, $fronteras, $demografia, $cultura, $religion, $educacion, $tecnologia, $economia, $recursos_naturales, $otros, $id_institucion, $id_ruler, $id_owner){
@@ -103,6 +107,14 @@ class Institucion{
 		$query->execute();
 		$this->objetos=$query->fetchAll();
 		return $this->objetos;
-}
+	}
+
+	function idFechas($id){
+    $sql="SELECT fundacion, disolucion FROM organizaciones WHERE id_organizacion=:id";
+    $query=$this->acceso->prepare($sql);
+    $query->execute(array(':id'=>$id));
+    $this->objetos=$query->fetchAll();
+    return $this->objetos;
+  }
 }
 ?>

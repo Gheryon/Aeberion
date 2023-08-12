@@ -18,9 +18,9 @@ class Conflicto{
     if(!empty($this->objetos)){
       echo "noadd";
     }else{
-      $sql="INSERT INTO conflicto(nombre, id_tipo_conflicto, tipo_localizacion, descripcion, comienzo, finalizacion, preludio, desarrollo, resultado, consecuencias, otros) VALUES (:nombre, :id_tipo_conflicto, :tipo_localizacion, :descripcion, :comienzo, :finalizacion, :preludio, :desarrollo, :resultado, :consecuencias, :otros);";
+      $sql="INSERT INTO conflicto(nombre, id_tipo_conflicto, tipo_localizacion, descripcion, fecha_inicio, fecha_fin, preludio, desarrollo, resultado, consecuencias, otros) VALUES (:nombre, :id_tipo_conflicto, :tipo_localizacion, :descripcion, :fecha_inicio, :fecha_fin, :preludio, :desarrollo, :resultado, :consecuencias, :otros);";
       $query=$this->acceso->prepare($sql);
-      $query->execute(array(':nombre'=>$nombre, ':id_tipo_conflicto'=>$tipo_conflicto, ':tipo_localizacion'=>$tipo_localizacion, ':descripcion'=>$descripcion, ':comienzo'=>$comienzo, ':finalizacion'=>$finalizacion, ':preludio'=>$preludio, ':desarrollo'=>$desarrollo, ':resultado'=>$resultado, ':consecuencias'=>$consecuencias, ':otros'=>$otros));
+      $query->execute(array(':nombre'=>$nombre, ':id_tipo_conflicto'=>$tipo_conflicto, ':tipo_localizacion'=>$tipo_localizacion, ':descripcion'=>$descripcion, ':fecha_inicio'=>$comienzo, ':fecha_fin'=>$finalizacion, ':preludio'=>$preludio, ':desarrollo'=>$desarrollo, ':resultado'=>$resultado, ':consecuencias'=>$consecuencias, ':otros'=>$otros));
       echo "add";
     }
   }
@@ -98,11 +98,14 @@ class Conflicto{
     $sql="DELETE FROM conflicto WHERE id_conflicto=:id";
     $query=$this->acceso->prepare($sql);
     $query->execute(array(':id'=>$id));
-    if(!empty($query->execute(array(':id'=>$id)))){
-        echo 'borrado';
-    }else{
-        echo 'noborrado';
-    }
+  }
+
+  function idFechas($id){
+    $sql="SELECT fecha_inicio, fecha_fin FROM conflicto WHERE id_conflicto=:id";
+    $query=$this->acceso->prepare($sql);
+    $query->execute(array(':id'=>$id));
+    $this->objetos=$query->fetchAll();
+    return $this->objetos;
   }
 
   function buscarConflicto($id){
@@ -114,9 +117,9 @@ class Conflicto{
   }
 
   function editarConflicto($nombre, $tipo_conflicto, $descripcion, $tipo_localizacion, $comienzo, $finalizacion, $preludio, $desarrollo, $resultado, $consecuencias, $otros, $id_conflicto){
-    $sql="UPDATE conflicto SET nombre=:nombre, id_tipo_conflicto=:id_tipo_conflicto, tipo_localizacion=:tipo_localizacion, descripcion=:descripcion, comienzo=:comienzo, finalizacion=:finalizacion, preludio=:preludio, desarrollo=:desarrollo, resultado=:resultado, consecuencias=:consecuencias, otros=:otros WHERE id_conflicto=:id";
+    $sql="UPDATE conflicto SET nombre=:nombre, id_tipo_conflicto=:id_tipo_conflicto, tipo_localizacion=:tipo_localizacion, descripcion=:descripcion, fecha_inicio=:fecha_inicio, fecha_fin=:fecha_fin, preludio=:preludio, desarrollo=:desarrollo, resultado=:resultado, consecuencias=:consecuencias, otros=:otros WHERE id_conflicto=:id";
     $query=$this->acceso->prepare($sql);
-    $query->execute(array(':nombre'=>$nombre, ':id_tipo_conflicto'=>$tipo_conflicto, ':tipo_localizacion'=>$tipo_localizacion, ':descripcion'=>$descripcion, ':comienzo'=>$comienzo, ':finalizacion'=>$finalizacion, ':preludio'=>$preludio, ':desarrollo'=>$desarrollo, ':resultado'=>$resultado, ':consecuencias'=>$consecuencias, ':otros'=>$otros, ':id'=>$id_conflicto));
+    $query->execute(array(':nombre'=>$nombre, ':id_tipo_conflicto'=>$tipo_conflicto, ':tipo_localizacion'=>$tipo_localizacion, ':descripcion'=>$descripcion, ':fecha_inicio'=>$comienzo, ':fecha_fin'=>$finalizacion, ':preludio'=>$preludio, ':desarrollo'=>$desarrollo, ':resultado'=>$resultado, ':consecuencias'=>$consecuencias, ':otros'=>$otros, ':id'=>$id_conflicto));
   }
 }
 ?>

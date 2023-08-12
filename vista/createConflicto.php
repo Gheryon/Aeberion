@@ -45,7 +45,7 @@
 							<a class="btn btn-primary" type="button" id="volver-crear-button" href="conflictos.php" style="display:none">Volver</a>
 						</div>
 					</div>
-          <input id="id_editado" type="hidden" name="id_editado">
+          <input id="id_editado" type="hidden" name="id_editado" value="0">
 					<input id="funcion" type="hidden" name="funcion" value="crear_nuevo_conflicto">
 					<div class="row mt-3 justify-content-md-center border">
 						<div class="col-md-6">
@@ -69,13 +69,53 @@
 								<option>Urbano</option>
 							</select>
 						</div>
-						<div class="form-group col-3">
-							<label for="fecha_inicio" class="form-label mt-2">Fecha de inicio: </label>
-							<input id="fecha_inicio" name="fecha_inicio" type="date" class="form-control" placeholder="Ingrese fecha de inicio">
+						<div class="col mt-2">
+							<label for="fundacion" class="form-label">Comienzo</label>
+							<div class="input-group">
+								<input id="id_fundacion" type="hidden" name="id_fundacion" value="0">
+								<input type="text" id="dfundacion" name="dfundacion" class="form-control" placeholder="Día">
+								<select type="number" id="mfundacion" name="mfundacion" class="form-select">
+									<option selected disabled value="">Mes</option>
+									<option value="0">Semana de año nuevo</option>
+									<option value="1">Enero</option>
+									<option value="2">Febrero</option>
+									<option value="3">Marzo</option>
+									<option value="4">Abril</option>
+									<option value="5">Mayo</option>
+									<option value="6">Junio</option>
+									<option value="7">Julio</option>
+									<option value="8">Agosto</option>
+									<option value="9">Septiembre</option>
+									<option value="10">Octubre</option>
+									<option value="11">Noviembre</option>
+									<option value="12">Diciembre</option>
+								</select>
+								<input type="text" id="afundacion" name="afundacion" class="form-control" placeholder="Año" value="anno">
+							</div>
 						</div>
-						<div class="form-group col-3">
-							<label for="fecha_final" class="form-label mt-2">Fecha de finalización: </label>
-							<input id="fecha_final" name="fecha_final" type="date" class="form-control" placeholder="Ingrese fecha de final">
+						<div class="col mt-2">
+							<label for="disolucion" class="form-label">Finalización</label>
+							<div class="input-group">
+								<input id="id_disolucion" type="hidden" name="id_disolucion" value="0">
+								<input type="text" id="ddisolucion" name="ddisolucion" class="form-control" placeholder="Día">
+								<select type="number" id="mdisolucion" name="mdisolucion" class="form-select" placeholder="Mes">
+									<option selected disabled value="">Mes</option>
+									<option value="0">Semana de año nuevo</option>
+									<option value="1">Enero</option>
+									<option value="2">Febrero</option>
+									<option value="3">Marzo</option>
+									<option value="4">Abril</option>
+									<option value="5">Mayo</option>
+									<option value="6">Junio</option>
+									<option value="7">Julio</option>
+									<option value="8">Agosto</option>
+									<option value="9">Septiembre</option>
+									<option value="10">Octubre</option>
+									<option value="11">Noviembre</option>
+									<option value="12">Diciembre</option>
+								</select>
+								<input type="text" id="adisolucion" name="adisolucion" class="form-control" placeholder="Año" value="anno">
+							</div>
 						</div>
 						<div class="col-md-3">
 							<label for="atacantes" class="form-label mt-2">Atacantes</label>

@@ -24,69 +24,86 @@ $(document).ready(function(){
   });
 
 $('#form-create-institucion').submit(e=>{
-  let formData = new FormData($('#form-create-institucion')[0]);
-  console.log(formData);
-  $.ajax({
-    url:'../controlador/institucionesController.php',
-    type:'POST',
-    data:formData,
-    cache:false,
-    processData:false,
-    contentType:false
-  }).done(function(response){
-    //const json=JSON.parse(response);
-    //console.log(json);
-    if(response=='no-add'){
-      toastr.error('No se pudo añadir la institución.', 'Error');
-    }else{
-      if(response=='add'){
-        toastr.success('Institución añadida.', 'Éxito');
-      }
-      if(response=='editado'){
-        toastr.success('Institución editada.', 'Éxito');
-      }
-      $('#form-create-institucion').trigger('reset');
-      $('#submit-crear-button').hide();
-      $('#cancelar-crear-button').hide();
-      $('#volver-crear-button').show();
-    }
-    editar=false;
-  });
+  let datos=new FormData($('#form-create-institucion')[0]);
+  console.log(datos);
+
+  crear_institucion(datos);
   e.preventDefault();
 });
+async function crear_institucion(datos) {
+  let data = await fetch('../controlador/institucionesController.php', {
+    method: 'POST',
+    body: datos
+  })
+  if (data.ok) {
+    //mejor usar data.text que data.json, pues si hay error, este se añade como cadena de texto a los datos
+    let response = await data.text();
+    try {
+      //se descodifica el json
+      let respuesta = JSON.parse(response);
+      console.log(response);
+      if(respuesta.mensaje=='success'){
+        toastr.success('Institución añadida.', 'Éxito');
+        $('#form-create-institucion').trigger('reset');
+        //$('#especies_select').val('').trigger('change');
+        $('#submit-crear-button').hide();
+        $('#cancelar-crear-button').hide();
+        $('#volver-crear-button').show();
+      }else{
+        if(respuesta.mensaje=='success_edit'){
+          toastr.success('Institución editada.', 'Éxito');
+          $('#form-create-institucion').trigger('reset');
+          //$('#especies_select').val('').trigger('change');
+          $('#submit-crear-button').hide();
+          $('#cancelar-crear-button').hide();
+          $('#volver-crear-button').show();
+        }else{
+          if(respuesta.mensaje=='error'){
+            toastr.error('No se pudo añadir.', 'Error');
+            //$('#especies_select').val('').trigger('change');
+          }else{
+            if(respuesta.mensaje=='error_existencia'){
+              toastr.error('Ya existe la institución, no se puede añadir.', 'Error');
+              //$('#especies_select').val('').trigger('change');
+            }
+          }
+
+        }
+      }
+    } catch (error) {
+      console.error(error);
+      console.log(response);
+      toastr.error('Hubo conflicto en el sistema.', 'Error');
+    }
+  } else {
+    toastr.error('Se ha producido un error: '+data.status, 'Error');
+  }
+}
 
 $(document).on('click', '.borrar-institucion',(e)=>{
-  funcion='borrar_institucion';
   //se quiere acceder al elemento institucionId de la card y guardarlo en elemento, para ello hay que subir 4 veces desde donde está el boton ascender
   const elemento=$(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
   const id=$(elemento).attr('institucionId');
   const nombre=$(elemento).attr('institucionNombre');
   $('#id_borrar').val(id);
   $('#nombre_borrar').html(nombre);
-  $('#funcion').val(funcion);
 });
 
 $('#form-borrar-institucion').submit(e=>{
   let id_institucion=$('#id_borrar').val();
   funcion=$('#funcion').val();
   $.post('../controlador/institucionesController.php', {id_institucion, funcion}, (response)=>{
-    console.log(response);
-    if(response=='borrado'){
-      $('#borrado').hide('slow');
-      $('#borrado').show(1000);
-      $('#borrado').hide(3000);
-      $('#form-borrar-institucion').trigger('reset');
-      $('#borrar-volver-button').show();
-      $('#borrar-button').hide();
-      $('#cancelar-editar-button').hide();
-      $('#texto-borrar').hide('slow');
+    let respuesta = JSON.parse(response);
+    if(respuesta.mensaje=='borrado'){
+      toastr.success('Institución borrada.', 'Éxito');
       buscar_instituciones(tipo);
     }else{
-      $('#no-borrado').hide('slow');
-      $('#no-borrado').show(1000);
-      $('#no-borrado').hide(3000);
-      $('#form-borrar-institucion').trigger('reset');
+      toastr.error('No se pudo borrar la institución.', 'Error');
     }
+    $('#form-borrar-institucion').trigger('reset');
+    $('#borrar-volver-button').show();
+    $('#borrar-button').hide();
+    $('#cancelar-editar-button').hide();
   });
   e.preventDefault();
 });
@@ -174,7 +191,7 @@ function loader(){
 function buscar_institucion_editar(dato) {
   funcion='ver_institucion';
   $.post('../controlador/institucionesController.php', {dato, funcion},(response)=>{
-    //console.log(response);
+    console.log(response);
     const institucion= JSON.parse(response);
     $('#institucion-create-title').html("Editar "+institucion.nombre);
     $('#institucion-create-title-h1').html("Editar "+institucion.nombre);
@@ -184,8 +201,6 @@ function buscar_institucion_editar(dato) {
     $('#tipo_select').val(institucion.id_tipo);
     $('#ruler').val(institucion.id_ruler);
     $('#owner').val(institucion.id_owner);
-    $('#fundacion').val(institucion.fundacion);
-    $('#disolucion').val(institucion.disolucion);
     $('#lema').val(institucion.lema);
     $('#escudo-img').attr('src',institucion.escudo);
     $('#descripcion_breve').summernote('code', institucion.descripcion);
@@ -204,6 +219,16 @@ function buscar_institucion_editar(dato) {
     $('#recursos_naturales').summernote('code', institucion.recursos);
     $('#otros').summernote('code', institucion.otros);
     
+    //fechas
+    $('#id_fundacion').val(institucion.id_fundacion);
+    $('#dfundacion').val(institucion.dia_fundacion);
+    $('#mfundacion').val(institucion.mes_fundacion);
+    $('#afundacion').val(institucion.anno_fundacion);
+    $('#id_disolucion').val(institucion.id_disolucion);
+    $('#ddisolucion').val(institucion.dia_disolucion);
+    $('#mdisolucion').val(institucion.mes_disolucion);
+    $('#adisolucion').val(institucion.anno_disolucion);
+
     $('#id_editado').val(institucion.id);
     $('#funcion').val('editar_institucion');
     $('#id_institucion_cambiar_escudo').val(institucion.id);

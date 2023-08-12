@@ -23,6 +23,7 @@ $('#form-create-conflicto').submit(e=>{
     processData:false,
     contentType:false
   }).done(function(response){
+    console.log(response);
     if(response=='no-add'){
       toastr.error('No se pudo añadir el conflicto.', 'Error');
     }else{
@@ -56,7 +57,8 @@ $('#form-borrar-conflicto').submit(e=>{
   let id_conflicto=$('#id_borrar').val();
   funcion=$('#funcion').val();
   $.post('../controlador/conflictosController.php', {id_conflicto, funcion}, (response)=>{
-    if(response=='borrado'){
+    let respuesta = JSON.parse(response);
+    if(respuesta.mensaje=='borrado'){
       toastr.success('Conflicto borrado.', 'Éxito');
       buscar_conflictos();
     }else{
@@ -128,9 +130,19 @@ function buscar_conflicto_editar(dato) {
     $('#resultado').summernote('code', conflicto.resultado);
     $('#consecuencias').summernote('code', conflicto.consecuencias);
     $('#otros').summernote('code', conflicto.otros);
+
+    //fechas
+    $('#id_fundacion').val(conflicto.id_inicio);
+    $('#dfundacion').val(conflicto.dia_inicio);
+    $('#mfundacion').val(conflicto.mes_inicio);
+    $('#afundacion').val(conflicto.anno_inicio);
+    $('#id_disolucion').val(conflicto.id_fin);
+    $('#ddisolucion').val(conflicto.dia_fin);
+    $('#mdisolucion').val(conflicto.mes_fin);
+    $('#adisolucion').val(conflicto.anno_fin);
     
     $('#id_editado').val(id);
-    $('#funcion').val('editar_conflicto');
+    //$('#funcion').val('editar_conflicto');
     funcion='get_beligerantes';
     $.post('../controlador/conflictosController.php', {dato, funcion, id},(response)=>{
       let beligerantes=JSON.parse(response);

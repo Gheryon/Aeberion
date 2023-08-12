@@ -1,8 +1,6 @@
 <?php
 include_once 'conexionDB.php';
-//cada vez que se instancia una variable Personaje, se hace conexion pdo automaticamente a la base de datos
-class Personaje
-{
+class Personaje{
 	var $objetos;
 	public function __construct()
 	{
@@ -10,22 +8,27 @@ class Personaje
 		$this->acceso = $db->pdo;
 	}
 
-	function nuevoPersonaje($nombre, $apellidos, $nombrefamilia, $gentilicio, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $educacion, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo, $otros)	{
-		//se busca si ya existe el personaje
-		$sql = "SELECT id FROM personaje WHERE Nombre=:nombre AND Apellidos=:apellidos";
+	function nuevoPersonaje($nombre, $apellidos, $nombrefamilia, $gentilicio, $fecha_nacimiento, $fecha_fallecimiento, $causa_fallecimiento, $descripcion, $descripcionShort, $personalidad, $deseos, $miedo, $magia, $educacion, $historia, $religion, $familia, $politica, $retrato, $especie, $sexo, $otros)	{
+		$sql = "INSERT INTO personaje(Nombre, Apellidos, nombreFamilia, lugar_nacimiento, nacimiento, fallecimiento, causa_fallecimiento, Descripcion, DescripcionShort, Personalidad, Deseos, Miedos, Magia, educacion, Historia, Religion, Familia, Politica, Retrato, id_foranea_especie, Sexo, otros) VALUES (:nombre, :apellidos, :nombrefamilia, :lugar_nacimiento, :nacimiento, :fallecimiento, :causa_fallecimiento, :descripcion, :descripcionshort, :personalidad, :deseos, :miedos, :magia, :educacion, :historia, :religion, :familia, :politica, :retrato, :id_foranea_especie, :sexo, :otros);";
 		$query = $this->acceso->prepare($sql);
-		$query->execute(array(':nombre' => $nombre, ':apellidos' => $apellidos));
-		$this->objetos = $query->fetchAll();
-		//si ya existe el personaje, no se añade el usuario
-		if (!empty($this->objetos)) {
-			echo "noadd";
-		} else {
-			$sql = "INSERT INTO personaje(Nombre, Apellidos, nombreFamilia, Descripcion, DescripcionShort, Personalidad, Deseos, Miedos, Magia, educacion, Historia, Religion, Familia, Politica, Retrato, id_foranea_especie, Sexo, otros) VALUES (:nombre, :apellidos, :nombrefamilia, :descripcion, :descripcionshort, :personalidad, :deseos, :miedos, :magia, :educacion, :historia, :religion, :familia, :politica, :retrato, :id_foranea_especie, :sexo, :otros);";
-			$query = $this->acceso->prepare($sql);
-			$query->execute(array(':nombre' => $nombre, ':apellidos' => $apellidos, ':nombrefamilia' => $nombrefamilia, ':descripcion' => $descripcion, ':descripcionshort' => $descripcionShort, ':personalidad' => $personalidad, ':deseos' => $deseos, ':miedos' => $miedo, ':magia' => $magia, ':educacion' => $educacion, ':historia' => $historia, ':religion' => $religion, ':familia' => $familia, ':politica' => $politica, ':retrato' => $retrato, ':id_foranea_especie' => $especie, ':sexo' => $sexo, ':otros' => $otros));
-			echo "add";
-		}
+		$query->execute(array(':nombre' => $nombre, ':apellidos' => $apellidos, ':nombrefamilia' => $nombrefamilia, ':lugar_nacimiento' => $gentilicio, ':nacimiento' => $fecha_nacimiento, ':fallecimiento' => $fecha_fallecimiento, ':causa_fallecimiento' => $causa_fallecimiento, ':descripcion' => $descripcion, ':descripcionshort' => $descripcionShort, ':personalidad' => $personalidad, ':deseos' => $deseos, ':miedos' => $miedo, ':magia' => $magia, ':educacion' => $educacion, ':historia' => $historia, ':religion' => $religion, ':familia' => $familia, ':politica' => $politica, ':retrato' => $retrato, ':id_foranea_especie' => $especie, ':sexo' => $sexo, ':otros' => $otros));
 	}
+
+	function lastId(){
+    $sql="SELECT MAX(id) as id FROM personaje";
+    $query=$this->acceso->prepare($sql);
+    $query->execute();
+    $this->objetos=$query->fetchAll();
+    return $this->objetos;
+  }
+
+	function idFechas($id){
+    $sql="SELECT nacimiento, fallecimiento FROM personaje WHERE id=:id";
+    $query=$this->acceso->prepare($sql);
+    $query->execute(array(':id'=>$id));
+    $this->objetos=$query->fetchAll();
+    return $this->objetos;
+  }
 
 	function buscar()	{
 		//se ha introducido algún caracter a buscar, se devuelven los usuarios que encagen con la consulta
@@ -63,11 +66,6 @@ class Personaje
 		$sql = "DELETE FROM personaje WHERE id=:id";
 		$query = $this->acceso->prepare($sql);
 		$query->execute(array(':id' => $id));
-		if (!empty($query->execute(array(':id' => $id)))) {
-			echo 'borrado';
-		} else {
-			echo 'noborrado';
-		}
 	}
 
 	function obtener_personaje($id)	{
@@ -78,23 +76,17 @@ class Personaje
 		return $this->objetos;
 	}
 
-	function editar($id_personaje, $nombre, $apellidos, $nombre_familia, $gentilicio, $descripcion, $descripcionshort, $personalidad, $deseos, $miedos, $magia, $educacion, $historia, $religion, $familia, $politica, $especie, $sexo, $otros)	{
-		$sql = "UPDATE personaje SET Nombre=:nombre, nombreFamilia=:nombrefam, Apellidos=:apellidos, Descripcion=:descripcion, DescripcionShort=:descripcionshort, Personalidad=:personalidad, Deseos=:deseos, Miedos=:miedos, Magia=:magia, educacion=:educacion, Historia=:historia, Religion=:religion, Familia=:familia, Politica=:politica, id_foranea_especie=:id_foranea_especie, Sexo=:sexo, otros=:otros WHERE id=:id_personaje";
+	function editar($id_personaje, $nombre, $apellidos, $nombre_familia, $gentilicio, $fecha_nacimiento, $fecha_fallecimiento, $causa_fallecimiento, $descripcion, $descripcionshort, $personalidad, $deseos, $miedos, $magia, $educacion, $historia, $religion, $familia, $politica, $especie, $sexo, $otros)	{
+		$sql = "UPDATE personaje SET Nombre=:nombre, nombreFamilia=:nombrefam, Apellidos=:apellidos, lugar_nacimiento=:lugar_nacimiento, nacimiento=:nacimiento, fallecimiento=:fallecimiento, causa_fallecimiento=:causa_fallecimiento, Descripcion=:descripcion, DescripcionShort=:descripcionshort, Personalidad=:personalidad, Deseos=:deseos, Miedos=:miedos, Magia=:magia, educacion=:educacion, Historia=:historia, Religion=:religion, Familia=:familia, Politica=:politica, id_foranea_especie=:id_foranea_especie, Sexo=:sexo, otros=:otros WHERE id=:id_personaje";
 		$query = $this->acceso->prepare($sql);
-		$query->execute(array(':nombre' => $nombre, 'nombrefam' => $nombre_familia, ':apellidos' => $apellidos, ':descripcion' => $descripcion, ':descripcionshort' => $descripcionshort, ':personalidad' => $personalidad, ':deseos' => $deseos, ':miedos' => $miedos, ':magia' => $magia, ':educacion' => $educacion, ':historia' => $historia, ':religion' => $religion, ':familia' => $familia, ':politica' => $politica, ':id_foranea_especie' => $especie, ':sexo' => $sexo, ':otros' => $otros, ':id_personaje' => $id_personaje));
+		$query->execute(array(':nombre' => $nombre, 'nombrefam' => $nombre_familia, ':apellidos' => $apellidos, ':lugar_nacimiento' => $gentilicio, ':nacimiento' => $fecha_nacimiento, ':fallecimiento' => $fecha_fallecimiento, ':causa_fallecimiento' => $causa_fallecimiento, ':descripcion' => $descripcion, ':descripcionshort' => $descripcionshort, ':personalidad' => $personalidad, ':deseos' => $deseos, ':miedos' => $miedos, ':magia' => $magia, ':educacion' => $educacion, ':historia' => $historia, ':religion' => $religion, ':familia' => $familia, ':politica' => $politica, ':id_foranea_especie' => $especie, ':sexo' => $sexo, ':otros' => $otros, ':id_personaje' => $id_personaje));
 	}
 
-	function cambiar_retrato($id_personaje, $nombre)	{
-		//primero se consulta si la contraseña actual es correcta
+	function retrado_old($id){
 		$sql = "SELECT retrato FROM personaje WHERE id=:id";
 		$query = $this->acceso->prepare($sql);
-		$query->execute(array(':id' => $id_personaje));
+		$query->execute(array(':id' => $id));
 		$this->objetos = $query->fetchAll();
-
-		$sql = "UPDATE personaje SET Retrato=:nombre WHERE id=:id";
-		$query = $this->acceso->prepare($sql);
-		$query->execute(array(':id' => $id_personaje, ':nombre' => $nombre));
-
 		return $this->objetos;
 	}
 }

@@ -66,31 +66,73 @@ if(isset($_POST['id'])){?>
 							</div>
 						</div>
 						<div class="row mt-2 mb-2">
-							<div class="col col-sm-6 mt-2">
+							<div class="col col-sm-4 mt-2">
 								<label for="tipo" class="form-label">Tipo</label>
-								<select class="form-select" name="tipo_select" id="tipo_select">
+								<select class="form-select" name="tipo_select" id="tipo_select" required>
 									<option selected disabled value="">Elegir</option>
 								</select>
 							</div>
-							<div class="col col-sm-6 mt-2">
+							<div class="col col-sm-4 mt-2">
 								<label for="ruler" class="form-label">Actual soberano</label>
 								<select class="form-select" name="ruler" id="ruler">
 									<option selected disabled value="">Elegir</option>
 								</select>
 							</div>
-							<div class="col col-sm-6 mt-2">
+							<div class="col col-sm-4 mt-2">
 								<label for="owner" class="form-label">Controlado por:</label>
 								<select class="form-select" name="owner" id="owner">
 									<option selected disabled value="">Elegir</option>
 								</select>
 							</div>
-							<div class="col col-sm-6 mt-2">
-								<label for="fundacion" class="form-label">Fundación</label>
-								<input type="text" name="fundacion" class="form-control" id="fundacion" placeholder="Fundación">
-							</div>
-							<div class="col col-sm-6 mt-2">
-								<label for="disolucion" class="form-label">Disolución</label>
-								<input type="text" name="disolucion" class="form-control" id="disolucion" placeholder="Disolución">
+							<div class="row mt-2">
+								<div class="col-md-4">
+									<label for="fundacion" class="form-label">Fundación</label>
+									<div class="input-group">
+										<input id="id_fundacion" type="hidden" name="id_fundacion" value="0">
+										<input type="text" id="dfundacion" name="dfundacion" class="form-control" placeholder="Día">
+										<select type="number" id="mfundacion" name="mfundacion" class="form-select">
+											<option selected disabled value="">Mes</option>
+											<option value="0">Semana de año nuevo</option>
+											<option value="1">Enero</option>
+											<option value="2">Febrero</option>
+											<option value="3">Marzo</option>
+											<option value="4">Abril</option>
+											<option value="5">Mayo</option>
+											<option value="6">Junio</option>
+											<option value="7">Julio</option>
+											<option value="8">Agosto</option>
+											<option value="9">Septiembre</option>
+											<option value="10">Octubre</option>
+											<option value="11">Noviembre</option>
+											<option value="12">Diciembre</option>
+										</select>
+										<input type="text" id="afundacion" name="afundacion" class="form-control" placeholder="Año">
+									</div>
+								</div>
+								<div class="col-md-4">
+									<label for="disolucion" class="form-label">Disolución</label>
+									<div class="input-group">
+									<input id="id_disolucion" type="hidden" name="id_disolucion" value="0">
+									<input type="text" id="ddisolucion" name="ddisolucion" class="form-control" placeholder="Día">
+									<select type="number" id="mdisolucion" name="mdisolucion" class="form-select" placeholder="Mes">
+										<option selected disabled value="">Mes</option>
+										<option value="0">Semana de año nuevo</option>
+										<option value="1">Enero</option>
+										<option value="2">Febrero</option>
+										<option value="3">Marzo</option>
+										<option value="4">Abril</option>
+										<option value="5">Mayo</option>
+										<option value="6">Junio</option>
+										<option value="7">Julio</option>
+										<option value="8">Agosto</option>
+										<option value="9">Septiembre</option>
+										<option value="10">Octubre</option>
+										<option value="11">Noviembre</option>
+										<option value="12">Diciembre</option>
+									</select>
+									<input type="text" id="adisolucion" name="adisolucion" class="form-control" placeholder="Año">
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="row mt-2 mb-2">
