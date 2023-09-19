@@ -43,14 +43,8 @@ if(isset($_POST['id'])){?>
         <div class="row">
           <div class="col-md-12">
             <div class="card card-outline">
-              <div class="alert alert-success text-center" id='add-cronica' style='display:none'>
-                <span><i class="fas fa-check m-1"></i>Crónica añadida</span>
-              </div>
               <div class="alert alert-danger text-center" id='noadd-cronica' style='display:none'>
                   <span><i class="fas fa-times m-1"></i>No se pudo añadir, ya existe la crónica</span>
-              </div>
-              <div class="alert alert-success text-center" id='edit-cronica' style='display:none'>
-                  <span><i class="fas fa-check m-1"></i>Crónica editada</span>
               </div>
                 <div class="card-header">
                   <div class="mb-2">
@@ -85,7 +79,31 @@ if(isset($_POST['id'])){?>
   $(function () {
     // Summernote
     $('.summernote').summernote({
-      height: 300
+      height: 300,
+      callbacks: {
+        onImageUpload: function(files) {
+          sendFile(files[0]);
+        }
+      }
     })
-  })
+
+    function sendFile(file) {
+      data = new FormData();
+      data.append("file", file);
+      $.ajax({
+        data: data,
+        type: "POST",
+        url: "../controlador/imagenesController.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(url) {
+          $('.summernote').summernote("insertImage", url, 'filename');
+        },
+        error: function(data) {
+          console.log(data);
+        }
+      });
+    }
+  });
 </script>

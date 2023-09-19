@@ -4,7 +4,7 @@
 <!-- summernote -->
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_articulos()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -23,12 +23,6 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id='confirmado' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Artículo eliminado</span>
-          </div>
-          <div class="alert alert-danger text-center" id='rechazado' style='display:none'>
-              <span><i class="fas fa-times m-1"></i>Artículo rechazada</span>
-          </div>
           <form id="form-borrar-articulo" class=" text-center">
             <div class="input-group mb-3">
                 <div class="input-grup-prepend">
@@ -59,15 +53,6 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id='add-articulo' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Artículo añadido</span>
-          </div>
-          <div class="alert alert-danger text-center" id='noadd-articulo' style='display:none'>
-              <span><i class="fas fa-times m-1"></i>El artículo ya existe en el sistema</span>
-          </div>
-          <div class="alert alert-success text-center" id='edit-articulo' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Artículo editado</span>
-          </div>
           <form id="form-crear-articulo">
             <div class="form-group">
               <div class="row">

@@ -126,7 +126,7 @@ function buscar_personaje_editar(dato) {
     $('#apellidos').val(personaje.apellidos);
     $('#causa_fallecimiento').val(personaje.causa_fallecimiento);
     $('#descripcion').summernote('code', personaje.descripcion);
-    $('#descripcionShort').summernote('code', personaje.descripcionshort);
+    $('#DescripcionShort').summernote('code', personaje.descripcionshort);
     $('#personalidad').summernote('code', personaje.personalidad);
     $('#miedos').summernote('code', personaje.miedos);
     $('#deseos').summernote('code', personaje.deseos);

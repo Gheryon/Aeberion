@@ -101,14 +101,6 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon far fa-calendar-alt"></i>
-            <p>
-              Calendario
-            </p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="timeline.php" class="nav-link">
             <i class="nav-icon fas fa-columns"></i>
             <p>
@@ -134,15 +126,15 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="config_panel.php" class="nav-link">
-            <i class="nav-icon fa-solid fa-gear"></i>
-            <p>Opciones</p>
-          </a>
-        </li>
-        <li class="nav-item">
           <a href="enlaces.php" class="nav-link">
             <i class="nav-icon fas fa-file"></i>
             <p>Enlaces</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="config_panel.php" class="nav-link">
+            <i class="nav-icon fa-solid fa-gear"></i>
+            <p>Opciones</p>
           </a>
         </li>
       </ul>

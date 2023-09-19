@@ -1,11 +1,10 @@
 <?php include_once 'layouts/header.php';?>
-<input id="id_cronica_detalles" type="hidden" value="<?php echo $_GET['id_cronica']?>">
 
 <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">-->
 <link rel="stylesheet" href="../css/style.css"/>
 <title id="cronica-title">Crónica</title>
 </head>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_cronica_detalles(<?php echo $_GET['id_cronica']?>)">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 

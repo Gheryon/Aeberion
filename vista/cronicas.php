@@ -4,7 +4,7 @@
   <title>Crónicas</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_articulos(1)">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -23,12 +23,6 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id='confirmado' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Crónica eliminado</span>
-          </div>
-          <div class="alert alert-danger text-center" id='rechazado' style='display:none'>
-              <span><i class="fas fa-times m-1"></i>Error al eliminar crónica.</span>
-          </div>
           <form id="form-borrar-articulo" class=" text-center">
             <div class="input-group mb-3">
                 <div class="input-grup-prepend">
@@ -65,25 +59,6 @@
     <section class="content">
     <div class="container-fluid">
       <div class="card card-dark">
-        <div class="card-header">
-          <div class="row ">
-            <div class="col">
-          		<h3 class="card-title">Buscar crónicas</h3>
-              <div class="input-group">
-								<input type="text" id="buscar-articulo" placeholder="Título"class="form-control float-left">
-								<div class="input-group-append">
-									<button class="btn btn-default">
-										<i class="fas fa-search"></i>
-									</button>
-								</div>
-              </div>
-            </div>
-            <div class="col-1 align-self-end">
-              <a type="button" class="btn btn-dark" href="createCronica.php">Nueva</a>
-            </div>
-          </div>
-          
-        </div>
         <div class="card-body p-0 table-responsive">
           <table class="table table-hover text-nowrap">
             <thread class="table-success">

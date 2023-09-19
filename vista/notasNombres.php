@@ -5,13 +5,49 @@
   <title>Lista de nombres</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
   include_once 'layouts/navbar.php';
   include_once 'layouts/menu.php';
 ?>
+
+<!-- Modal -->
+<div class="modal fade" id="add-names" data-backdrop="static" tabindex="-1" aria-labelledby="add-names" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title" id="add-namesModalLabel">Añadir nombre</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form-add-names">
+        <div class="modal-body">
+          <label for="nombre">Nombre</label>
+          <input id="nombre" name="nombre" type="text" class="form-control" required>
+          <label for="tipo">Tipo</label>
+          <select class="form-select" name="tipo" id="tipo" required>
+            <option value="nombres_m">Hombre</option>
+            <option value="nombres_f">Mujer</option>
+            <option value="nombres_l">Lugar</option>
+            <option value="nombres_s">Sin decidir</option>
+            <option value="nombres_o">Otros</option>
+            <option value="nombres_t">Torres</option>
+            <option value="lemas">Lemas</option>
+          </select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" id="add-names-submit" class="btn btn-primary">Añadir</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -37,19 +73,19 @@
         </div>
         <div class="row justify-content-center">
           <div class="col mb-2 mr-2 ml-2">
-            <div class="row fondoTitulo fw-bolder">Hombres</div>
-            <div class="row">Acamante, Adalberón, Adegón, Adrael, Ágonad, Alaron, Aldoril, Aliaudo, Alíaron, Amónanon, Ancíoro, Anganamón, Angítaro, Anjiro, Anteo, Aquireno, Ardon, Ariovico, Asaro, Aspar, Audovar, Auldar, Baran, Belhar, Belisario, Beltrán, Beltzar, Benisando, Berenal, Bernán, Calasio, Calisto, Daiosan, Dandelion, Daron, Dejaniro, Dusio, Edred, Egerio, Elmiro, Erendiro, Eurico, Eutaco, Evilasio, Evodio, Ezarel, Ezario, Falathuldr, Faltzur, Farsario, Felonán, Garadul, Gheryon, Gheyron, Glatian, Gradilva, Honán, Honorio, Isilmo, Jaris, Jiledín, Julon, Jumonildo, Ladil, Lajhurit, Lerion, Lirando, Mancíalo, Mandolion, Menteo, Nemoroso, Nicanor, Nirio, Nirono, Olfiro, Olmeo, Pármeno, Pelantaro, Pelton, Pentaúl, Perion, Peteleo, Prosaro, Pythion, Renaíldo, Rindoril, Ruanarion, Rurio, Sadeil, Sandarion, Sarisio, Sederón, Sempronio, Senon, Silagico, Sutaro, Tailún, Taldeo, Teyron, Ulindor, Valniro, Valtario, Velaron, Veríaco, Vermelio, Yadiro, Zewion, Hermanos Zural Zular</div>
+            <div class="row fw-bolder">Hombres</div>
+            <div class="row" id="nombres_m"></div>
           </div>
           <div class="col mb-2 mr-2 ml-2">
-            <div class="row fondoTitulo fw-bolder">Mujeres</div>
-            <div class="row">Acaedra, Adaiz, Alarel, Alcides, Aldonza, Alhyena, Alólena, Alvana, Amariel, Amarilis, Anare, Aníabe, Anila, Anjira, Aquirena, Arica, Ariché, Ashara, Aurdia, Azaran, Azadé, Bedileta, Berenguela, Calasia, Canaudis, Caralian, Caura, Celimar, Cixilo, Clondia, Darunia, Dejanira, Dilara, Dorona, Edana, Edrel, Egeria, Eitania, Elara, Elanal, Eliana, Elinar, Elmira, Elethania, Elexia, Endialan, Eramis, Erendira, Esmeralda, Eréndira, Eteluina, Evian, Evilasia, Ezaral, Himilce, Ibala, Idranel, Ihorel, Ileana, Indara, Irién, Isana, Isilma, Isona, Jerina, Jiledina, Jinara, Lantea, Leéna, Leidora, Liranda, Lurónaca, Melibea, Mencía, Meniadona, Míaca, Milara, Miredia, Nabala, Niria, Nivara, Olfira, Oreliana, Otiquena, Pandosia, Petelea, Petronila, Pinara, Protusea, Quilnara, Renaílda, Saareen, Sanara, Sanavi, Sarisia, Sevelinda, Shantal, Siobán, Sorialda, Sunilda, Tayeria, Turima, Uliade, Valnira, Varina, Velana, Veríaca, Vorzsheva, Yadira</div>
+            <div class="row fw-bolder">Mujeres</div>
+            <div class="row" id="nombres_f"></div>
           </div>
           <div class="col mb-2 mr-2 ml-2">
-            <div class="row fondoTitulo fw-bolder">Lugares</div>
-            <div class="row"> Agoron, Agrinion, Aquelion, Aralar, Aridán, Betulia, Bilara, Folerno, Gadara, Gotara, Gozaria, Joya de Catán, Reino de Domsoncad, Telmurión, Morandil, Noviercas, Oleron, Omeñaca, *Onneca, Tadalia, Neustria, Monte Yill, mar de arsis, Landorion, Dimaria, Nabadasia, Pleshyza, Uctael, Reino de Sunium Dum, Zeduán</div>
+            <div class="row fw-bolder">Lugares</div>
+            <div class="row" id="nombres_l"></div>
           </div>
           <div class="col mb-2 mr-2 ml-2">
-            <div class="row fondoTitulo fw-bolder">Torres de magia (13)</div>
+            <div class="row fw-bolder">Torres de magia (13)</div>
             <div class="row">1-Torre Rosa o de Filesel</div>
             <div class="row">2-Torre de Ezasior.</div>
             <div class="row">3-Torre de Ejarune.</div>
@@ -67,48 +103,16 @@
         </div>
         <div class="row">
           <div class="col mb-2 mr-2 ml-2">
-            <div class="row fondoTitulo fw-bolder">Sin decidir</div>
-            <div class="row">Acrospar, Aharion, Aldryth, Algenion, Alhofen, Andévalo, Alodo, Amarigesa, Andoreova, Andorin, Anglería, Antusa, Arian, Arivor, Aterlan, Aurarmel, Ayeron, Azuairo, Azura, Benanze, Cendrillion, Cleotardo, Delancia, Duada, Eluan, Esdrelón, Euderion, Eudibane, Garada, Gasada, Glairen fuyl, Idarro, Jhasarhyas, Lyjoni, Tel Hazor, Tolwell, Rihot, Meliccis, Ryanne, Jazia, Daz eltghur, Iskar, Liusaidh, Cenaísin, Anaguil, Faladhell, Lorithon, Sharania, Incanan, Notalión, Sinoel, Oramas, Penilval, Nergala, Espisas, Astarion, Nedar, Driatera, Iurifea, Itira, Sedoragania, talagurio, serila, Sabriel, Vlorien</div>
+            <div class="row fw-bolder">Sin decidir</div>
+            <div class="row" id="nombres_s"></div>
           </div>
           <div class="col mb-2 mr-2 ml-2">
-            <div class="row fondoTitulo fw-bolder">Otros</div>
-            <div class="row">escritoras rivales: Garalís Goró - Franariel Queril</div>
-            <div class="row">gundemaro-hilduara</div>
-            <div class="row">Turboletas, Pelendones, Gigurros</div>
-            <div class="row">Festividades/festivales: festival de la música, festival de las hadas</div>
-            <div class="row">Alásea, Bosques de Naburna, Imperio Querel</div>
-            <div class="row">Órdenes de caballería/dragones: caballeros de ni(monthy python)</div>
-          </div>
-          <div class="col mb-2 mr-2 ml-2">
-            <div class="row fondoTitulo fw-bolder">Cantones</div>
-            <div class="row">Nombres Cantones: Álase, Almagro, Aranda, Araníbar, Berruguete, Ciralba, Escohotado, Espinorea, Goya, Murillo, Pizarro, Rojo, Serueda, Zardoya, Zurbarán</div>
-            <div class="row">Nombres familias Cantones: Espinorea, Zardoya, Almagro, Aranda, Pizarro, Serueda, Araníbar, Álase</div>
+            <div class="row fw-bolder">Otros</div>
+            <div class="row" id="nombres_o"></div>
           </div>
           <div class="col">
             <div class="row fondoTitulo fw-bolder">Ideas lemas</div>
-            <div class="row">Fidelity, Loyalty, Family</div>
-            <div class="row">Homeland, Harmony, Fidelity</div>
-            <div class="row">Nature, Courage, Clarity</div>
-            <div class="row">Righteousness, Labor, Art</div>
-            <div class="row">Modesty, Creativity, Struggle</div>
-            <div class="row">Authority, Feminity, Integrity</div>
-            <div class="row">Harmony, Feminity, Destiny</div>
-            <div class="row">Nature, Motherland, Law</div>
-            <div class="row">Magic, Piety, Reason</div>
-            <div class="row">Passion, Fire, Loyalty</div>
-            <div class="row">Monarchy, Sacrament, Integrity</div>
-            <div class="row">Pride, Magnificence, Obediance</div>
-            <div class="row">Modesty, Work, Heroism</div>
-            <div class="row">Tranquility and Perseverance</div>
-            <div class="row">Sacrament, Spirit, Destiny</div>
-            <div class="row">Beauty, Truth, Art</div>
-            <div class="row">Liberty, Brotherhood, Country-->libertad dentro de la hermandad, hermandad dentro del estado/pais</div>
-            <div class="row">Fidelity, Sisterhood, Ritual</div>
-            <div class="row">Inspiration, Learning, Light</div>
-            <div class="row">Weatlh, Splendor, Righteousness-->riqueza, esplendor, honradez</div>
-            <div class="row">Riqueza a través del trabajo</div>
-            <div class="row">Family, Art, Splendor</div>
-            <div class="row">Beauty, Wisdom, Magic</div>
+            <div class="row" id="lemas"></div>
           </div>
         </div>
       </div>
@@ -118,3 +122,5 @@
   <!-- /.content-wrapper -->
  
   <?php include_once "layouts/footer.php";?>
+
+  <script src="../js/nombres.js"></script>
