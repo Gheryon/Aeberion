@@ -1,10 +1,5 @@
 $(document).ready(function(){
   var funcion='';
-  var id_especie = $('#id_especie').val();
-  if(id_especie!=undefined){
-    //console.log("no id-especie");
-    ver_especie(id_especie);
-  }
 
   $('#form-create-especie').submit(e=>{
     let nombre= $('#nombre').val();
@@ -24,16 +19,16 @@ $(document).ready(function(){
     funcion='crear_nueva_especie';
     $.post('../controlador/especiesController.php',{nombre, edad, peso, altura, longitud, estatus, anatomia, alimentacion, reproduccion, distribucion, habilidades, domesticacion, explotacion, otros, funcion},(response)=>{
       if(response=='add'){
-        $('#add').hide('slow');
-        $('#add').show(1000);
-        $('#add').hide(3000);
+        toastr.success('Especie añadida.', 'Éxito');
         $('#form-create-especie').trigger('reset');
       }else{
-        $('#no-add').hide('slow');
-        $('#no-add').show(1000);
-        $('#no-add').hide(3000);
+        toastr.error('No se pudo añadir.', 'Error');
         $('#form-create-especie').trigger('reset');
       }
+      $('#form-crear-especie').trigger('reset');
+      $('#submit-crear-button').hide();
+      $('#cancelar-crear-button').hide();
+      $('#volver-crear-button').show();
     });
     //para prevenir la actualización por defecto de la página
     e.preventDefault();
@@ -45,19 +40,15 @@ $(document).ready(function(){
     $.post('../controlador/especiesController.php',{id, funcion},(response)=>{
       console.log(response);
       if(response=='borrado'){
-        $('#deleted').hide('slow');
-        $('#deleted').show(1000);
+        toastr.success('Especie eliminada.', 'Éxito');
         $('#borrar-volver-button').show();
         $('#borrar-button').hide();
         $('#cancelar-borrar-button').hide();
-        $('#texto-borrar').hide('slow');
       }else{
-        $('#no-deleted').hide('slow');
-        $('#no-deleted').show(1000);
+        toastr.error('No se pudo eliminar.', 'Error');
         $('#borrar-volver-button').show();
         $('#borrar-button').hide();
         $('#cancelar-borrar-button').hide();
-        $('#texto-borrar').hide('slow');
       }
     });
     e.preventDefault();
@@ -81,7 +72,6 @@ $(document).ready(function(){
 			let response = await data.text();
 			try {
 				//se descodifica el json
-        console.log(response);
 				let respuesta = JSON.parse(response);
 				if(respuesta.mensaje=='success'){
           toastr.success('Especie editada.', 'Éxito');
@@ -98,6 +88,11 @@ $(document).ready(function(){
 		} else {
       toastr.error('Se produjo un error.'+data.status, 'Error');
 		}
+    $('#form-editar-especie').trigger('reset');
+    $('#submit-editar-button').hide();
+    $('#cancelar-editar-button').hide();
+    $('#borrar-editar-button').hide();
+    $('#volver-editar-button').show();
 	}
 })
 

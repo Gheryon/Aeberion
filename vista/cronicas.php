@@ -4,7 +4,7 @@
   <title>Crónicas</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_articulos(1)">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader(1)">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 

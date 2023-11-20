@@ -24,12 +24,6 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id='borrado' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Evento eliminado</span>
-          </div>
-          <div class="alert alert-danger text-center" id='no-borrado' style='display:none'>
-              <span><i class="fas fa-times m-1"></i>No se pudo eliminar</span>
-          </div>
           <div class="row">
             <div id="texto-borrar" class="row d-flex align-items-stretch">
 
@@ -61,15 +55,6 @@
           </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id='add' style='display:none'>
-              <span><i class="fas fa-check m-1"></i>Evento añadido con éxito</span>
-          </div>
-          <div class="alert alert-danger text-center" id='no-add' style='display:none'>
-              <span><i class="fas fa-times m-1"></i>No se pudo añadir el evento.</span>
-          </div>
-          <div class="alert alert-success text-center" id='edit' style='display:none'>
-              <span><i class="fas fa-times m-1"></i>Evento editado con éxito.</span>
-          </div>
           <form id="form-evento" class="col-md-auto" >
             <input type="hidden" name="id_editar" id="id_editar">
             <div class="row">

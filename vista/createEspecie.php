@@ -31,17 +31,12 @@
     <section class="content">
 			<div class="container">
 				<div class="span10 offset1">
-					<div class="alert alert-success text-center" id='add' style='display:none'>
-							<span><i class="fas fa-check m-1"></i>Especie añadida</span>
-					</div>
-					<div class="alert alert-danger text-center" id='no-add' style='display:none'>
-							<span><i class="fas fa-times m-1"></i>No se pudo añadir la especie</span>
-					</div>
 					<form id="form-create-especie" class="row g-3 mt-3 position-relative needs-validation" action="createEspecie.php" method="post" enctype="multipart/form-data">
 					<div class="row justify-content-md-center">
 						<div class="col-md-auto form-actions">
-							<button type="submit" class="btn btn-success">Añadir</button>
-							<a class="btn btn-danger" href="../index.php">Cancelar</a>
+							<button type="submit" id="submit-crear-button" class="btn btn-success">Añadir</button>
+							<a class="btn btn-danger" id="cancelar-crear-button" href="../index.php">Cancelar</a>
+							<a class="btn btn-primary" id="volver-crear-button" href="../index.php" style='display:none'>Volver</a>
 						</div>
 					</div>
 					<div class="row mt-3 justify-content-md-center border">

@@ -32,6 +32,10 @@ img{
 	padding: 0px 0px;
 }
 
+.nombre-t:hover{	
+	color:#900b0b;
+}
+
 header{
 	padding: 20px;
 	background-color: darkgray;
@@ -54,14 +58,6 @@ a{
 a:hover{
   color: #591717;
   text-decoration: none;
-}
-
-.margenPersonajes{
-	background-color: gray;
-}
-
-.centroPersonajes{
-	background-color: rgb(238, 229, 181);
 }
 
 aside{
@@ -101,7 +97,6 @@ aside{
 /*====================================*/
 section{
 	flex: 70%;
-	background-color: khaki;
 	padding: 10px;
 }
 @media screen and (max-width: 700px){

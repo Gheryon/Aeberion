@@ -27,12 +27,6 @@
 					</button>
 				</div>
 				<div class="card-body">
-					<div class="alert alert-success text-center" id='deleted' style='display:none'>
-						<span><i class="fas fa-check m-1"></i>Especie eliminada</span>
-					</div>
-					<div class="alert alert-danger text-center" id='no-deleted' style='display:none'>
-						<span><i class="fas fa-times m-1"></i>No se pudo eliminar la especie</span>
-					</div>
 					<p id="texto-borrar">Confirmar eliminar especie.</p>
 				</div>
 				<div class="card-footer">
@@ -72,6 +66,7 @@
 							<a class="btn btn-primary" type="button" id="volver-editar-button" href="../index.php" style="display:none">Volver</a>
 							<button type="submit" id="submit-editar-button" class="btn btn-success">Guardar</button>
 							<a class="btn btn-primary" id="cancelar-editar-button" href="../index.php">Cancelar</a>
+							<a class="btn btn-primary" id="volver-editar-button" href="../index.php" style='display:none'>Volver</a>
 							<button type="button" id="borrar-editar-button" class="btn btn-danger" data-id="a" data-toggle="modal" data-target="#eliminarEspecie">Borrar</button>
 						</div>
 					</div>

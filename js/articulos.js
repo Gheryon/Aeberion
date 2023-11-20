@@ -19,20 +19,21 @@ $(document).ready(function() {
 			funcion='editar';
 		}
 		$.post('../controlador/articulosController.php', {nombre_articulo, contenido_articulo, id_editado, tipo, funcion}, (response)=>{
-				console.log(response);
-				if(response=='add'){
-					toastr.success('Artículo añadido con éxito.', 'Éxito');
-					buscar_articulos();
-				}
+				//console.log(response);
 				if(response=='noadd'){
 					toastr.error('No se pudo añadir el artículo.', 'Error');
+				}else{
+					if(response=='add'){
+						toastr.success('Artículo añadido con éxito.', 'Éxito');
+					}
+					if(response=='edit'){
+						toastr.success('Artículo editado con éxito.', 'Éxito');
+					}
+					$('#form-crear-articulo').trigger('reset');
+					$('#submit-button').hide();
+					edit=false;
+					loader();
 				}
-				if(response=='edit'){
-					toastr.success('Artículo editado con éxito.', 'Éxito');
-					buscar_articulos();
-				}
-				$('#form-crear-articulo').trigger('reset');
-				edit=false;
 		})
 		e.preventDefault();
 	});
@@ -61,6 +62,13 @@ $(document).ready(function() {
 			edit=true;
 		})
 	});
+
+	$(document).on('click', '.nuevoarticulo',(e)=>{
+		$('#form-crear-articulo').trigger('reset');
+		$('#contenido-articulo').summernote('reset');
+		$('#submit-button').show();
+    edit=false;
+  });
 
 	$(document).on('click', '.detalles', (e)=>{
 		//se usan 2 parentElement para llegar al tr desde el button #detalles en el que se hace click
@@ -160,7 +168,7 @@ function buscar_cronica_detalles(dato) {
 	})
 };
 
-async function buscar_articulos(tipo, consulta){
+async function loader(tipo, consulta){
 	var funcion;
 	let datos=new FormData();
 	if(tipo==1){
@@ -169,7 +177,7 @@ async function buscar_articulos(tipo, consulta){
 	}else{
 		funcion='buscar';
 		$('#nav-buttons').html(`<a href="../index.php" class="btn btn-dark">Inicio</a>
-		<button type="button" data-toggle="modal" data-target="#crearArticulo" class="btn btn-dark">Nuevo</button>`);
+		<button type="button" title="Nuevo artículo" data-toggle="modal" data-target="#crearArticulo" class="btn btn-dark nuevoarticulo">Nuevo</button>`);
 	}
 	$('#busqueda-nav').show();
 	datos.append("funcion", funcion);

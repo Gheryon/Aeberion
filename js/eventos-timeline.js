@@ -101,17 +101,14 @@ $(document).ready(function(){
     $.post('../controlador/timelinesController.php', {nombre, dia, mes, anno, descripcion, id_editado, lineaTemporal, funcion}, (response)=>{
       //console.log(response);
       if(response=='add'){
-        $('#add').hide('slow');
-        $('#add').show(1000);
+        toastr.success('Evento añadido con éxito.', 'Éxito');
         buscarEventos();
       }
       if(response=='no-add'){
-        $('#no-add').hide('slow');
-        $('#no-add').show(1000);
+        toastr.error('No se pudo añadir el evento.', 'Error');
       }
       if(response=='edit'){
-        $('#edit').hide('slow');
-        $('#edit').show(1000);
+        toastr.success('Evento editado con éxito.', 'Éxito');
         buscarEventos();
       }
       $('#form-evento').trigger('reset');
@@ -139,13 +136,11 @@ $(document).ready(function(){
 		funcion='borrar';
 		$.post('../controlador/timelinesController.php', { id, funcion}, (response)=>{
 			if(response=='borrado'){
-				$('#borrado').hide('slow');
-				$('#borrado').show(1000);
+        toastr.success('Evento eliminado con éxito.', 'Éxito');
         buscarEventos();
 			}
 			if(response=='noborrado'){
-				$('#no-borrado').hide('slow');
-				$('#no-borrado').show(1000);
+        toastr.error('No se pudo borrar el evento.', 'Error');
 			}
 		})
 		e.preventDefault();
@@ -159,12 +154,12 @@ $(document).ready(function(){
   $('#nuevoEvento').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     var id = button.data('id'); // Extracción del valor id del atributo data-*
+    fill_select_timelines('#select_timeline');
+    $('#submit-crear-button').show();
+    $('#cancelar-crear-button').show();
+    $('#volver-crear-button').hide();
     //si id==undefined, se está creando un nuevo evento, si está definido, se está editando un evento
     if(id!=undefined){
-      fill_select_timelines('#select_timeline');
-      $('#submit-crear-button').show();
-      $('#cancelar-crear-button').show();
-      $('#volver-crear-button').hide();
       funcion='detalles';
       $.post('../controlador/timelinesController.php', {id, funcion}, (response)=>{
         console.log(response);
@@ -180,6 +175,9 @@ $(document).ready(function(){
         //$('#tipo').val(evento.tipo);
         edit=true;
       })
+    }else{
+      $('#form-evento').trigger('reset');
+      $('#descripcion').summernote('reset');
     }
   });
 });

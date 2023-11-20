@@ -2,10 +2,12 @@
 
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <!-- personales -->
+  <link rel="stylesheet" href="../css/styles.css">
   <title>Lista de nombres</title>
 </head>
 
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader()">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader(1)">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -34,7 +36,6 @@
             <option value="nombres_l">Lugar</option>
             <option value="nombres_s">Sin decidir</option>
             <option value="nombres_o">Otros</option>
-            <option value="nombres_t">Torres</option>
             <option value="lemas">Lemas</option>
           </select>
         </div>
@@ -48,6 +49,39 @@
   </div>
 </div>
 
+<div class="modal fade" id="edit-names" data-backdrop="static" tabindex="-1" aria-labelledby="edit-names" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-dark">
+        <h5 class="modal-title" id="add-namesModalLabel">Editar nombres</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form-edit-names">
+        <div class="modal-body">
+          <label for="tipo">Tipo</label>
+          <select class="form-select" name="tipo_edit" id="tipo_edit" required>
+            <option value="nombres_m">Hombres</option>
+            <option value="nombres_f">Mujeres</option>
+            <option value="nombres_l">Lugares</option>
+            <option value="nombres_s">Sin decidir</option>
+            <option value="nombres_o">Otros</option>
+            <option value="lemas">Lemas</option>
+          </select>
+          <textarea class="form-control mt-2" id="lista-nombres" rows="8" aria-label="With textarea">
+                    
+          </textarea>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="submit" id="edit-names-submit" class="btn btn-primary">Editar</button>
+        </div>
+      </form>
+      
+    </div>
+  </div>
+</div>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -67,11 +101,6 @@
       <!-- Default box -->
       <div class="container">
         <div class="row justify-content-center">
-          <div class="col-2">
-              <a href="../index.php" class="btn btn-success">Volver</a></p>
-          </div>
-        </div>
-        <div class="row justify-content-center">
           <div class="col mb-2 mr-2 ml-2">
             <div class="row fw-bolder">Hombres</div>
             <div class="row" id="nombres_m"></div>
@@ -84,26 +113,10 @@
             <div class="row fw-bolder">Lugares</div>
             <div class="row" id="nombres_l"></div>
           </div>
-          <div class="col mb-2 mr-2 ml-2">
-            <div class="row fw-bolder">Torres de magia (13)</div>
-            <div class="row">1-Torre Rosa o de Filesel</div>
-            <div class="row">2-Torre de Ezasior.</div>
-            <div class="row">3-Torre de Ejarune.</div>
-            <div class="row">4-Torre de medianoche</div>
-            <div class="row">5-Torre de Baharis</div>
-            <div class="row">6-Torre de Jade</div>
-            <div class="row">7-Torre de Hueso</div>
-            <div class="row">8-Torre de Etadel</div>
-            <div class="row">9-Torre desafiante</div>
-            <div class="row">10-Torre Improvisada</div>
-            <div class="row">11-Torre de Ambil</div>
-            <div class="row">12-Torre de</div>
-            <div class="row">13-Torre de</div>
-          </div>
         </div>
         <div class="row">
           <div class="col mb-2 mr-2 ml-2">
-            <div class="row fw-bolder">Sin decidir</div>
+            <div class="row fw-bolder nombre-t">Sin decidir</div>
             <div class="row" id="nombres_s"></div>
           </div>
           <div class="col mb-2 mr-2 ml-2">
@@ -123,4 +136,4 @@
  
   <?php include_once "layouts/footer.php";?>
 
-  <script src="../js/nombres.js"></script>
+  <script src="../js/notas.js"></script>

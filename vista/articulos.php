@@ -4,7 +4,7 @@
 <!-- summernote -->
 <link rel="stylesheet" href="../css/css/summernote-bs4.min.css">
 </head>
-<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="buscar_articulos()">
+<body class="hold-transition sidebar-mini layout-navbar-fixed layout-fixed" onload="loader()">
 <!-- Site wrapper -->
 <div class="wrapper">
 <?php 
@@ -62,9 +62,9 @@
                 </div>
                 <div class="col">
                   <label for="tipo-articulo">Tipo</label>
-                  <select class="form-select" name="tipo-articulo" id="tipo-articulo">
+                  <select class="form-select form-control" name="tipo-articulo" id="tipo-articulo">
                     <!--<option selected disabled value=""></option>-->
-                    <option>Referencia</option>
+                    <option selected>Referencia</option>
                     <option>Canon</option>
                   </select>
                 </div>
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="card-footer">
-          <button type="submit" class="btn bg-gradient-primary float-right m-1">Guardar</button>
+          <button type="submit" id="submit-button" class="btn bg-gradient-primary float-right m-1">Guardar</button>
           <button type="button" data-dismiss="modal" class="btn btn-outline-secondary float-right m-1">Cerrar</button>
         </form>
         </div>
@@ -169,7 +169,31 @@
   $(function () {
     // Summernote
     $('.summernote').summernote({
-      height: 300
+      height: 300,
+      callbacks: {
+        onImageUpload: function(files) {
+          sendFile(files[0]);
+        }
+      }
     })
-  })
+
+    function sendFile(file) {
+      data = new FormData();
+      data.append("file", file);
+      $.ajax({
+        data: data,
+        type: "POST",
+        url: "../controlador/imagenesController.php",
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function(url) {
+          $('.summernote').summernote("insertImage", url, 'filename');
+        },
+        error: function(data) {
+          console.log(data);
+        }
+      });
+    }
+  });
 </script>
