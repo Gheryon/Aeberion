@@ -152,4 +152,15 @@ if($_POST['funcion']=='edit_tipo'){
   }
   $configuracion->editarTipo($id, $nombre, $tipo);
 }
+
+//////////////funciones para backup///////////////////
+if($_POST['funcion']=='back_up'){
+  $json=array();
+  $acion=$configuracion->backup();
+  $json[]=array(
+    'id'=>$acion
+  );
+  $jsonstring = json_encode($json);
+  echo $jsonstring;
+}
 ?>

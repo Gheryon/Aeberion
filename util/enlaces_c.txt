@@ -1,2 +1,7 @@
 
-https://enlace-prueba.com,Enlace de prueba
+https://en.wikipedia.org/wiki/Dakotaraptor,Dakotaraptor;
+https://es.wikipedia.org/wiki/Hatsadiling,Hatsadiling;
+https://es.wikipedia.org/wiki/Simurg,Simurg;
+https://www.abc.es/historia/abci-santa-compana-coco-criaturas-fantasticas-peligro-extincion-olvido-espana-202201051749_noticia.html,Más animales fantásticos españoles;
+https://www.youtube.com/watch?v=0FoB98tj2yY,Más animales fantásticos españoles [A-E];
+https://www.youtube.com/watch?v=CKH8duH8h18,Más animales fantásticos españoles [F-L];https://elretohistorico.com/animales-fantasticos-y-donde-encontrarlos-en-espana,Animales fantásticos españoles;https://es.wikipedia.org/wiki/Jubokko,Jubokko;https://ugurkaner.xyz/dium-sized-night-bird-of-forest-and-open-areas-from-the-lowlands-to-the-m/1,Eared Nightjar

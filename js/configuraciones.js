@@ -320,4 +320,12 @@ $(document).ready(function(){
     });
     e.preventDefault();
   });
+
+  /***************backup******************/
+  $(document).on('click', '.backup_button',(e)=>{
+    funcion='back_up';
+    $.post('../controlador/configuracionController.php', {funcion},(response)=>{
+      console.log(response);
+    });
+  });
 });

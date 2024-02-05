@@ -96,11 +96,14 @@
       <section class="content">
         <div class="container-fluid">
           <div class="row">
+            <button id="back_up" class="btn btn-primary backup_button">Copia de seguridad</button>
+          </div>
+          <div class="row">
             <div class="card col ml-1">
               <div class="card-header">
                 <h5 class="card-title">Tipos de evento en el sistema</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body overflow-auto" style="height: 300px;">
                 <table class="table table-sm table-hover table-dark">
                   <thead class="bg-dark">
                     <tr>
@@ -130,7 +133,7 @@
               <div class="card-header">
                 <h5 class="card-title">Líneas cronológicas en el sistema</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body overflow-auto" style="height: 300px;">
                 <table class="table table-sm table-hover table-dark">
                   <thead class="bg-dark">
                     <tr>
@@ -160,7 +163,7 @@
               <div class="card-header">
                 <h5 class="card-title">Tipos de organizaciones en el sistema</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body overflow-auto" style="height: 300px;">
                 <table class="table table-sm table-hover table-dark">
                   <thead class="bg-dark">
                     <tr>
@@ -191,7 +194,7 @@
               <div class="card-header">
                 <h5 class="card-title">Tipos de lugares en el sistema</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body overflow-auto" style="height: 300px;">
                 <table class="table table-sm table-hover table-dark">
                   <thead class="bg-dark">
                     <tr>
@@ -221,7 +224,7 @@
               <div class="card-header">
                 <h5 class="card-title">Tipos de asentamientos en el sistema</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body overflow-auto" style="height: 300px;">
                 <table class="table table-sm table-hover table-dark">
                   <thead class="bg-dark">
                     <tr>
@@ -251,7 +254,7 @@
               <div class="card-header">
                 <h5 class="card-title">Tipos de conflicto en el sistema</h5>
               </div>
-              <div class="card-body">
+              <div class="card-body overflow-auto" style="height: 300px;">
                 <table class="table table-sm table-hover table-dark">
                   <thead class="bg-dark">
                     <tr>

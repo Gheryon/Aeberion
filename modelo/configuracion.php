@@ -96,5 +96,25 @@ function editarTipo($id, $nombre, $tabla){
     echo "edit";
   }
 }
+
+///////////funciones para backup//////////
+function backup(){
+  $backup_file = "../util/backups/aeberion-" .date("Y-m-d-H-i-s"). ".sql";
+  //$backup_file = "C:\Users\Gheryon\Downloads\aeberion-" .date("Y-m-d-H-i-s"). ".sql";
+
+  //por alguna razon, es necesario poner la ruta completa para que mysqldump funcione
+  $result=exec('C:/xampp/mysql/bin/mysqldump db_aeberion --password=zewion --user=Gheryon --single-transaction >'.$backup_file,$output);
+  var_dump($result);
+  if(empty($result)){
+    echo "éxito";
+    /* no output is good */}
+  else {
+    echo "Error ";
+    echo $output;
+    /* we have something to log the output here*/}
+  //$this->objetos=$this->servidor;
+  //return $this->objetos;
+}
+
 }
 ?>

@@ -1,1 +1,12 @@
-https://enlace-prueba.com,Enlace de prueba
+https://donjon.bin.sh,Donjon;
+http://chaoticshiny.com,chaoticshiny;
+https://www.fantasynamegenerators.com,Generador de nombres;
+https://tetra-cube.com/dnd/dnd-char-gen.html,Generador de personajes;
+https://www.artbreeder.com/browse,ArtBreeder;
+https://watabou.itch.io/medieval-fantasy-city-generator,watabou;
+https://azgaar.github.io/Fantasy-Map-Generator,Azgaar fantasy map generator;
+https://azgaar.github.io/Armoria,Armoria;
+https://smodin.io/es/reproduzca-automaticamente-texto-en-espanol-gratis,Smodin;
+https://beta.dreamstudio.ai/dream,DreamStudio;
+https://www.mage.space,Mage;
+https://deorum.vercel.app,Deorum
